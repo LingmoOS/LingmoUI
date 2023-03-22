@@ -21,17 +21,17 @@ T.CheckBox {
         control: controlRoot
     }
 
-   indicator: Item {
-       width: CuteUI.Units.iconSizes.smallMedium + CuteUI.Units.smallSpacing
-       height: CuteUI.Units.iconSizes.smallMedium + CuteUI.Units.smallSpacing
+//    indicator: Item {
+//        width: CuteUI.Units.iconSizes.smallMedium + CuteUI.Units.smallSpacing
+//        height: CuteUI.Units.iconSizes.smallMedium + CuteUI.Units.smallSpacing
 
-       CheckIndicator {
-           anchors.centerIn: parent
-           width: CuteUI.Units.iconSizes.smallMedium
-           height: CuteUI.Units.iconSizes.smallMedium
-           control: controlRoot
-       }
-   }
+//        CheckIndicator {
+//            anchors.centerIn: parent
+//            width: CuteUI.Units.iconSizes.smallMedium
+//            height: CuteUI.Units.iconSizes.smallMedium
+//            control: controlRoot
+//        }
+//    }
 
     contentItem: Text {
         leftPadding: controlRoot.indicator && !controlRoot.mirrored ? controlRoot.indicator.width + controlRoot.spacing : 0

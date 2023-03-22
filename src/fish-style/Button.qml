@@ -20,7 +20,7 @@ T.Button {
     property int radius: 20
     property color textColor: "#FFFFFF"     //Text Color
     property color lightColor: "#00B3FF"  // Start
-    property color darkColor: "#4BC9FF"   // End
+    property color darkColor: "#56BEFF"   // End
 
     contentItem: Label {
         font: control.font
