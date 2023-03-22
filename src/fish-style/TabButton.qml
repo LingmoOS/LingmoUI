@@ -6,7 +6,7 @@ T.TabButton {
     id: control
 
     property int standardHeight: CuteUI.Units.iconSizes.medium + CuteUI.Units.smallSpacing
-    property color pressedColor: Qt.rgba(CuteUI.Theme.textColor.r, CuteUI.Theme.textColor.g, CuteUI.Theme.textColor.b, 0.5)
+    property color pressedColor: Qt.rgba(CuteUI.Theme.textColor.r, CuteUI.Theme.textColor.g, CuteUI.Theme.textColor.b, 0.12)
 
     implicitWidth: Math.max(background ? background.implicitWidth : 0,
                             contentItem.implicitWidth + leftPadding + rightPadding)

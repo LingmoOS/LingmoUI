@@ -48,7 +48,7 @@ T.TabBar {
                     samples: 2
                     horizontalOffset: 0
                     verticalOffset: 0
-                    color: Qt.rgba(0, 0, 0, 0.11)
+                    color: Qt.rgba(0, 0, 0, 0.05)
                 }
             }
         }
