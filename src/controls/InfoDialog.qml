@@ -7,6 +7,8 @@ import CuteUI 1.0 as CuteUI
 CuteUI.Window {
     id: control
 
+    title: qsTr("About")
+
     width: 400
     height: width
 //    height: contentHeight
@@ -30,10 +32,15 @@ CuteUI.Window {
     property string name
     property string description
     property string version
+    property string ver1
+    property string ver2
+    property string ver3
     property string buildtime
+    property string kernel
     property string link: "https://lingmo.org"
     property var contentHeight: _mainLayout.implicitHeight + control.header.height * 2
 
+    // headerBackground.color: CuteUI.Theme.secondBackgroundColor
     background.opacity: control.compositing ? 0.6 : 1.0
 
     CuteUI.WindowBlur {
@@ -56,10 +63,10 @@ CuteUI.Window {
         anchors.bottomMargin: control.header.height
 
         Image {
-            width: 64
-            height: 64
+            width: 82
+            height: 82
             source: control.iconSource
-            sourceSize: Qt.size(64, 64)
+            sourceSize: Qt.size(82, 82)
             Layout.alignment: Qt.AlignHCenter
         }
 
@@ -70,26 +77,54 @@ CuteUI.Window {
         Label {
             text: control.name
             Layout.alignment: Qt.AlignHCenter
-            font.pointSize: 14
+            font.family: "Ubuntu"
+            font.pointSize: 17
         }
 
         Label {
             text: control.description
             Layout.alignment: Qt.AlignHCenter
+            font.family: "Ubuntu light"
         }
 
         Label {
             text: control.version
             Layout.alignment: Qt.AlignHCenter
+            font.family: "Ubuntu light"
+        }
+
+        Label {
+            text: control.ver1
+            Layout.alignment: Qt.AlignHCenter
+            font.family: "Ubuntu light"
+        }
+
+        Label {
+            text: control.ver2
+            Layout.alignment: Qt.AlignHCenter
+            font.family: "Ubuntu light"
+        }
+
+        Label {
+            text: control.ver3
+            Layout.alignment: Qt.AlignHCenter
+            font.family: "Ubuntu light"
+        }
+
+        Label {
+            text: control.kernel
+            Layout.alignment: Qt.AlignHCenter
+            font.family: "Ubuntu light"
         }
 
         Label {
             text: control.buildtime
             Layout.alignment: Qt.AlignHCenter
+            font.family: "Ubuntu light"
         }
 
         Label {
-            text: "<a href=\"%1\">%1</a>".arg(control.link)
+            text: "Web: <a href=\"%1\">%1</a>".arg(control.link)
             Layout.alignment: Qt.AlignHCenter
             linkColor: CuteUI.Theme.highlightColor
 
@@ -97,6 +132,26 @@ CuteUI.Window {
                 anchors.fill: parent
                 cursorShape: Qt.PointingHandCursor
                 onClicked: Qt.openUrlExternally(control.link)
+            }
+        }
+
+        RowLayout {
+            spacing: CuteUI.Units.largeSpacing
+
+            // Button {
+            //     text: qsTr("Exit")
+            //     Layout.fillWidth: true
+            //     // focus: true
+            //     flat: true
+            //     onClicked: control.close()
+            // }
+
+            Button {
+                text: qsTr("Document")
+                Layout.fillWidth: true
+                onClicked: {
+                    Qt.openUrlExternally("https://lingmo.org/doc/")
+                }
             }
         }
 
