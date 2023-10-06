@@ -1,9 +1,9 @@
-set(TARGET CuteUI)
+set(TARGET LingmoUI)
 set(MODULE_VERSION "1.0")
 
 add_library(${TARGET} SHARED "")
 target_sources(${TARGET} PRIVATE
-        cuteui.cpp
+        lingmoui.cpp
         iconthemeprovider.cpp
         thememanager.cpp
 
@@ -14,7 +14,7 @@ target_sources(${TARGET} PRIVATE
 
         desktop/menupopupwindow.cpp
 
-        cuteui.qrc
+        lingmoui.qrc
         fish-style/style.qrc
         )
 if (MSVC)

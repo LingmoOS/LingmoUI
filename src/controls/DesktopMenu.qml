@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 CutefishOS Team.
+ * Copyright (C) 2021 LingmoOS Team.
  *
  * Author:     revenmartin <revenmartin@gmail.com>
  *
@@ -20,9 +20,9 @@
 import QtQuick 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
-CuteUI.MenuPopupWindow {
+LingmoUI.MenuPopupWindow {
     id: control
 
     default property alias content : _mainLayout.data
@@ -30,28 +30,28 @@ CuteUI.MenuPopupWindow {
     Rectangle {
         id: _background
         anchors.fill: parent
-        color: CuteUI.Theme.secondBackgroundColor
-        radius: windowHelper.compositing ? CuteUI.Theme.hugeRadius : 0
+        color: LingmoUI.Theme.secondBackgroundColor
+        radius: windowHelper.compositing ? LingmoUI.Theme.hugeRadius : 0
         opacity: windowHelper.compositing ? 0.6 : 1
         border.color: _background.borderColor
-        border.width: 1 / CuteUI.Units.devicePixelRatio
-        border.pixelAligned: CuteUI.Units.devicePixelRatio > 1 ? false : true
+        border.width: 1 / LingmoUI.Units.devicePixelRatio
+        border.pixelAligned: LingmoUI.Units.devicePixelRatio > 1 ? false : true
 
-        property var borderColor: windowHelper.compositing ? CuteUI.Theme.darkMode ? Qt.rgba(220, 75, 96, 0.5)
-                                                                      : Qt.rgba(26, 90, 75, 0.2) : CuteUI.Theme.darkMode ? Qt.rgba(220, 75, 96, 0.5)
+        property var borderColor: windowHelper.compositing ? LingmoUI.Theme.darkMode ? Qt.rgba(220, 75, 96, 0.5)
+                                                                      : Qt.rgba(26, 90, 75, 0.2) : LingmoUI.Theme.darkMode ? Qt.rgba(220, 75, 96, 0.5)
                                                                                                                       : Qt.rgba(26, 90, 75, 0.2)
 
-        CuteUI.WindowHelper {
+        LingmoUI.WindowHelper {
             id: windowHelper
         }
 
-        CuteUI.WindowShadow {
+        LingmoUI.WindowShadow {
             view: control
             geometry: Qt.rect(control.x, control.y, control.width, control.height)
             radius: _background.radius
         }
 
-        CuteUI.WindowBlur {
+        LingmoUI.WindowBlur {
             view: control
             geometry: Qt.rect(control.x, control.y, control.width, control.height)
             windowRadius: _background.radius

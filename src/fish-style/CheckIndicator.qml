@@ -38,17 +38,17 @@ import QtQuick 2.9
 import QtQuick.Controls 2.12
 import QtQuick.Controls.impl 2.12
 
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
 Rectangle {
     id: indicatorItem
     implicitWidth: 18
     implicitHeight: 18
 
-    color: !control.enabled ? control.CuteUI.Theme.secondBackgroundColor
-                            : checked ? CuteUI.Theme.highlightColor : control.CuteUI.Theme.secondBackgroundColor
-    border.color: !control.enabled ? control.CuteUI.Theme.disabledTextColor
-        : checked ? control.CuteUI.Theme.highlightColor: control.CuteUI.Theme.textColor
+    color: !control.enabled ? control.LingmoUI.Theme.secondBackgroundColor
+                            : checked ? LingmoUI.Theme.highlightColor : control.LingmoUI.Theme.secondBackgroundColor
+    border.color: !control.enabled ? control.LingmoUI.Theme.disabledTextColor
+        : checked ? control.LingmoUI.Theme.highlightColor: control.LingmoUI.Theme.textColor
     border.width: 1
     radius: control.autoExclusive ? Math.min(height, width) : 4
 

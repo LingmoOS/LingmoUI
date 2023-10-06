@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 CutefishOS Team.
+ * Copyright (C) 2021 LingmoOS Team.
  *
  * Author:    ChungZH <chungzh07@gmail.com>    
  *
@@ -19,28 +19,28 @@
 import QtQuick 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
 TextField {
     id: control
 
     property list<QtObject> rightActions
 
-    rightPadding: CuteUI.Units.smallSpacing + rightActionsRow.width
+    rightPadding: LingmoUI.Units.smallSpacing + rightActionsRow.width
 
     Row {
         id: rightActionsRow
-        padding: CuteUI.Units.smallSpacing
+        padding: LingmoUI.Units.smallSpacing
         layoutDirection: Qt.RightToLeft
         anchors.right: parent.right
-        anchors.rightMargin: CuteUI.Units.smallSpacing
+        anchors.rightMargin: LingmoUI.Units.smallSpacing
         anchors.verticalCenter: parent.verticalCenter
-        height: control.implicitHeight - 2 * CuteUI.Units.smallSpacing
+        height: control.implicitHeight - 2 * LingmoUI.Units.smallSpacing
         Repeater {
             model: control.rightActions
             Icon {
-                implicitWidth: CuteUI.Units.iconSizes.small
-                implicitHeight: CuteUI.Units.iconSizes.small
+                implicitWidth: LingmoUI.Units.iconSizes.small
+                implicitHeight: LingmoUI.Units.iconSizes.small
 
                 anchors.verticalCenter: parent.verticalCenter
 

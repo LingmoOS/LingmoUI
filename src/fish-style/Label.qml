@@ -1,7 +1,7 @@
 import QtQuick 2.1
 import QtQuick.Window 2.2
 import QtQuick.Templates 2.3 as T
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
 T.Label {
     id: control
@@ -12,19 +12,19 @@ T.Label {
     // Text.NativeRendering is broken on non integer pixel ratios
     // renderType: Window.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
 
-    renderType: CuteUI.Theme.renderType
+    renderType: LingmoUI.Theme.renderType
 
-    font.capitalization: CuteUI.Theme.defaultFont.capitalization
-    font.family: CuteUI.Theme.fontFamily
-    font.italic: CuteUI.Theme.defaultFont.italic
-    font.letterSpacing: CuteUI.Theme.defaultFont.letterSpacing
-    font.pointSize: CuteUI.Theme.fontSize
-    font.strikeout: CuteUI.Theme.defaultFont.strikeout
-    font.underline: CuteUI.Theme.defaultFont.underline
-    font.weight: CuteUI.Theme.defaultFont.weight
-    font.wordSpacing: CuteUI.Theme.defaultFont.wordSpacing
-    color: CuteUI.Theme.textColor
-    linkColor: CuteUI.Theme.linkColor
+    font.capitalization: LingmoUI.Theme.defaultFont.capitalization
+    font.family: LingmoUI.Theme.fontFamily
+    font.italic: LingmoUI.Theme.defaultFont.italic
+    font.letterSpacing: LingmoUI.Theme.defaultFont.letterSpacing
+    font.pointSize: LingmoUI.Theme.fontSize
+    font.strikeout: LingmoUI.Theme.defaultFont.strikeout
+    font.underline: LingmoUI.Theme.defaultFont.underline
+    font.weight: LingmoUI.Theme.defaultFont.weight
+    font.wordSpacing: LingmoUI.Theme.defaultFont.wordSpacing
+    color: LingmoUI.Theme.textColor
+    linkColor: LingmoUI.Theme.linkColor
 
     opacity: enabled ? 1 : 0.6
 

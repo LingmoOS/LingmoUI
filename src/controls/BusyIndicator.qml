@@ -1,7 +1,7 @@
 /*
- * Copyright (C) 2021 CutefishOS Team.
+ * Copyright (C) 2023 Lingmo OS Team.
  *
- * Author:     revenmartin <revenmartin@gmail.com>
+ * Author:     Lingmo OS Team <lingmo@lingmo.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,13 +20,13 @@
 import QtQuick 2.4
 import QtQuick.Controls 2.4
 import QtGraphicalEffects 1.0
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
 Image {
     id: control
     width: 22
     height: width
-    source: "qrc:/cuteui/kit/images/refresh.svg"
+    source: "qrc:/lingmoui/kit/images/refresh.svg"
     sourceSize: Qt.size(width, height)
     visible: true
 
@@ -35,7 +35,7 @@ Image {
     ColorOverlay {
         anchors.fill: control
         source: control
-        color: CuteUI.Theme.textColor
+        color: LingmoUI.Theme.textColor
         opacity: 1
         visible: true
     }

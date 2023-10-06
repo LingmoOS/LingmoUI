@@ -1,6 +1,6 @@
 import QtQuick 2.4
 import QtQuick.Templates 2.12 as T
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
 T.Switch {
     id: control
@@ -26,7 +26,7 @@ T.Switch {
 
         text: control.text
         font: control.font
-        color: control.enabled ? CuteUI.Theme.textColor : CuteUI.Theme.disabledTextColor
+        color: control.enabled ? LingmoUI.Theme.textColor : LingmoUI.Theme.disabledTextColor
         elide: Label.ElideRight
         verticalAlignment: Label.AlignVCenter
     }

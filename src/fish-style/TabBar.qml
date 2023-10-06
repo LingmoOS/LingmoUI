@@ -1,12 +1,12 @@
 import QtQuick 2.9
 import QtQuick.Templates 2.2 as T
 import QtGraphicalEffects 1.0
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
 T.TabBar {
     id: control
 
-    implicitWidth: Math.max(background.implicitWidth, contentItem.implicitWidth + CuteUI.Units.smallSpacing)
+    implicitWidth: Math.max(background.implicitWidth, contentItem.implicitWidth + LingmoUI.Units.smallSpacing)
     implicitHeight: contentItem.implicitHeight
 
     spacing: 0
@@ -37,11 +37,11 @@ T.TabBar {
                     fill: parent
                     margins: 2
                 }
-                color: CuteUI.Theme.darkMode ? Qt.lighter(CuteUI.Theme.secondBackgroundColor, 2)
-                                             : CuteUI.Theme.secondBackgroundColor
-                radius: CuteUI.Theme.smallRadius
+                color: LingmoUI.Theme.darkMode ? Qt.lighter(LingmoUI.Theme.secondBackgroundColor, 2)
+                                             : LingmoUI.Theme.secondBackgroundColor
+                radius: LingmoUI.Theme.smallRadius
 
-                layer.enabled: CuteUI.Theme.darkMode
+                layer.enabled: LingmoUI.Theme.darkMode
                 layer.effect: DropShadow {
                     transparentBorder: true
                     radius: 2
@@ -55,7 +55,7 @@ T.TabBar {
     }
 
     background: Rectangle {
-        color: CuteUI.Theme.alternateBackgroundColor
-        radius: CuteUI.Theme.smallRadius + 2
+        color: LingmoUI.Theme.alternateBackgroundColor
+        radius: LingmoUI.Theme.smallRadius + 2
     }
 }

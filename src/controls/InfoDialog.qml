@@ -2,9 +2,9 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
-CuteUI.Window {
+LingmoUI.Window {
     id: control
 
     title: qsTr("About")
@@ -40,10 +40,10 @@ CuteUI.Window {
     property string link: "https://lingmo.org"
     property var contentHeight: _mainLayout.implicitHeight + control.header.height * 2
 
-    // headerBackground.color: CuteUI.Theme.secondBackgroundColor
+    // headerBackground.color: LingmoUI.Theme.secondBackgroundColor
     background.opacity: control.compositing ? 0.6 : 1.0
 
-    CuteUI.WindowBlur {
+    LingmoUI.WindowBlur {
         view: control
         geometry: Qt.rect(control.x, control.y, control.width, control.height)
         windowRadius: control.windowRadius
@@ -71,7 +71,7 @@ CuteUI.Window {
         }
 
         Item {
-            height: CuteUI.Units.largeSpacing
+            height: LingmoUI.Units.largeSpacing
         }
 
         Label {
@@ -126,7 +126,7 @@ CuteUI.Window {
         Label {
             text: "Web: <a href=\"%1\">%1</a>".arg(control.link)
             Layout.alignment: Qt.AlignHCenter
-            linkColor: CuteUI.Theme.highlightColor
+            linkColor: LingmoUI.Theme.highlightColor
 
             MouseArea {
                 anchors.fill: parent
@@ -136,7 +136,11 @@ CuteUI.Window {
         }
 
         RowLayout {
-            spacing: CuteUI.Units.largeSpacing
+            spacing: LingmoUI.Units.largeSpacing
+
+            Item {
+                Layout.fillWidth: true
+            }
 
             // Button {
             //     text: qsTr("Exit")

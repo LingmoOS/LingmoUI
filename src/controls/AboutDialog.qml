@@ -2,9 +2,9 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
-CuteUI.Window {
+LingmoUI.Window {
     id: control
 
     width: 300
@@ -30,7 +30,7 @@ CuteUI.Window {
 
     background.opacity: control.compositing ? 0.6 : 1.0
 
-    CuteUI.WindowBlur {
+    LingmoUI.WindowBlur {
         view: control
         geometry: Qt.rect(control.x, control.y, control.width, control.height)
         windowRadius: control.windowRadius
@@ -58,7 +58,7 @@ CuteUI.Window {
         }
 
         Item {
-            height: CuteUI.Units.largeSpacing
+            height: LingmoUI.Units.largeSpacing
         }
 
         Label {
@@ -75,7 +75,7 @@ CuteUI.Window {
         Label {
             text: "<a href=\"%1\">%1</a>".arg(control.link)
             Layout.alignment: Qt.AlignHCenter
-            linkColor: CuteUI.Theme.highlightColor
+            linkColor: LingmoUI.Theme.highlightColor
 
             MouseArea {
                 anchors.fill: parent

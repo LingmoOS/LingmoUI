@@ -1,22 +1,22 @@
 pragma Singleton
 
 import QtQuick 2.4
-import CuteUI.Core 1.0 as CuteUICore
+import LingmoUI.Core 1.0 as LingmoUICore
 
 QtObject {
     id: theme
 
-    property real devicePixelRatio: CuteUICore.ThemeManager.devicePixelRatio
+    property real devicePixelRatio: LingmoUICore.ThemeManager.devicePixelRatio
 
-    property bool darkMode: CuteUICore.ThemeManager.darkMode
+    property bool darkMode: LingmoUICore.ThemeManager.darkMode
 
-    property color blueColor: CuteUICore.ThemeManager.blueColor
-    property color redColor: CuteUICore.ThemeManager.redColor
-    property color greenColor: CuteUICore.ThemeManager.greenColor
-    property color purpleColor: CuteUICore.ThemeManager.purpleColor
-    property color pinkColor: CuteUICore.ThemeManager.pinkColor
-    property color orangeColor: CuteUICore.ThemeManager.orangeColor
-    property color greyColor: CuteUICore.ThemeManager.greyColor
+    property color blueColor: LingmoUICore.ThemeManager.blueColor
+    property color redColor: LingmoUICore.ThemeManager.redColor
+    property color greenColor: LingmoUICore.ThemeManager.greenColor
+    property color purpleColor: LingmoUICore.ThemeManager.purpleColor
+    property color pinkColor: LingmoUICore.ThemeManager.pinkColor
+    property color orangeColor: LingmoUICore.ThemeManager.orangeColor
+    property color greyColor: LingmoUICore.ThemeManager.greyColor
 
     property color backgroundColor: darkMode ? "#1C1C1D" : "#F3F4F9"
     property color secondBackgroundColor: darkMode ? "#2C2C2D" : "#FFFFFF"
@@ -27,7 +27,7 @@ QtObject {
 
     property color settingsTextColor: darkMode ? "#787575" : "#C1C1CE"
 
-    property color highlightColor: CuteUICore.ThemeManager.accentColor
+    property color highlightColor: LingmoUICore.ThemeManager.accentColor
     property color highlightedTextColor: darkMode ? "#FFFFFF" : "#FFFFFF"
 
     property color activeTextColor: "#0176D3"
@@ -47,8 +47,8 @@ QtObject {
     property color visitedLinkColor: "#2196F3"
     property color visitedLinkBackgroundColor: "#2196F3"
 
-    property real fontSize: CuteUICore.ThemeManager.fontSize
-    property string fontFamily: CuteUICore.ThemeManager.fontFamily
+    property real fontSize: LingmoUICore.ThemeManager.fontSize
+    property string fontFamily: LingmoUICore.ThemeManager.fontFamily
 
     property real smallRadius: 8.0 // 8.0
     property real mediumRadius: 10.0 // 10.0

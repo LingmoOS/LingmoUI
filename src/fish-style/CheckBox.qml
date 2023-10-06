@@ -1,6 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Templates 2.2 as T
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
 T.CheckBox {
     id: controlRoot
@@ -13,7 +13,7 @@ T.CheckBox {
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
     padding: 1
-    spacing: CuteUI.Units.smallSpacing
+    spacing: LingmoUI.Units.smallSpacing
 
     hoverEnabled: true
 
@@ -22,13 +22,13 @@ T.CheckBox {
     }
 
 //    indicator: Item {
-//        width: CuteUI.Units.iconSizes.smallMedium + CuteUI.Units.smallSpacing
-//        height: CuteUI.Units.iconSizes.smallMedium + CuteUI.Units.smallSpacing
+//        width: LingmoUI.Units.iconSizes.smallMedium + LingmoUI.Units.smallSpacing
+//        height: LingmoUI.Units.iconSizes.smallMedium + LingmoUI.Units.smallSpacing
 
 //        CheckIndicator {
 //            anchors.centerIn: parent
-//            width: CuteUI.Units.iconSizes.smallMedium
-//            height: CuteUI.Units.iconSizes.smallMedium
+//            width: LingmoUI.Units.iconSizes.smallMedium
+//            height: LingmoUI.Units.iconSizes.smallMedium
 //            control: controlRoot
 //        }
 //    }
@@ -43,6 +43,6 @@ T.CheckBox {
         visible: controlRoot.text
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
-        color: CuteUI.Theme.textColor
+        color: LingmoUI.Theme.textColor
     }
 }

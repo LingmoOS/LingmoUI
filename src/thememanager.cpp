@@ -1,7 +1,7 @@
 /*
- * Copyright (C) 2021 CutefishOS Team.
+ * Copyright (C) 2021 LingmoOS Team.
  *
- * Author:     cutefish <cutefishos@foxmail.com>
+ * Author:     lingmo <lingmoos@foxmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,9 +26,9 @@
 #include <QDBusInterface>
 #include <QDebug>
 
-static const QString Service = "com.cute.Settings";
+static const QString Service = "com.lingmo.Settings";
 static const QString ObjectPath = "/Theme";
-static const QString Interface = "com.cute.Theme";
+static const QString Interface = "com.lingmo.Theme";
 
 ThemeManager::ThemeManager(QObject *parent) 
     : QObject(parent)

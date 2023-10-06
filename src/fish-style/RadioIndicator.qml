@@ -22,19 +22,19 @@
 
 import QtQuick 2.9
 import QtQuick.Controls 2.2
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
 Rectangle {
-    implicitWidth: CuteUI.Units.iconSizes.small
-    implicitHeight: CuteUI.Units.iconSizes.small
+    implicitWidth: LingmoUI.Units.iconSizes.small
+    implicitHeight: LingmoUI.Units.iconSizes.small
 
     property Item control
 
     radius: width / 2
-    color: control.CuteUI.Theme.backgroundColor
+    color: control.LingmoUI.Theme.backgroundColor
     border.color: control.down
-        ? control.checked ? "transparent" : control.CuteUI.Theme.highlightColor
-        : control.checked ? control.CuteUI.Theme.highlightColor : control.CuteUI.Theme.disabledTextColor
+        ? control.checked ? "transparent" : control.LingmoUI.Theme.highlightColor
+        : control.checked ? control.LingmoUI.Theme.highlightColor : control.LingmoUI.Theme.disabledTextColor
 
     border.width: 1
 
@@ -43,7 +43,7 @@ Rectangle {
         radius: parent.radius
         scale: control.checked ? 1.0 : 0.0
 
-        color: control.CuteUI.Theme.highlightColor
+        color: control.LingmoUI.Theme.highlightColor
 
         Behavior on scale {
             NumberAnimation {

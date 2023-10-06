@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 CutefishOS Team.
+ * Copyright (C) 2021 LingmoOS Team.
  *
  * Author:     revenmartin <revenmartin@gmail.com>
  *
@@ -21,12 +21,12 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.0
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
 Popup {
     id: control
     x: Math.round(parent.width / 2 - width / 2)
-    y: parent.height - height - CuteUI.Units.largeSpacing
+    y: parent.height - height - LingmoUI.Units.largeSpacing
     implicitWidth: Math.max(background ? background.implicitWidth : 0,
                             contentWidth + leftPadding + rightPadding) + leftInset + rightInset
     implicitHeight: Math.max(background ? background.implicitHeight : 0 ,
@@ -34,10 +34,10 @@ Popup {
     height: implicitHeight
     width: implicitWidth
 
-    topPadding: CuteUI.Units.smallSpacing
-    leftPadding: CuteUI.Units.smallSpacing
-    rightPadding: CuteUI.Units.smallSpacing
-    bottomPadding: CuteUI.Units.largeSpacing
+    topPadding: LingmoUI.Units.smallSpacing
+    leftPadding: LingmoUI.Units.smallSpacing
+    rightPadding: LingmoUI.Units.smallSpacing
+    bottomPadding: LingmoUI.Units.largeSpacing
 
     modal: false
     closePolicy: Popup.NoAutoClose
@@ -103,10 +103,10 @@ Popup {
                 closeAnim.running = true;
             }
 
-            leftPadding: CuteUI.Units.largeSpacing
-            rightPadding: CuteUI.Units.largeSpacing
-            topPadding: CuteUI.Units.largeSpacing
-            bottomPadding: CuteUI.Units.largeSpacing
+            leftPadding: LingmoUI.Units.largeSpacing
+            rightPadding: LingmoUI.Units.largeSpacing
+            topPadding: LingmoUI.Units.largeSpacing
+            bottomPadding: LingmoUI.Units.largeSpacing
 
             Component.onCompleted: openAnim.restart()
             ParallelAnimation {
@@ -173,7 +173,7 @@ Popup {
 
                 Label {
                     id: label
-                    Layout.maximumWidth: Math.min(control.parent.width - CuteUI.Units.largeSpacing * 4, implicitWidth)
+                    Layout.maximumWidth: Math.min(control.parent.width - LingmoUI.Units.largeSpacing * 4, implicitWidth)
                     elide: Text.ElideRight
                     wrapMode: Text.WordWrap
                     maximumLineCount: 4
@@ -192,8 +192,8 @@ Popup {
             }
 
             background: Rectangle {
-                color: CuteUI.Theme.backgroundColor
-                radius: CuteUI.Theme.mediumRadius
+                color: LingmoUI.Theme.backgroundColor
+                radius: LingmoUI.Theme.mediumRadius
                 opacity: 0.9
                 layer.enabled: true
                 layer.effect: DropShadow {

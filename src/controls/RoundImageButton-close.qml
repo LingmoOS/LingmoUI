@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 CutefishOS Team.
+ * Copyright (C) 2021 LingmoOS Team.
  *
  * Author:     revenmartin <revenmartin@gmail.com>
  *
@@ -20,7 +20,7 @@
 import QtQuick 2.12
 import QtQuick.Window 2.3
 import QtQuick.Controls 2.4
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
 Item {
     id: control
@@ -32,10 +32,10 @@ Item {
 
     property alias background: _background
     property color backgroundColor: "transparent"
-    property color hoveredColor: CuteUI.Theme.darkMode ? Qt.lighter(CuteUI.Theme.wBoColor, 2)
-                                                       : Qt.darker(CuteUI.Theme.wBoColor, 1.1)
-    property color pressedColor: CuteUI.Theme.darkMode ? Qt.lighter(CuteUI.Theme.wBoColor, 1.5)
-                                                       : Qt.darker(CuteUI.Theme.wBoColor, 1.2)
+    property color hoveredColor: LingmoUI.Theme.darkMode ? Qt.lighter(LingmoUI.Theme.wBoColor, 2)
+                                                       : Qt.darker(LingmoUI.Theme.wBoColor, 1.1)
+    property color pressedColor: LingmoUI.Theme.darkMode ? Qt.lighter(LingmoUI.Theme.wBoColor, 1.5)
+                                                       : Qt.darker(LingmoUI.Theme.wBoColor, 1.2)
     property alias source: _image.source
     property alias image: _image
     signal clicked()

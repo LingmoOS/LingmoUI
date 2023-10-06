@@ -1,6 +1,6 @@
-module CuteUI
-plugin CuteUI
-classname CuteUI
+module LingmoUI
+plugin LingmoUI
+classname LingmoUI
 depends QtQuick.Controls 2.12
 depends QtQuick.Controls.Private 2.10
 depends QtQuick.Controls 2.10

@@ -1,12 +1,12 @@
 import QtQuick 2.9
 import QtQuick.Templates 2.2 as T
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
 T.TabButton {
     id: control
 
-    property int standardHeight: CuteUI.Units.iconSizes.medium + CuteUI.Units.smallSpacing
-    property color pressedColor: Qt.rgba(CuteUI.Theme.textColor.r, CuteUI.Theme.textColor.g, CuteUI.Theme.textColor.b, 0.5)
+    property int standardHeight: LingmoUI.Units.iconSizes.medium + LingmoUI.Units.smallSpacing
+    property color pressedColor: Qt.rgba(LingmoUI.Theme.textColor.r, LingmoUI.Theme.textColor.g, LingmoUI.Theme.textColor.b, 0.5)
 
     implicitWidth: Math.max(background ? background.implicitWidth : 0,
                             contentItem.implicitWidth + leftPadding + rightPadding)
@@ -24,6 +24,6 @@ T.TabButton {
 
         text: control.text
         font: control.font
-        color: !control.enabled ? CuteUI.Theme.disabledTextColor : control.pressed ? pressedColor : control.checked ? CuteUI.Theme.textColor : CuteUI.Theme.textColor
+        color: !control.enabled ? LingmoUI.Theme.disabledTextColor : control.pressed ? pressedColor : control.checked ? LingmoUI.Theme.textColor : LingmoUI.Theme.textColor
     }
 }

@@ -22,7 +22,7 @@
 
 import QtQuick 2.6
 import QtQuick.Templates 2.3 as T
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
 T.DialogButtonBox {
     id: control
@@ -30,8 +30,8 @@ T.DialogButtonBox {
     implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
     implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
 
-    spacing: CuteUI.Units.smallSpacing
-    padding: CuteUI.Units.smallSpacing
+    spacing: LingmoUI.Units.smallSpacing
+    padding: LingmoUI.Units.smallSpacing
     alignment: Qt.AlignRight
 
     delegate: Button {
