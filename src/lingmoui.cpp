@@ -1,10 +1,10 @@
 /*
- * Copyright (C) 2022-2023 CuteOS Team.
+ * Copyright (C) 2022-2023 LingmoOS Team.
  */
 /*
- * cuteui-cpp file
+ * lingmoui-cpp file
  */
-#include "cuteui.h"
+#include "lingmoui.h"
 #include "thememanager.h"
 #include "iconthemeprovider.h"
 #include "shadowhelper/windowshadow.h"
@@ -21,11 +21,11 @@
 #include <QQuickStyle>
 #include <QFontDatabase>
 
-void CuteUI::initializeEngine(QQmlEngine *engine, const char *uri)
+void LingmoUI::initializeEngine(QQmlEngine *engine, const char *uri)
 {
-    Q_ASSERT(QLatin1String(uri) == QLatin1String("CuteUI"));
+    Q_ASSERT(QLatin1String(uri) == QLatin1String("LingmoUI"));
 
-    int fontId = QFontDatabase::addApplicationFont(":/cuteui/kit/images/fonticons/FluentSystemIcons-Regular.ttf");
+    int fontId = QFontDatabase::addApplicationFont(":/lingmoui/kit/images/fonticons/FluentSystemIcons-Regular.ttf");
     QStringList fontFamilies;
     fontFamilies<< QFontDatabase::applicationFontFamilies(fontId);
 
@@ -36,11 +36,11 @@ void CuteUI::initializeEngine(QQmlEngine *engine, const char *uri)
     engine->addImageProvider(QStringLiteral("icontheme"), new IconThemeProvider());
 }
 
-void CuteUI::registerTypes(const char *uri)
+void LingmoUI::registerTypes(const char *uri)
 {
-    Q_ASSERT(QLatin1String(uri) == QLatin1String("CuteUI"));
+    Q_ASSERT(QLatin1String(uri) == QLatin1String("LingmoUI"));
 
-    qmlRegisterSingletonType<ThemeManager>("CuteUI.Core", 1, 0, "ThemeManager", [](QQmlEngine *engine, QJSEngine *scriptEngine) -> QObject * {
+    qmlRegisterSingletonType<ThemeManager>("LingmoUI.Core", 1, 0, "ThemeManager", [](QQmlEngine *engine, QJSEngine *scriptEngine) -> QObject * {
         Q_UNUSED(engine)
         Q_UNUSED(scriptEngine)
         return new ThemeManager;
@@ -76,7 +76,7 @@ void CuteUI::registerTypes(const char *uri)
     qmlProtectModule(uri, 1);
 }
 
-QUrl CuteUI::componentUrl(const QString &fileName) const
+QUrl LingmoUI::componentUrl(const QString &fileName) const
 {
-    return QUrl(QStringLiteral("qrc:/cuteui/kit/") + fileName);
+    return QUrl(QStringLiteral("qrc:/lingmoui/kit/") + fileName);
 }

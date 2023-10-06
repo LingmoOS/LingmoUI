@@ -1,7 +1,7 @@
 /*
- * Copyright (C) 2021 CutefishOS Team.
+ * Copyright (C) 2021 LingmoOS Team.
  *
- * Author:     Reion Wong <reion@cutefishos.com>
+ * Author:     Reion Wong <reion@lingmoos.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@ import QtQml 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
 Item {
     id: control
@@ -37,7 +37,7 @@ Item {
 
     RowLayout {
         anchors.fill: parent
-        spacing: CuteUI.Units.smallSpacing / 2
+        spacing: LingmoUI.Units.smallSpacing / 2
 
         ListView {
             id: _listView
@@ -60,8 +60,8 @@ Item {
             Layout.preferredHeight: 31
             Layout.preferredWidth: visible ? height : 0
 
-            sourceComponent: CuteUI.RoundImageButton {
-                source: "qrc:/images/" + (CuteUI.Theme.darkMode ? "dark/" : "light/") + "add.svg"
+            sourceComponent: LingmoUI.RoundImageButton {
+                source: "qrc:/images/" + (LingmoUI.Theme.darkMode ? "dark/" : "light/") + "add.svg"
                 onClicked: control.newTabClicked()
                 iconMargins: 2
             }

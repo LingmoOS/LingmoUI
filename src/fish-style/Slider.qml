@@ -1,7 +1,7 @@
 import QtQuick 2.6
 import QtQuick.Templates 2.3 as T
 import QtGraphicalEffects 1.0
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
 T.Slider {
     id: control
@@ -53,7 +53,7 @@ T.Slider {
             width: control.horizontal ? parent.width : sliderTrackHeight
             height: !control.horizontal ? parent.height : sliderTrackHeight
             radius: !control.horizontal ? parent.width / 2 : sliderTrackHeight / 2
-            color: CuteUI.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.5) : Qt.rgba(0, 0, 0, 0.1)
+            color: LingmoUI.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.5) : Qt.rgba(0, 0, 0, 0.1)
         }
 
         Rectangle {
@@ -62,7 +62,7 @@ T.Slider {
             width: control.horizontal ? control.position * parent.width : sliderTrackHeight
             height: !control.horizontal ? control.position * parent.height : sliderTrackHeight
             radius: !control.horizontal ? parent.width / 2 : sliderTrackHeight / 2
-            color: control.CuteUI.Theme.highlightColor
+            color: control.LingmoUI.Theme.highlightColor
         }
     }
 }

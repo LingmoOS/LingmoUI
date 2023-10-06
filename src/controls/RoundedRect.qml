@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 CutefishOS Team.
+ * Copyright (C) 2021 LingmoOS Team.
  *
  * Author:     revenmartin <revenmartin@gmail.com>
  *
@@ -21,13 +21,13 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtGraphicalEffects 1.0
 
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
 Item {
     id: control
 
-    property real radius: CuteUI.Theme.smallRadius
-    property var color: CuteUI.Theme.backgroundColor
+    property real radius: LingmoUI.Theme.smallRadius
+    property var color: LingmoUI.Theme.backgroundColor
     property bool borderEnabled: true
 
     property bool animationEnabled: true
@@ -53,9 +53,9 @@ Item {
         anchors.fill: parent
         color: "transparent"
         radius: _background.radius
-        border.width: 1 / CuteUI.Theme.devicePixelRatio
-        border.pixelAligned: CuteUI.Theme.devicePixelRatio > 1 ? false : true
-        border.color: CuteUI.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.1) : Qt.rgba(0, 0, 0, 0.1)
+        border.width: 1 / LingmoUI.Theme.devicePixelRatio
+        border.pixelAligned: LingmoUI.Theme.devicePixelRatio > 1 ? false : true
+        border.color: LingmoUI.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.1) : Qt.rgba(0, 0, 0, 0.1)
         visible: control.borderEnabled
         antialiasing: true
     }

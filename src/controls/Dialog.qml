@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 CutefishOS Team.
+ * Copyright (C) 2021 LingmoOS Team.
  *
  * Author:     revenmartin <revenmartin@gmail.com>
  *
@@ -20,7 +20,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12 as QQC2
 import QtQuick.Layout 1.12
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
 QQC2.Popup {
     id: control

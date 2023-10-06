@@ -24,7 +24,7 @@ import QtQuick 2.6
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.6
 import QtQuick.Templates 2.6 as T
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
 T.TextArea {
     id: control
@@ -38,15 +38,15 @@ T.TextArea {
 
     padding: 6
 
-    color: CuteUI.Theme.textColor
-    selectionColor: CuteUI.Theme.highlightColor
-    selectedTextColor: CuteUI.Theme.highlightedTextColor
+    color: LingmoUI.Theme.textColor
+    selectionColor: LingmoUI.Theme.highlightColor
+    selectedTextColor: LingmoUI.Theme.highlightedTextColor
     opacity: control.enabled ? 1 : 0.6
     wrapMode: Text.WordWrap
     verticalAlignment: TextEdit.AlignTop
     hoverEnabled: false
 
-    renderType: CuteUI.Theme.renderType
+    renderType: LingmoUI.Theme.renderType
 
     selectByMouse: true
 
@@ -59,7 +59,7 @@ T.TextArea {
 
         text: control.placeholderText
         font: control.font
-        color: CuteUI.Theme.disabledTextColor
+        color: LingmoUI.Theme.disabledTextColor
         horizontalAlignment: control.horizontalAlignment
         verticalAlignment: control.verticalAlignment
         visible: !control.length && !control.preeditText && (!control.activeFocus || control.horizontalAlignment !== Qt.AlignHCenter)
@@ -70,6 +70,6 @@ T.TextArea {
         y: parent.height - height - control.bottomPadding / 2
         implicitWidth: 120
         height: control.activeFocus ? 2 : 1
-        color: control.CuteUI.Theme.backgroundColor
+        color: control.LingmoUI.Theme.backgroundColor
     }
 }

@@ -1,5 +1,5 @@
 import QtQuick 2.4
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
 Item {
     id: indicator
@@ -8,9 +8,9 @@ Item {
 
     property Item control
     property alias handle: handle
-    property color bgColor : control.checked ? CuteUI.Theme.highlightColor : Qt.rgba(CuteUI.Theme.textColor.r, 
-                                                                                     CuteUI.Theme.textColor.g,
-                                                                                     CuteUI.Theme.textColor.b, 0.2)
+    property color bgColor : control.checked ? LingmoUI.Theme.highlightColor : Qt.rgba(LingmoUI.Theme.textColor.r, 
+                                                                                     LingmoUI.Theme.textColor.g,
+                                                                                     LingmoUI.Theme.textColor.b, 0.2)
     Rectangle {
         width: parent.width
         height: 20

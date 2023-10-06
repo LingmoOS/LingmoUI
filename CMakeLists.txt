@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
-set(CUTEUI_VERSION 1.0)
-project(cuteui VERSION ${CUTEUI_VERSION})
+set(LINGMOUI_VERSION 1.0)
+project(lingmoui VERSION ${LINGMOUI_VERSION})
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOUIC ON)
@@ -58,15 +58,15 @@ endif ()
 
 # Install
 if (MSVC)
-    # Install CuteUI to vcpkg installed dir
+    # Install LingmoUI to vcpkg installed dir
     # for example.
     # _VCPKG_INSTALLED_DIR:PATH=C:/app/vcpkg/installed
     # VCPKG_TARGET_TRIPLET:STRING=x64-windows
-    # The final installed dir is C:/app/vcpkg/installed/x64-windows/share/CuteUI
-    set(CMAKECONFIG_INSTALL_DIR "${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/share/CuteUI")
+    # The final installed dir is C:/app/vcpkg/installed/x64-windows/share/LingmoUI
+    set(CMAKECONFIG_INSTALL_DIR "${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/share/LingmoUI")
     set(CMAKE_INSTALL_PREFIX "${_VCPKG_INSTALLED_DIR}")
 else ()
-    set(CMAKECONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/CuteUI")
+    set(CMAKECONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/LingmoUI")
 endif ()
 message(STATUS "install directory:" "${CMAKECONFIG_INSTALL_DIR}")
 
@@ -82,8 +82,8 @@ message(STATUS "install directory:" "${CMAKECONFIG_INSTALL_DIR}")
 add_subdirectory(src)
 
 configure_package_config_file(
-        "${CMAKE_CURRENT_SOURCE_DIR}/CuteUIConfig.cmake.in"
-        "${CMAKE_CURRENT_BINARY_DIR}/CuteUIConfig.cmake"
+        "${CMAKE_CURRENT_SOURCE_DIR}/LingmoUIConfig.cmake.in"
+        "${CMAKE_CURRENT_BINARY_DIR}/LingmoUIConfig.cmake"
         INSTALL_DESTINATION
         "${CMAKECONFIG_INSTALL_DIR}"
         PATH_VARS
@@ -91,23 +91,24 @@ configure_package_config_file(
 )
 
 write_basic_package_version_file(
-        ${CMAKE_CURRENT_BINARY_DIR}/CuteUIConfigVersion.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/LingmoUIConfigVersion.cmake
         VERSION ${LIB_VERSION}
         COMPATIBILITY AnyNewerVersion
 )
 if(NOT APPLE)
 install(
         FILES
-        "${CMAKE_CURRENT_BINARY_DIR}/CuteUIConfig.cmake"
-        "${CMAKE_CURRENT_BINARY_DIR}/CuteUIConfigVersion.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/LingmoUIConfig.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/LingmoUIConfigVersion.cmake"
         DESTINATION
         "${CMAKECONFIG_INSTALL_DIR}"
         COMPONENT
         Devel
 )
 
-install(EXPORT CuteUITargets
+install(EXPORT LingmoUITargets
         DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
-        FILE CuteUITargets.cmake
+        FILE LingmoUITargets.cmake
         )
 endif()
+install(FILES src/version DESTINATION /etc/LingmoUI/ COMPONENT Runtime)

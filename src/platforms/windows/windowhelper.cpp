@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 CuteOS Team.
+ * Copyright (C) 2023 LingmoOS Team.
  */
 
 #include "windowhelper.h"

@@ -1,7 +1,7 @@
 import QtQuick 2.4
 import QtQuick.Controls 2.4
 import QtQuick.Templates 2.4 as T
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
 T.RadioDelegate {
     id: control
@@ -13,12 +13,12 @@ T.RadioDelegate {
                                       indicator ? indicator.implicitHeight : 0) + topPadding + bottomPadding)
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
-    topPadding: control.CuteUI.Units.smallSpacing
-    bottomPadding: control.CuteUI.Units.smallSpacing
-    leftPadding: control.CuteUI.Units.smallSpacing
-    rightPadding: control.CuteUI.Units.smallSpacing
+    topPadding: control.LingmoUI.Units.smallSpacing
+    bottomPadding: control.LingmoUI.Units.smallSpacing
+    leftPadding: control.LingmoUI.Units.smallSpacing
+    rightPadding: control.LingmoUI.Units.smallSpacing
 
-    spacing: control.CuteUI.Units.smallSpacing
+    spacing: control.LingmoUI.Units.smallSpacing
 
     opacity: control.enabled ? 1.0 : 0.5
 
@@ -28,7 +28,7 @@ T.RadioDelegate {
 
         text: control.text
         font: control.font
-        color: CuteUI.Theme.textColor
+        color: LingmoUI.Theme.textColor
 
         elide: Text.ElideRight
         visible: control.text

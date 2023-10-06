@@ -1,7 +1,7 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.3
 import QtQuick.Templates 2.3 as T
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
 T.Frame {
     id: control
@@ -16,7 +16,7 @@ T.Frame {
 
     background: Rectangle {
         color: "transparent"
-        property color borderColor: CuteUI.Theme.textColor
+        property color borderColor: LingmoUI.Theme.textColor
         border.color: Qt.rgba(borderColor.r, borderColor.g, borderColor.b, 0.3)
     }
 }

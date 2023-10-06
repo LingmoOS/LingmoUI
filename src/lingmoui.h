@@ -1,7 +1,7 @@
 /*
- * Copyright (C) 2021 CutefishOS Team.
+ * Copyright (C) 2021 LingmoOS Team.
  *
- * Author:     cutefish <cutefishos@foxmail.com>
+ * Author:     lingmo <lingmoos@foxmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,12 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CUTEUI_H
-#define CUTEUI_H
+#ifndef LINGMOUI_H
+#define LINGMOUI_H
 
 #include <QtQml/QQmlExtensionPlugin>
 
-class CuteUI : public QQmlExtensionPlugin
+class LingmoUI : public QQmlExtensionPlugin
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID QQmlExtensionInterface_iid)
@@ -40,4 +40,4 @@ private:
 
 };
 
-#endif // CUTEUI_H
+#endif // LINGMOUI_H

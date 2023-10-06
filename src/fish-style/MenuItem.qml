@@ -3,15 +3,15 @@ import QtQuick.Templates 2.12 as T
 import QtQuick.Controls 2.12
 import QtQuick.Controls.impl 2.12
 
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
 T.MenuItem
 {
     id: control
 
-    property color hoveredColor: CuteUI.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.2)
+    property color hoveredColor: LingmoUI.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.2)
                                                        : Qt.rgba(0, 0, 0, 0.1)
-    property color pressedColor: CuteUI.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.1)
+    property color pressedColor: LingmoUI.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.1)
                                                        : Qt.rgba(0, 0, 0, 0.2)
 
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
@@ -20,22 +20,22 @@ T.MenuItem
                              implicitContentHeight + topPadding + bottomPadding,
                              implicitIndicatorHeight + topPadding + bottomPadding)
 
-    verticalPadding: CuteUI.Units.smallSpacing
+    verticalPadding: LingmoUI.Units.smallSpacing
     hoverEnabled: true
-    topPadding: CuteUI.Units.smallSpacing
-    bottomPadding: CuteUI.Units.smallSpacing
+    topPadding: LingmoUI.Units.smallSpacing
+    bottomPadding: LingmoUI.Units.smallSpacing
 
-    icon.width: CuteUI.Units.iconSizes.medium
-    icon.height: CuteUI.Units.iconSizes.medium
+    icon.width: LingmoUI.Units.iconSizes.medium
+    icon.height: LingmoUI.Units.iconSizes.medium
 
-    icon.color: control.enabled ? (control.highlighted ? control.CuteUI.Theme.highlightColor : control.CuteUI.Theme.textColor) :
-                             control.CuteUI.Theme.disabledTextColor
+    icon.color: control.enabled ? (control.highlighted ? control.LingmoUI.Theme.highlightColor : control.LingmoUI.Theme.textColor) :
+                             control.LingmoUI.Theme.disabledTextColor
 
     contentItem: IconLabel {
         readonly property real arrowPadding: control.subMenu && control.arrow ? control.arrow.width + control.spacing : 0
         readonly property real indicatorPadding: control.checkable && control.indicator ? control.indicator.width + control.spacing : 0
-        leftPadding: !control.mirrored ? indicatorPadding + CuteUI.Units.smallSpacing * 2 : arrowPadding
-        rightPadding: control.mirrored ? indicatorPadding : arrowPadding + CuteUI.Units.smallSpacing * 2
+        leftPadding: !control.mirrored ? indicatorPadding + LingmoUI.Units.smallSpacing * 2 : arrowPadding
+        rightPadding: control.mirrored ? indicatorPadding : arrowPadding + LingmoUI.Units.smallSpacing * 2
 
         spacing: control.spacing
         mirrored: control.mirrored
@@ -45,20 +45,20 @@ T.MenuItem
         icon: control.icon
         text: control.text
         font: control.font
-        color: control.enabled ? control.pressed || control.hovered ? control.CuteUI.Theme.textColor : 
-               CuteUI.Theme.textColor : control.CuteUI.Theme.disabledTextColor
+        color: control.enabled ? control.pressed || control.hovered ? control.LingmoUI.Theme.textColor : 
+               LingmoUI.Theme.textColor : control.LingmoUI.Theme.disabledTextColor
     }
 
     background: Rectangle {
         implicitWidth: 200
-        implicitHeight: control.visible ? CuteUI.Units.gridUnit + CuteUI.Units.largeSpacing : 0
-        radius: CuteUI.Theme.mediumRadius
+        implicitHeight: control.visible ? LingmoUI.Units.gridUnit + LingmoUI.Units.largeSpacing : 0
+        radius: LingmoUI.Theme.mediumRadius
         opacity: 1
 
         anchors {
             fill: parent
-            leftMargin: CuteUI.Units.smallSpacing
-            rightMargin: CuteUI.Units.smallSpacing
+            leftMargin: LingmoUI.Units.smallSpacing
+            rightMargin: LingmoUI.Units.smallSpacing
         }
 
         color: control.pressed || highlighted ? control.pressedColor : control.hovered ? control.hoveredColor : "transparent"

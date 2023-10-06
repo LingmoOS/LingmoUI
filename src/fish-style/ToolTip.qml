@@ -24,13 +24,13 @@ import QtQuick 2.6
 import QtGraphicalEffects 1.0
 import QtQuick.Controls 2.3 as Controls
 import QtQuick.Templates 2.3 as T
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
 T.ToolTip {
     id: controlRoot
 
     x: parent ? (parent.width - implicitWidth) / 2 : 0
-    y: -implicitHeight - CuteUI.Units.smallSpacing * 1.5
+    y: -implicitHeight - LingmoUI.Units.smallSpacing * 1.5
 
     implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
     implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
@@ -43,13 +43,13 @@ T.ToolTip {
     contentItem: Controls.Label {
         text: controlRoot.text
         font: controlRoot.font
-        color: CuteUI.Theme.textColor
+        color: LingmoUI.Theme.textColor
     }
 
     background: Rectangle {
         opacity: 0.95
-        color: CuteUI.Theme.secondBackgroundColor
-        radius: CuteUI.Theme.smallRadius
+        color: LingmoUI.Theme.secondBackgroundColor
+        radius: LingmoUI.Theme.smallRadius
 
         layer.enabled: true
         layer.effect: DropShadow {

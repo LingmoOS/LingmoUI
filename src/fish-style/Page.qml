@@ -2,7 +2,7 @@ import QtQuick 2.10
 import QtQuick.Controls 2.3
 import QtQuick.Controls.impl 2.3
 import QtQuick.Templates 2.3 as T
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
 T.Page {
     id: control
@@ -28,6 +28,6 @@ T.Page {
     contentHeight: contentItem.implicitHeight || (contentChildren.length === 1 ? contentChildren[0].implicitHeight : 0)
 
     background: Rectangle {
-        color: CuteUI.Theme.backgroundColor
+        color: LingmoUI.Theme.backgroundColor
     }
 }

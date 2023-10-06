@@ -1,7 +1,7 @@
 import QtQuick 2.4
 import QtQuick.Templates 2.12 as T
 import QtQuick.Controls.Material 2.12
-import CuteUI 1.0 as CuteUI
+import LingmoUI 1.0 as LingmoUI
 
 T.ScrollBar {
     id: control
@@ -22,12 +22,12 @@ T.ScrollBar {
     }
 
     contentItem: Rectangle {
-        radius: CuteUI.Theme.smallRadius
+        radius: LingmoUI.Theme.smallRadius
         implicitWidth: control.interactive ? 6 : 4
         implicitHeight: control.interactive ? 6 : 4
 
-        color: control.pressed ? CuteUI.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.4) : Qt.rgba(0, 0, 0, 0.5)
-                               : CuteUI.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.5) : Qt.rgba(0, 0, 0, 0.4)
+        color: control.pressed ? LingmoUI.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.4) : Qt.rgba(0, 0, 0, 0.5)
+                               : LingmoUI.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.5) : Qt.rgba(0, 0, 0, 0.4)
         opacity: 0.0
     }
 

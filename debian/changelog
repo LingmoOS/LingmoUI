@@ -1,11 +1,11 @@
-cuteui (23.02.8) UNRELEASED; urgency=high
+lingmoui (1.1.0+1) UNRELEASED; urgency=high
 
-  * fix dark theme
+ * Lingmo OS Team <lingmo@lingmo.org>
 
- -- Floating dream <2422586862@qq.com>  Tue, 14 Feb 2023 21:06:52 +0800
+ -- Lingmo OS Team <lingmo@lingmo.org>  Sun, 24 Sep 2023 16:04:03 +0800
 
-cuteui (0.8) UNRELEASED; urgency=high
+lingmoui (0.8) UNRELEASED; urgency=high
 
-  * Initial release (CuteOS)  <support@cuteod.com>
+  * Initial release (LingmoOS)  <support@lingmood.com>
 
- -- CuteOS Packaging Team <support@cuteos.com>  Sat, 29 Jan 2022 03:23:53 +0800
+ -- LingmoOS Packaging Team <support@lingmoos.com>  Sat, 29 Jan 2022 03:23:53 +0800

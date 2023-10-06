@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/cuteui/kit">
+    <qresource prefix="/lingmoui/kit">
         <file alias="AboutDialog.qml">controls/AboutDialog.qml</file>
         <file alias="InfoDialog.qml">controls/InfoDialog.qml</file>
         <file alias="BusyIndicator.qml">controls/BusyIndicator.qml</file>
