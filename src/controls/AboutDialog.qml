@@ -25,7 +25,7 @@ LingmoUI.Window {
     property var iconSource
     property string name
     property string description
-    property string link: "https://lingmo.org"
+    property string link: "https://lingmoos.com"
     property var contentHeight: _mainLayout.implicitHeight + control.header.height * 2
 
     background.opacity: control.compositing ? 0.6 : 1.0

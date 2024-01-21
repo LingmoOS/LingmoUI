@@ -24,7 +24,7 @@ T.Slider {
         antialiasing: true
         border.width: 0
 
-        color: control.pressed ? "#FAFAFA" : "white"    //color
+        color: control.pressed ? "#FAFAFA" : "white"
 
         layer.enabled: true
         layer.effect: DropShadow {

@@ -19,6 +19,5 @@
         <file>TabButton.qml</file>
         <file>TextArea.qml</file>
         <file>TextField.qml</file>
-        <file>style.js</file>
     </qresource>
 </RCC>
