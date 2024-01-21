@@ -1,3 +1,22 @@
+/*
+ * Copyright (C) 2021 LingmoOS Team.
+ *
+ * Author:     revenmartin <revenmartin@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 pragma Singleton
 
 import QtQuick 2.4
@@ -25,22 +44,11 @@ QtObject {
     property color textColor: darkMode ? "#FFFFFF" : "#323238"
     property color disabledTextColor: darkMode ? "#888888" : "#64646E"
 
-    property color settingsTextColor: darkMode ? "#787575" : "#C1C1CE"
-
     property color highlightColor: LingmoUICore.ThemeManager.accentColor
     property color highlightedTextColor: darkMode ? "#FFFFFF" : "#FFFFFF"
 
     property color activeTextColor: "#0176D3"
     property color activeBackgroundColor: "#0176D3"
-    
-    property color linesColor: "#0059FF"
-    property color hoColor: "#B8B8B8"
-    property color bcXColor: darkMode ? "#000000" : "#FFFFFF"
-    property color fabcXColor: darkMode ? "#3C3C3D" : "#E2E3E4"
-    property color nflatBoColor: "#FF5787"
-    property color winMaxColor: "#1EC700"
-    property color winMinColor: "#D5E400"
-    property color wBoColor: darkMode ? "#FF618E" : "#FFBCCF"
 
     property color linkColor: "#2196F3"
     property color linkBackgroundColor: "#2196F3"
@@ -50,11 +58,11 @@ QtObject {
     property real fontSize: LingmoUICore.ThemeManager.fontSize
     property string fontFamily: LingmoUICore.ThemeManager.fontFamily
 
-    property real smallRadius: 8.0 // 8.0
-    property real mediumRadius: 10.0 // 10.0
-    property real bigRadius: 12.0 // 12.0
-    property real hugeRadius: 14.0 // 14.0
-    property real windowRadius: 11.0 // 11.0
+    property real smallRadius: 8.0
+    property real mediumRadius: 10.0
+    property real bigRadius: 12.0
+    property real hugeRadius: 14.0
+    property real windowRadius: 11.0
 
     property var renderType: Text.QtRendering
 

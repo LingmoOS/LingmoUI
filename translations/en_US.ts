@@ -4,22 +4,22 @@
 <context>
     <name>TextField</name>
     <message>
-        <location filename="../src/fish-style/TextField.qml" line="62"/>
+        <location filename="../src/lingmo-style/TextField.qml" line="62"/>
         <source>Cut</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/fish-style/TextField.qml" line="68"/>
+        <location filename="../src/lingmo-style/TextField.qml" line="68"/>
         <source>Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/fish-style/TextField.qml" line="74"/>
+        <location filename="../src/lingmo-style/TextField.qml" line="74"/>
         <source>Paste</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/fish-style/TextField.qml" line="79"/>
+        <location filename="../src/lingmo-style/TextField.qml" line="79"/>
         <source>Select All</source>
         <translation type="unfinished"></translation>
     </message>

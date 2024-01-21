@@ -1,11 +1,11 @@
-lingmoui (1.1.0+1) UNRELEASED; urgency=high
+lingmoui (1.9.9-20) UNRELEASED; urgency=high
 
- * Lingmo OS Team <lingmo@lingmo.org>
+  * update release
 
- -- Lingmo OS Team <lingmo@lingmo.org>  Sun, 24 Sep 2023 16:04:03 +0800
+ -- Lingmo OS Team <lingmo@lingmo.org>  Sun, 21 Jan 2024 10:40:04 +0800
 
-lingmoui (0.8) UNRELEASED; urgency=high
+lingmoui (1.9.9) UNRELEASED; urgency=high
 
-  * Initial release (LingmoOS)  <support@lingmood.com>
+  * fix dark theme
 
- -- LingmoOS Packaging Team <support@lingmoos.com>  Sat, 29 Jan 2022 03:23:53 +0800
+ -- Lingmo OS Team <lingmo@lingmo.org>  Fri, 15 Dec 2023 22:36:35 +0800

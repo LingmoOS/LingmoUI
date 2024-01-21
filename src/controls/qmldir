@@ -13,7 +13,6 @@ singleton Theme 1.0 Theme.qml
 singleton Units 1.0 Units.qml
 
 AboutDialog 1.0 AboutDialog.qml
-InfoDialog 1.0 InfoDialog.qml
 ActionTextField 1.0 ActionTextField.qml
 BusyIndicator 1.0 BusyIndicator.qml
 DesktopMenu 1.0 DesktopMenu.qml
@@ -22,7 +21,7 @@ Icon 1.0 Icon.qml
 PopupTips 1.0 PopupTips.qml
 RoundedRect 1.0 RoundedRect.qml
 Window 1.0 Window.qml
-RoundImageButton 1.0 RoundImageButton.qmlz
+RoundImageButton 1.0 RoundImageButton.qml
 TabBar 1.0 TabBar.qml
 TabButton 1.0 TabButton.qml
 TabCloseButton 1.0 TabCloseButton.qml

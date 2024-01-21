@@ -111,4 +111,3 @@ install(EXPORT LingmoUITargets
         FILE LingmoUITargets.cmake
         )
 endif()
-install(FILES src/version DESTINATION /etc/LingmoUI/ COMPONENT Runtime)

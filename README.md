@@ -1,6 +1,6 @@
 # LingmoUI
 
-LingmoUI is a GUI library based on QQC2 (Qt Quick Controls 2), every LingmoOS application uses it.
+LingmoUI is a GUI library based on QQC2 (Qt Quick Controls 2), every Lingmo application uses it.
 
 ## Features
 
