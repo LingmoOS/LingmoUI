@@ -23,6 +23,10 @@ Package: lingmoui
 Architecture: any
 Depends: qml-module-qtquick-controls2,
          qml-module-qtquick2,
+         cmake,
+         g++,
+         extra-cmake-modules,
+         libkf5configwidgets-dev,
          ${misc:Depends},
          ${shlibs:Depends}
 Description: LingmoOS UIKit
