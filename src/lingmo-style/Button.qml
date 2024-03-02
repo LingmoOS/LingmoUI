@@ -51,7 +51,7 @@ T.Button {
         Rectangle {
             id: _flatBackground
             anchors.fill: parent
-            radius: LingmoUI.Theme.mediumRadius
+            radius: LingmoUI.Theme.hugeRadius
             border.width: 1
             border.color: control.enabled ? control.activeFocus ? LingmoUI.Theme.highlightColor : "transparent"
                                           : "transparent"
@@ -83,7 +83,7 @@ T.Button {
         Rectangle {
             id: _background
             anchors.fill: parent
-            radius: LingmoUI.Theme.mediumRadius
+            radius: LingmoUI.Theme.hugeRadius
             border.width: 1
             visible: !control.flat
             border.color: control.enabled ? control.activeFocus ? LingmoUI.Theme.highlightColor : "transparent"
