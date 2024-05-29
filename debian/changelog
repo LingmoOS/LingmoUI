@@ -1,3 +1,9 @@
+lingmoui (2.0.2) unstable; urgency=high
+
+ * update button style
+
+ -- Lingmo OS Team <lingmo@lingmo.org>  Wed, 29 May 2024 00:00:00 +0800
+
 lingmoui (2.0.1) UNRELEASED; urgency=high
 
   * update release
