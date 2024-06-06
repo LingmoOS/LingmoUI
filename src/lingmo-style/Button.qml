@@ -37,7 +37,8 @@ T.Button {
         text: control.text
         font: control.font
         icon: control.icon
-        color: !control.enabled ? control.LingmoUI.Theme.disabledTextColor : control.flat ? LingmoUI.Theme.highlightColor : LingmoUI.Theme.textColor
+        color: !control.enabled ? control.LingmoUI.Theme.disabledTextColor : control.flat ? LingmoUI.Theme.highlightedTextColor : LingmoUI.Theme.textColor
+        // color: LingmoUI.Theme.placeholderTextColor
         spacing: control.spacing
         mirrored: control.mirrored
         display: control.display
@@ -49,7 +50,7 @@ T.Button {
         Rectangle {
             id: _flatBackground
             anchors.fill: parent
-            radius: LingmoUI.Theme.mediumRadius
+            radius: LingmoUI.Theme.hugeRadius
             border.width: 1
             border.color: control.enabled ? control.activeFocus ? LingmoUI.Theme.highlightColor : "transparent"
                                           : "transparent"
@@ -70,7 +71,7 @@ T.Button {
                 orientation: Gradient.Vertical
                 GradientStop { position: 0.0; color: Qt.rgba(_flatBackground.color.r,
                                                              _flatBackground.color.g,
-                                                             _flatBackground.color.b, 0.85) }
+                                                             _flatBackground.color.b, 0.78) }
                 GradientStop { position: 1.0; color: Qt.rgba(_flatBackground.color.r,
                                                              _flatBackground.color.g,
                                                              _flatBackground.color.b, 1) }
