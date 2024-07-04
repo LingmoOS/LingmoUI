@@ -41,8 +41,11 @@ QtObject {
     property color secondBackgroundColor: darkMode ? "#2C2C2D" : "#FFFFFF"
     property color alternateBackgroundColor: darkMode ? "#3C3C3D" : "#F2F4F5"
 
+    property color thColor: darkMode ? "#F2F4F5" : "#F2F4F5"
+
     property color textColor: darkMode ? "#FFFFFF" : "#323238"
     property color disabledTextColor: darkMode ? "#888888" : "#64646E"
+    property color placeholderTextColor: darkMode ? "#CECECE" : "#CECECE"
 
     property color highlightColor: LingmoUICore.ThemeManager.accentColor
     property color highlightedTextColor: darkMode ? "#FFFFFF" : "#FFFFFF"

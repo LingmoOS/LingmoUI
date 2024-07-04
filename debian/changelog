@@ -1,6 +1,6 @@
-lingmoui (2.0.2) unstable; urgency=high
+lingmoui (2.0.2-0) unstable; urgency=high
 
-  * update Button Style
+ * update button style
 
  -- Lingmo OS Team <lingmo@lingmo.org>  Wed, 29 May 2024 00:00:00 +0800
 
