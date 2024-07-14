@@ -1,7 +1,7 @@
 Source: lingmoui
 Section: devel
 Priority: optional
-Maintainer: LingmoOS <lingmo@lingmo.org>
+Maintainer: Lingmo OS Team <team@lingmo.org>
 Build-Depends: cmake,
                debhelper (>= 9),
                extra-cmake-modules,
