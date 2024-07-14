@@ -10,6 +10,7 @@
         <file>Menu.qml</file>
         <file>MenuItem.qml</file>
         <file>Page.qml</file>
+        <file>ProgressBar.qml</file>
         <file>RadioButton.qml</file>
         <file>RadioIndicator.qml</file>
         <file>Slider.qml</file>
