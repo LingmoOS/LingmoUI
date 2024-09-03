@@ -1,3 +1,10 @@
+lingmoui (2.2.0) hydrogen; urgency=high
+
+  [Lingmo OS Team]
+  * Hydrogen.
+
+ -- Lingmo OS Team <team@lingmo.org>  Tue, 3 Sep 2024 22:00:00 +0800
+
 lingmoui (2.1.0-rc1) stable; urgency=high
 
   [Lingmo OS Team]
