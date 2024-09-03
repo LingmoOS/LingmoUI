@@ -24,6 +24,7 @@
 #include <QCursor>
 
 #include <KWindowSystem>
+#include <KX11Extras>
 
 static uint qtEdgesToXcbMoveResizeDirection(Qt::Edges edges)
 {
@@ -60,8 +61,8 @@ WindowHelper::WindowHelper(QObject *parent)
     QScopedPointer<xcb_intern_atom_reply_t> reply(xcb_intern_atom_reply(connection, cookie, nullptr));
     m_moveResizeAtom = reply ? reply->atom : 0;
 
-    onCompositingChanged(KWindowSystem::compositingActive());
-    connect(KWindowSystem::self(), &KWindowSystem::compositingChanged, this, &WindowHelper::onCompositingChanged);
+    onCompositingChanged(KX11Extras::compositingActive());
+    connect(KX11Extras::self(), &KX11Extras::compositingChanged, this, &WindowHelper::onCompositingChanged);
 }
 
 bool WindowHelper::compositing() const
@@ -81,7 +82,7 @@ void WindowHelper::startSystemResize(QWindow *w, Qt::Edges edges)
 
 void WindowHelper::minimizeWindow(QWindow *w)
 {
-    KWindowSystem::minimizeWindow(w->winId());
+    KX11Extras::minimizeWindow(w->winId());
 }
 
 void WindowHelper::doStartSystemMoveResize(QWindow *w, int edges)
