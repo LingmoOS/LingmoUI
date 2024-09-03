@@ -48,7 +48,7 @@ T.Button {
         text: control.text
         font: control.font
         icon: control.icon
-        color: !control.enabled ? "#ffffff" : control.flat ? LingmoUI.Theme.highlightColor : LingmoUI.Theme.textColor
+        color: !control.enabled ? control.LingmoUI.Theme.disabledTextColor : control.flat ? LingmoUI.Theme.highlightedTextColor : LingmoUI.Theme.textColor
         spacing: control.spacing
         mirrored: control.mirrored
         display: control.display
