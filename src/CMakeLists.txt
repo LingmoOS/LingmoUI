@@ -1,3 +1,5 @@
+qt_standard_project_setup()
+
 # Create Qt6 library target
 qt_add_library(${TARGET} SHARED)
 
