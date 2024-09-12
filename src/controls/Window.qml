@@ -297,7 +297,7 @@ QtQuick.Window {
                     // Window buttons
                     RoundImageButton {
                         size: _header.buttonSize
-                        source: "qrc:/lingmoui/kit/images/" + (LingmoUI.Theme.darkMode ? "dark/" : "light/") + "minimize.svg"
+                        source: "qrc:/lingmoui/kit/LingmoUI/images/" + (LingmoUI.Theme.darkMode ? "dark/" : "light/") + "minimize.svg"
                         onClicked: windowHelper.minimizeWindow(control)
                         visible: control.minimizeButtonVisible
                         Layout.alignment: Qt.AlignTop
@@ -309,7 +309,7 @@ QtQuick.Window {
 
                     RoundImageButton {
                         size: _header.buttonSize
-                        source: "qrc:/lingmoui/kit/images/" +
+                        source: "qrc:/lingmoui/kit/LingmoUI/images/" +
                             (LingmoUI.Theme.darkMode ? "dark/" : "light/") +
                             (control.visibility === Window.Maximized ? "restore.svg" : "maximize.svg")
                         onClicked: control.toggleMaximized()
@@ -323,7 +323,7 @@ QtQuick.Window {
 
                     RoundImageButton {
                         size: _header.buttonSize
-                        source: "qrc:/lingmoui/kit/images/" + (LingmoUI.Theme.darkMode ? "dark/" : "light/") + "close.svg"
+                        source: "qrc:/lingmoui/kit/LingmoUI/images/" + (LingmoUI.Theme.darkMode ? "dark/" : "light/") + "close.svg"
                         onClicked: control.close()
                         // visible: !control.isFullScreen
                         Layout.alignment: Qt.AlignTop
@@ -376,7 +376,7 @@ QtQuick.Window {
 
     function showPassiveNotification(message, timeout, actionText, callBack) {
         if (!internal.passiveNotification) {
-            var component = Qt.createComponent("qrc:/lingmoui/kit/controls/Toast.qml")
+            var component = Qt.createComponent("qrc:/lingmoui/kit/LingmoUI/controls/Toast.qml")
             internal.passiveNotification = component.createObject(control)
         }
 
