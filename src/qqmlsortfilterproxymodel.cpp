@@ -32,6 +32,8 @@ QQmlSortFilterProxyModel::QQmlSortFilterProxyModel(QObject *parent)
     : QSortFilterProxyModel(parent)
     , m_filterExpression(0)
     , m_compareExpression(0)
+    , m_caseSensitivity(m_regExp.patternOptions().testFlag(
+        QRegularExpression::CaseInsensitiveOption) ? Qt::CaseInsensitive : Qt::CaseSensitive)
 {
     connect(this, &QAbstractProxyModel::sourceModelChanged, this,
             &QQmlSortFilterProxyModel::updateRoles);
@@ -69,38 +71,15 @@ void QQmlSortFilterProxyModel::setFilterRoleName(const QString &filterRoleName)
     emit filterRoleNameChanged();
 }
 
-QString QQmlSortFilterProxyModel::filterPattern() const
-{
-    return filterRegExp().pattern();
-}
+QString QQmlSortFilterProxyModel::filterPattern() const { return m_regExp.pattern(); }
 
-void QQmlSortFilterProxyModel::setFilterPattern(const QString &filterPattern)
-{
-    QRegExp regExp = filterRegExp();
-    if (regExp.pattern() == filterPattern)
+void QQmlSortFilterProxyModel::setFilterPattern(const QString &filterPattern) {
+    if (m_regExp.pattern() == filterPattern)
         return;
 
-    regExp.setPattern(filterPattern);
-    QSortFilterProxyModel::setFilterRegExp(regExp);
+    m_regExp.setPattern(filterPattern);
     emit filterPatternChanged();
-}
-
-QQmlSortFilterProxyModel::PatternSyntax QQmlSortFilterProxyModel::filterPatternSyntax() const
-{
-    return static_cast<PatternSyntax>(filterRegExp().patternSyntax());
-}
-
-void QQmlSortFilterProxyModel::setFilterPatternSyntax(
-    QQmlSortFilterProxyModel::PatternSyntax patternSyntax)
-{
-    QRegExp regExp = filterRegExp();
-    QRegExp::PatternSyntax patternSyntaxTmp = static_cast<QRegExp::PatternSyntax>(patternSyntax);
-    if (regExp.patternSyntax() == patternSyntaxTmp)
-        return;
-
-    regExp.setPatternSyntax(patternSyntaxTmp);
-    QSortFilterProxyModel::setFilterRegExp(regExp);
-    emit filterPatternSyntaxChanged();
+    invalidateFilter();
 }
 
 const QVariant &QQmlSortFilterProxyModel::filterValue() const

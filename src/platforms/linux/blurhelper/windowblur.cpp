@@ -22,7 +22,7 @@
 #include <QApplication>
 #include <QPainterPath>
 #include <QScreen>
-#include <QX11Info>
+#include <QtGui/private/qtx11extras_p.h>
 
 #include <xcb/xcb.h>
 #include <xcb/shape.h>

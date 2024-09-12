@@ -30,6 +30,8 @@
 #include <QSortFilterProxyModel>
 #include <QQmlExpression>
 
+#include <QRegularExpression>
+
 class QQmlSortFilterProxyModel : public QSortFilterProxyModel
 {
     Q_OBJECT
@@ -37,8 +39,6 @@ class QQmlSortFilterProxyModel : public QSortFilterProxyModel
     Q_PROPERTY(QString filterRoleName READ filterRoleName WRITE setFilterRoleName NOTIFY filterRoleNameChanged)
     Q_PROPERTY(
         QString filterPattern READ filterPattern WRITE setFilterPattern NOTIFY filterPatternChanged)
-    Q_PROPERTY(PatternSyntax filterPatternSyntax READ filterPatternSyntax WRITE
-                   setFilterPatternSyntax NOTIFY filterPatternSyntaxChanged)
     Q_PROPERTY(QVariant filterValue READ filterValue WRITE setFilterValue NOTIFY filterValueChanged)
     Q_PROPERTY(QQmlScriptString filterExpression READ filterExpression WRITE setFilterExpression
                    NOTIFY filterExpressionChanged)
@@ -49,16 +49,6 @@ class QQmlSortFilterProxyModel : public QSortFilterProxyModel
     Q_PROPERTY(QQmlScriptString sortExpression READ sortExpression WRITE setSortExpression NOTIFY sortExpressionChanged)
 
 public:
-    enum PatternSyntax {
-        RegExp = QRegExp::RegExp,
-        Wildcard = QRegExp::Wildcard,
-        FixedString = QRegExp::FixedString,
-        RegExp2 = QRegExp::RegExp2,
-        WildcardUnix = QRegExp::WildcardUnix,
-        W3CXmlSchema11 = QRegExp::W3CXmlSchema11
-    };
-    Q_ENUM(PatternSyntax)
-
     QQmlSortFilterProxyModel(QObject *parent = 0);
 
     int count() const;
@@ -70,9 +60,6 @@ public:
 
     QString filterPattern() const;
     void setFilterPattern(const QString &filterPattern);
-
-    PatternSyntax filterPatternSyntax() const;
-    void setFilterPatternSyntax(PatternSyntax patternSyntax);
 
     const QVariant &filterValue() const;
     void setFilterValue(const QVariant &filterValue);
@@ -92,7 +79,6 @@ signals:
     void countChanged();
 
     void filterRoleNameChanged();
-    void filterPatternSyntaxChanged();
     void filterPatternChanged();
     void filterValueChanged();
     void filterExpressionChanged();
@@ -123,6 +109,9 @@ private:
     QQmlScriptString m_compareScriptString;
     QQmlExpression *m_compareExpression;
     QVariant m_filterValue;
+
+    QRegularExpression m_regExp;
+    Qt::CaseSensitivity m_caseSensitivity;
 };
 
 #endif // QQMLSORTFILTERPROXYMODEL_H
