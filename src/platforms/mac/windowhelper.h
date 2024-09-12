@@ -21,11 +21,13 @@
 #define WINDOWHELPER_H
 
 #include <QObject>
+#include <QQmlEngine>
 #include <QWindow>
 
 class WindowHelper : public QObject
 {
     Q_OBJECT
+    QML_NAMED_ELEMENT(WindowHelper)
 
 public:
     explicit WindowHelper(QObject *parent = nullptr);

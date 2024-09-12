@@ -23,6 +23,7 @@
 #include <QQuickWindow>
 #include <QQuickItem>
 #include <QPointer>
+#include <QQmlEngine>
 
 class MenuPopupWindow : public QQuickWindow
 {
@@ -30,6 +31,7 @@ class MenuPopupWindow : public QQuickWindow
     Q_PROPERTY(QQuickItem *popupContentItem READ popupContentItem WRITE setPopupContentItem)
     Q_CLASSINFO("DefaultProperty", "popupContentItem")
     Q_PROPERTY(QQuickItem *parentItem READ parentItem WRITE setParentItem)
+    QML_NAMED_ELEMENT(MenuPopupWindow)
 
 public:
     MenuPopupWindow(QQuickWindow *parent = nullptr);

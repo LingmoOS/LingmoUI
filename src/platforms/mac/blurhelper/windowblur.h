@@ -36,6 +36,7 @@ class WindowBlur : public QObject, public QQmlParserStatus
     Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged)
     Q_PROPERTY(qreal windowRadius READ windowRadius WRITE setWindowRadius NOTIFY windowRadiusChanged)
     Q_INTERFACES(QQmlParserStatus)
+    QML_NAMED_ELEMENT(WindowBlur)
 
 public:
     WindowBlur(QObject *parent = nullptr) noexcept;
