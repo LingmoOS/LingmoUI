@@ -1,6 +1,3 @@
-set(TARGET LingmoUI)
-set(MODULE_VERSION "1.0")
-
 add_library(${TARGET} SHARED "")
 target_sources(${TARGET} PRIVATE
         lingmoui.cpp
@@ -62,6 +59,8 @@ if (UNIX)
         target_link_libraries(${TARGET} PRIVATE Qt6::Gui Qt6::GuiPrivate KF6::WindowSystem)
     endif ()
 endif ()
+
+set_target_properties(${TARGET} PROPERTIES  VERSION ${MODULE_VERSION} SOVERSION ${MODULE_VERSION_MAJOR})
 
 generate_export_header(${TARGET} BASE_NAME ${TARGET})
 install(TARGETS ${TARGET} EXPORT ${TARGET}Targets ${INSTALL_TARGETS_DEFAULT_ARGS})
