@@ -20,7 +20,7 @@
 #include "windowhelper.h"
 
 #include <QApplication>
-#include <QX11Info>
+#include <QtGui/private/qtx11extras_p.h>
 #include <QCursor>
 
 #include <KWindowSystem>

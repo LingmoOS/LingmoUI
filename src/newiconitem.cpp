@@ -150,10 +150,8 @@ void NewIconItem::loadPixmap()
     update();
 }
 
-void NewIconItem::geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry)
+void NewIconItem::geometryChange(const QRectF &newGeometry, const QRectF &oldGeometry)
 {
-    QQuickPaintedItem::geometryChanged(newGeometry, oldGeometry);
-
     if (newGeometry.width() > 0 && newGeometry.height() > 0) {
         loadPixmap();
     }
