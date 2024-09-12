@@ -80,6 +80,7 @@ class WindowShadow : public QObject, public QQmlParserStatus
     Q_PROPERTY(QRect geometry READ geometry WRITE setGeometry NOTIFY geometryChanged)
     Q_PROPERTY(qreal radius READ radius WRITE setRadius NOTIFY radiusChanged)
     Q_PROPERTY(qreal strength READ strength WRITE setStrength NOTIFY strengthChanged)
+    QML_NAMED_ELEMENT(WindowShadow)
 
 public:
     WindowShadow(QObject *parent = nullptr) noexcept;

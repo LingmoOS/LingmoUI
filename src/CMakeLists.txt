@@ -1,7 +1,7 @@
 # Create Qt6 library target
 qt_add_library(${TARGET} SHARED)
 
-list(APPEND ${TARGET_SOURCES}  
+set(TARGET_SOURCES
         iconthemeprovider.cpp
         thememanager.cpp
 
@@ -11,12 +11,10 @@ list(APPEND ${TARGET_SOURCES}
         qqmlsortfilterproxymodel.cpp
 
         desktop/menupopupwindow.cpp
-
-        # lingmoui.qrc
-        # lingmo-style/style.qrc
         )
+
 if (MSVC)
-    list(APPEND ${TARGET_SOURCES} 
+    list(APPEND TARGET_SOURCES
             platforms/windows/windowhelper.cpp platforms/windows/windowhelper.h
             platforms/windows/blurhelper/windowblur.cpp platforms/windows/blurhelper/windowblur.h
             platforms/windows/shadowhelper/boxshadowrenderer.cpp platforms/windows/shadowhelper/boxshadowrenderer.h
@@ -24,8 +22,10 @@ if (MSVC)
             platforms/windows/shadowhelper/windowshadow.cpp platforms/windows/shadowhelper/windowshadow.h
             )
     target_include_directories(${TARGET} PRIVATE platforms/windows)
+    target_include_directories(${TARGET} PRIVATE platforms/windows/shadowhelper)
+    target_include_directories(${TARGET} PRIVATE platforms/windows/blurhelper)
 elseif (APPLE)
-    list(APPEND ${TARGET_SOURCES} 
+    list(APPEND TARGET_SOURCES
             platforms/mac/windowhelper.cpp platforms/mac/windowhelper.h
             platforms/mac/blurhelper/windowblur.cpp platforms/mac/blurhelper/windowblur.h
             platforms/mac/shadowhelper/boxshadowrenderer.cpp platforms/mac/shadowhelper/boxshadowrenderer.h
@@ -33,8 +33,10 @@ elseif (APPLE)
             platforms/mac/shadowhelper/windowshadow.cpp platforms/mac/shadowhelper/windowshadow.h
             )
     target_include_directories(${TARGET} PRIVATE platforms/mac)
+    target_include_directories(${TARGET} PRIVATE platforms/mac/shadowhelper)
+    target_include_directories(${TARGET} PRIVATE platforms/mac/blurhelper)
 else ()
-    list(APPEND ${TARGET_SOURCES} 
+    list(APPEND TARGET_SOURCES
             platforms/linux/windowhelper.cpp platforms/linux/windowhelper.h
             platforms/linux/blurhelper/windowblur.cpp platforms/linux/blurhelper/windowblur.h
             platforms/linux/shadowhelper/boxshadowrenderer.cpp platforms/linux/shadowhelper/boxshadowrenderer.h
@@ -42,6 +44,8 @@ else ()
             platforms/linux/shadowhelper/windowshadow.cpp platforms/linux/shadowhelper/windowshadow.h
             )
     target_include_directories(${TARGET} PRIVATE platforms/linux)
+    target_include_directories(${TARGET} PRIVATE platforms/linux/shadowhelper)
+    target_include_directories(${TARGET} PRIVATE platforms/linux/blurhelper)
 endif ()
 
 target_link_libraries(${TARGET}

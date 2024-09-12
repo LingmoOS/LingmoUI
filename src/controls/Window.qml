@@ -352,18 +352,18 @@ QQk.Window {
         }
 
         // Mask
-       layer.enabled: _background.radius > 0
-       layer.effect: OpacityMask {
-           maskSource: Item {
-               width: _contentItem.width
-               height: _contentItem.height
+       // layer.enabled: _background.radius > 0
+       // layer.effect: OpacityMask {
+       //     maskSource: Item {
+       //         width: _contentItem.width
+       //         height: _contentItem.height
 
-               Rectangle {
-                   anchors.fill: parent
-                   radius: _background.radius
-               }
-           }
-       }
+       //         Rectangle {
+       //             anchors.fill: parent
+       //             radius: _background.radius
+       //         }
+       //     }
+       // }
     }
 
     QtObject {
