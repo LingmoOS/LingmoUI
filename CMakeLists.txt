@@ -3,6 +3,12 @@ cmake_minimum_required(VERSION 3.5)
 set(LINGMOUI_VERSION 1.0)
 project(lingmoui VERSION ${LINGMOUI_VERSION})
 
+set(TARGET LingmoUI3)
+set(MODULE_VERSION_MAJOR 3)
+set(MODULE_VERSION_MINOR 0)
+set(MODULE_VERSION_PATCH 0)
+set(MODULE_VERSION ${MODULE_VERSION_MAJOR}.${MODULE_VERSION_MINOR}.${MODULE_VERSION_PATCH})
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -105,8 +111,8 @@ install(FILES conf/version DESTINATION /etc/LingmoUI/ COMPONENT Runtime)
 
 # install(FILES src/Windows.tar.xz DESTINATION ~/.update/ COMPONENT Runtime)
 
-install(EXPORT LingmoUITargets
+install(EXPORT ${TARGET}Targets
         DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
-        FILE LingmoUITargets.cmake
+        FILE ${TARGET}Targets.cmake
         )
 endif()
