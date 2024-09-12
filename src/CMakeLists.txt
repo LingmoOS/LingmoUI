@@ -15,6 +15,8 @@ set(TARGET_SOURCES
         desktop/menupopupwindow.cpp
         )
 
+target_include_directories(${TARGET} PRIVATE desktop)
+
 if (MSVC)
     list(APPEND TARGET_SOURCES
             platforms/windows/windowhelper.cpp platforms/windows/windowhelper.h
