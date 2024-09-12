@@ -94,7 +94,7 @@ configure_package_config_file(
 
 write_basic_package_version_file(
         ${CMAKE_CURRENT_BINARY_DIR}/${TARGET}ConfigVersion.cmake
-        VERSION ${LIB_VERSION}
+        VERSION ${MODULE_VERSION}
         COMPATIBILITY AnyNewerVersion
 )
 if(NOT APPLE)
