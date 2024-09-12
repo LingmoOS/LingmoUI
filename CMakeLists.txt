@@ -27,7 +27,7 @@ find_package(ECM REQUIRED NO_MODULE)
 list(APPEND CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 message(STATUS "ECM version: ${ECM_VERSION}")
 
-set(QT Core Widgets Quick QuickControls2 DBus)
+set(QT Core Widgets Quick QuickControls2 DBus Core5Compat)
 find_package(Qt6 REQUIRED ${QT})
 if (UNIX)
     if (NOT APPLE)

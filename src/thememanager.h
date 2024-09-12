@@ -24,6 +24,8 @@
 #include <QFont>
 #include <QColor>
 
+#include <QQmlEngine>
+
 #define ACCENTCOLOR_BLUE   0
 #define ACCENTCOLOR_RED    1
 #define ACCENTCOLOR_GREEN  2
@@ -35,6 +37,7 @@
 class ThemeManager : public QObject
 {
     Q_OBJECT
+    QML_NAMED_ELEMENT(ThemeManager)
     Q_PROPERTY(bool darkMode READ darkMode NOTIFY darkModeChanged)
     Q_PROPERTY(QColor accentColor READ accentColor NOTIFY accentColorChanged)
     Q_PROPERTY(QColor blueColor READ blueColor NOTIFY colorChanged)

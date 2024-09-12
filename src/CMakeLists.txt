@@ -63,6 +63,7 @@ target_link_libraries(${TARGET}
         Qt6::Quick
         Qt6::QuickControls2
         Qt6::GuiPrivate
+        Qt6::Core5Compat
         )
 
 if (UNIX)

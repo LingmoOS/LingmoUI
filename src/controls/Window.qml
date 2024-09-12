@@ -17,14 +17,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick as QQk
+import QtQuick 2.15 as QtQuick
 import QtQuick.Window
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Shapes
+import Qt5Compat.GraphicalEffects
+
 import LingmoUI as LingmoUI
 
-QQk.Window {
+QtQuick.Window {
     id: control
     width: 640
     height: 480
@@ -214,6 +216,7 @@ QQk.Window {
         anchors.margins: 0
         radius: !isMaximized && !isFullScreen && windowHelper.compositing ? control.windowRadius : 0
         color: LingmoUI.Theme.backgroundColor
+
         antialiasing: true
 
         Behavior on color {
@@ -352,18 +355,18 @@ QQk.Window {
         }
 
         // Mask
-       // layer.enabled: _background.radius > 0
-       // layer.effect: OpacityMask {
-       //     maskSource: Item {
-       //         width: _contentItem.width
-       //         height: _contentItem.height
+       layer.enabled: _background.radius > 0
+       layer.effect: OpacityMask {
+           maskSource: Item {
+               width: _contentItem.width
+               height: _contentItem.height
 
-       //         Rectangle {
-       //             anchors.fill: parent
-       //             radius: _background.radius
-       //         }
-       //     }
-       // }
+               Rectangle {
+                   anchors.fill: parent
+                   radius: _background.radius
+               }
+           }
+       }
     }
 
     QtObject {
@@ -373,7 +376,7 @@ QQk.Window {
 
     function showPassiveNotification(message, timeout, actionText, callBack) {
         if (!internal.passiveNotification) {
-            var component = Qt.createComponent("qrc:/lingmoui/kit/Toast.qml")
+            var component = Qt.createComponent("qrc:/lingmoui/kit/controls/Toast.qml")
             internal.passiveNotification = component.createObject(control)
         }
 
