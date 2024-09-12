@@ -10,6 +10,7 @@
 #include <QPoint>
 #include <QQuickItem>
 #include <QtQml>
+#include <QQmlEngine>
 
 class QWheelEvent;
 
@@ -165,6 +166,8 @@ private:
 class WheelHandler : public QObject
 {
     Q_OBJECT
+    QML_NAMED_ELEMENT(WheelHandler)
+
 
     /**
      * target: Item

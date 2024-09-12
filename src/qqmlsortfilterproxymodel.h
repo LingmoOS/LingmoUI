@@ -29,12 +29,15 @@
 
 #include <QSortFilterProxyModel>
 #include <QQmlExpression>
+#include <QQmlEngine>
 
 #include <QRegularExpression>
+#include <qqmlintegration.h>
 
 class QQmlSortFilterProxyModel : public QSortFilterProxyModel
 {
     Q_OBJECT
+    QML_NAMED_ELEMENT(SortFilterProxyModel)
     Q_PROPERTY(int count READ count NOTIFY countChanged)
     Q_PROPERTY(QString filterRoleName READ filterRoleName WRITE setFilterRoleName NOTIFY filterRoleNameChanged)
     Q_PROPERTY(

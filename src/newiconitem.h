@@ -23,6 +23,7 @@
 #include <QQuickPaintedItem>
 #include <QPixmap>
 #include <QPixmapCache>
+#include <QQmlEngine>
 #include <QIcon>
 
 class IconItemSource;
@@ -30,7 +31,8 @@ class NewIconItem : public QQuickPaintedItem
 {
     Q_OBJECT
     Q_PROPERTY(QVariant source READ source WRITE setSource NOTIFY sourceChanged)
-
+    QML_NAMED_ELEMENT(IconItem)
+    
 public:
     NewIconItem(QQuickItem *parent = nullptr);
 
