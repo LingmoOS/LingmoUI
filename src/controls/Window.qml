@@ -17,15 +17,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.12
-import QtQuick.Window 2.3
-import QtQuick.Controls 2.4
-import QtQuick.Layouts 1.3
-import QtQuick.Shapes 1.12
-import QtGraphicalEffects 1.0
-import LingmoUI 1.0 as LingmoUI
+import QtQuick as QQk
+import QtQuick.Window
+import QtQuick.Controls
+import QtQuick.Layouts
+import QtQuick.Shapes
+import LingmoUI as LingmoUI
 
-Window {
+QQk.Window {
     id: control
     width: 640
     height: 480
@@ -41,8 +40,8 @@ Window {
 
     // Window helper
     property alias compositing: windowHelper.compositing
-    property var contentTopMargin: _header.height
-    property var windowRadius: compositing ? LingmoUI.Theme.windowRadius : 0
+    property int contentTopMargin: _header.height
+    property int windowRadius: compositing ? LingmoUI.Theme.windowRadius : 0
     property alias helper: windowHelper
 
     // Other
