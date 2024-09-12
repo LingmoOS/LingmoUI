@@ -25,4 +25,4 @@ Depends: qml6-module-qtquick-controls,
          qml6-module-qtquick,
          ${misc:Depends},
          ${shlibs:Depends}
-Description: LingmoOS UIKit
+Description: LingmoOS UIKit - Qt6 Version
