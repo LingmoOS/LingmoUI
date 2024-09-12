@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 3.5)
 
-set(LINGMOUI_VERSION 1.0)
-project(lingmoui VERSION ${LINGMOUI_VERSION})
-
 set(TARGET LingmoUI3)
 set(MODULE_VERSION_MAJOR 3)
 set(MODULE_VERSION_MINOR 0)
 set(MODULE_VERSION_PATCH 0)
 set(MODULE_VERSION ${MODULE_VERSION_MAJOR}.${MODULE_VERSION_MINOR}.${MODULE_VERSION_PATCH})
+
+project(lingmoui VERSION ${MODULE_VERSION})
+
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOUIC ON)
@@ -65,10 +65,10 @@ if (MSVC)
     # _VCPKG_INSTALLED_DIR:PATH=C:/app/vcpkg/installed
     # VCPKG_TARGET_TRIPLET:STRING=x64-windows
     # The final installed dir is C:/app/vcpkg/installed/x64-windows/share/LingmoUI
-    set(CMAKECONFIG_INSTALL_DIR "${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/share/LingmoUI")
+    set(CMAKECONFIG_INSTALL_DIR "${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/share/${TARGET}")
     set(CMAKE_INSTALL_PREFIX "${_VCPKG_INSTALLED_DIR}")
 else ()
-    set(CMAKECONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/LingmoUI")
+    set(CMAKECONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/${TARGET}")
 endif ()
 message(STATUS "CMake Config install directory:" "${CMAKECONFIG_INSTALL_DIR}")
 
@@ -107,7 +107,7 @@ install(
         COMPONENT
         Devel
 )
-install(FILES conf/version DESTINATION /etc/LingmoUI/ COMPONENT Runtime)
+install(FILES conf/version DESTINATION /etc/${TARGET}/ COMPONENT Runtime)
 
 # install(FILES src/Windows.tar.xz DESTINATION ~/.update/ COMPONENT Runtime)
 
