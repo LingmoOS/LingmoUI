@@ -85,7 +85,7 @@ add_subdirectory(src)
 
 configure_package_config_file(
         "${CMAKE_CURRENT_SOURCE_DIR}/LingmoUIConfig.cmake.in"
-        "${CMAKE_CURRENT_BINARY_DIR}/LingmoUIConfig.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/${TARGET}Config.cmake"
         INSTALL_DESTINATION
         "${CMAKECONFIG_INSTALL_DIR}"
         PATH_VARS
@@ -93,15 +93,15 @@ configure_package_config_file(
 )
 
 write_basic_package_version_file(
-        ${CMAKE_CURRENT_BINARY_DIR}/LingmoUIConfigVersion.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/${TARGET}ConfigVersion.cmake
         VERSION ${LIB_VERSION}
         COMPATIBILITY AnyNewerVersion
 )
 if(NOT APPLE)
 install(
         FILES
-        "${CMAKE_CURRENT_BINARY_DIR}/LingmoUIConfig.cmake"
-        "${CMAKE_CURRENT_BINARY_DIR}/LingmoUIConfigVersion.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/${TARGET}Config.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/${TARGET}ConfigVersion.cmake"
         DESTINATION
         "${CMAKECONFIG_INSTALL_DIR}"
         COMPONENT
