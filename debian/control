@@ -3,7 +3,7 @@ Section: devel
 Priority: optional
 Maintainer: Lingmo OS Team <team@lingmo.org>
 Build-Depends: cmake,
-               debhelper (>= 9),
+               debhelper-compat (= 13),
                extra-cmake-modules,
                libxcb1-dev,
                libxcb-shape0-dev,
@@ -16,15 +16,13 @@ Build-Depends: cmake,
                qtquickcontrols2-5-dev,
                qttools5-dev,
                qttools5-dev-tools
-Standards-Version: 4.5.0
+Standards-Version: 4.5.1
 Homepage: https://lingmo.org
 
-Package: lingmoui
+Package: lingmoui6
 Architecture: any
 Depends: qml-module-qtquick-controls2,
          qml-module-qtquick2,
-         cmake,
-         g++,
          liblingmo,
          extra-cmake-modules,
          libkf5configwidgets-dev,

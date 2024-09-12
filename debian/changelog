@@ -1,9 +1,8 @@
-lingmoui (2.2.0) hydrogen; urgency=high
+lingmoui (3.0.0-dev1) UNRELEASED; urgency=high
 
-  [Lingmo OS Team]
-  * Hydrogen.
+  * Port to Qt6
 
- -- Lingmo OS Team <team@lingmo.org>  Tue, 3 Sep 2024 22:00:00 +0800
+ -- Elysia <c.elysia@foxmail.com>  Thu, 12 Jul 2024 17:57:00 +0800
 
 lingmoui (2.1.0-rc1) stable; urgency=high
 
@@ -24,7 +23,7 @@ lingmoui (2.0.1) UNRELEASED; urgency=high
 
  -- Lingmo OS Team <lingmo@lingmo.org>  Tue, 13 Feb 2024 22:44:21 +0800
 
-lingmoui (2.0.0) UNRELEASED; urgency=high
+lingmoui (2.0.0 UNRELEASED; urgency=high
 
   * update release
 
