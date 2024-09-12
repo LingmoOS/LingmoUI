@@ -22,12 +22,14 @@
 
 #include <QObject>
 #include <QWindow>
+#include <QQmlEngine>
 #include <xcb/xcb.h>
 
 class WindowHelper : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool compositing READ compositing NOTIFY compositingChanged)
+    QML_NAMED_ELEMENT(WindowHelper)
 
 public:
     explicit WindowHelper(QObject *parent = nullptr);
