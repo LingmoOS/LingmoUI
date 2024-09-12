@@ -19,19 +19,15 @@ option(COMPONENT_STORE "Build store component" OFF)
 option(COMPONENT_TAGGING "Build tagging component" ON)
 option(COMPONENT_SYNCING "Build syncing component" ON)
 
-find_package(ECM 5.45.0 NO_MODULE)
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
+find_package(ECM REQUIRED NO_MODULE)
+list(APPEND CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
+message(STATUS "ECM version: ${ECM_VERSION}")
 
 set(QT Core Widgets Quick QuickControls2 DBus)
+find_package(Qt6 REQUIRED ${QT})
 if (UNIX)
     if (NOT APPLE)
-        set(QT ${QT} X11Extras)
-    endif ()
-endif ()
-find_package(Qt5 REQUIRED ${QT})
-if (UNIX)
-    if (NOT APPLE)
-        find_package(KF5WindowSystem REQUIRED)
+        find_package(KF6WindowSystem REQUIRED)
     endif ()
 endif ()
 
@@ -41,19 +37,18 @@ include(CMakePackageConfigHelpers)
 include(ECMGenerateHeaders)
 
 # Get the installation directory from qmake
-get_target_property(QT_QMAKE_EXECUTABLE ${Qt5Core_QMAKE_EXECUTABLE} IMPORTED_LOCATION)
-if (NOT QT_QMAKE_EXECUTABLE)
-    message(FATAL_ERROR "qmake is not found.")
-endif ()
+if(ECM_VERSION VERSION_LESS 5.93.0)
+    include(ECMQueryQmake)
+    query_qmake(INSTALL_QMLDIR QT_INSTALL_QML)
+else()
+    include(ECMQueryQt)
+    ecm_query_qt(INSTALL_QMLDIR QT_INSTALL_QML)
+endif()
 
-execute_process(COMMAND ${QT_QMAKE_EXECUTABLE} -query QT_INSTALL_QML
-        OUTPUT_VARIABLE INSTALL_QMLDIR
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-        )
 if (INSTALL_QMLDIR)
-    message(STATUS "qml directory:" "${INSTALL_QMLDIR}")
+    message(STATUS "QML directory:" "${INSTALL_QMLDIR}")
 else ()
-    message(FATAL_ERROR "qml directory cannot be detected.")
+    message(FATAL_ERROR "QML directory cannot be detected.")
 endif ()
 
 # Install
@@ -68,7 +63,7 @@ if (MSVC)
 else ()
     set(CMAKECONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/LingmoUI")
 endif ()
-message(STATUS "install directory:" "${CMAKECONFIG_INSTALL_DIR}")
+message(STATUS "CMake Config install directory:" "${CMAKECONFIG_INSTALL_DIR}")
 
 # Qt Widgets Style
 #if (UNIX)
