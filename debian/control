@@ -19,7 +19,7 @@ Build-Depends: cmake,
 Standards-Version: 4.5.1
 Homepage: https://lingmo.org
 
-Package: lingmoui
+Package: lingmoui3
 Architecture: any
 Depends: qml6-module-qtquick-controls,
          qml6-module-qtquick,
