@@ -19,7 +19,7 @@
 
 import QtQuick 2.12
 import QtQuick.Controls 2.12 as Controls
-import LingmoUI 1.0 as LingmoUI
+import LingmoUI as LingmoUI
 
 Controls.TextField {
     id: control

@@ -20,22 +20,22 @@
 pragma Singleton
 
 import QtQuick 2.4
-import LingmoUI.Core 1.0 as LingmoUICore
+import LingmoUI as LingmoUI
 
 QtObject {
     id: theme
 
-    property real devicePixelRatio: LingmoUICore.ThemeManager.devicePixelRatio
+    property real devicePixelRatio: LingmoUI.ThemeManager.devicePixelRatio
 
-    property bool darkMode: LingmoUICore.ThemeManager.darkMode
+    property bool darkMode: LingmoUI.ThemeManager.darkMode
 
-    property color blueColor: LingmoUICore.ThemeManager.blueColor
-    property color redColor: LingmoUICore.ThemeManager.redColor
-    property color greenColor: LingmoUICore.ThemeManager.greenColor
-    property color purpleColor: LingmoUICore.ThemeManager.purpleColor
-    property color pinkColor: LingmoUICore.ThemeManager.pinkColor
-    property color orangeColor: LingmoUICore.ThemeManager.orangeColor
-    property color greyColor: LingmoUICore.ThemeManager.greyColor
+    property color blueColor: LingmoUI.ThemeManager.blueColor
+    property color redColor: LingmoUI.ThemeManager.redColor
+    property color greenColor: LingmoUI.ThemeManager.greenColor
+    property color purpleColor: LingmoUI.ThemeManager.purpleColor
+    property color pinkColor: LingmoUI.ThemeManager.pinkColor
+    property color orangeColor: LingmoUI.ThemeManager.orangeColor
+    property color greyColor: LingmoUI.ThemeManager.greyColor
 
     property color backgroundColor: darkMode ? "#1C1C1D" : "#F3F4F9"
     property color secondBackgroundColor: darkMode ? "#2C2C2D" : "#FFFFFF"
@@ -44,7 +44,7 @@ QtObject {
     property color textColor: darkMode ? "#FFFFFF" : "#323238"
     property color disabledTextColor: darkMode ? "#888888" : "#64646E"
 
-    property color highlightColor: LingmoUICore.ThemeManager.accentColor
+    property color highlightColor: LingmoUI.ThemeManager.accentColor
     property color highlightedTextColor: darkMode ? "#FFFFFF" : "#FFFFFF"
 
     property color activeTextColor: "#0176D3"
@@ -55,8 +55,8 @@ QtObject {
     property color visitedLinkColor: "#2196F3"
     property color visitedLinkBackgroundColor: "#2196F3"
 
-    property real fontSize: LingmoUICore.ThemeManager.fontSize
-    property string fontFamily: LingmoUICore.ThemeManager.fontFamily
+    property real fontSize: LingmoUI.ThemeManager.fontSize
+    property string fontFamily: LingmoUI.ThemeManager.fontFamily
 
     property real smallRadius: 8.0
     property real mediumRadius: 10.0

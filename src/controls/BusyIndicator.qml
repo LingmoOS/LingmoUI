@@ -17,10 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-import QtQuick 2.4
-import QtQuick.Controls 2.4
-import QtGraphicalEffects 1.0
-import LingmoUI 1.0 as LingmoUI
+import QtQuick
+import QtQuick.Controls
+import Qt5Compat.GraphicalEffects
+import LingmoUI as LingmoUI
 
 Image {
     id: control
