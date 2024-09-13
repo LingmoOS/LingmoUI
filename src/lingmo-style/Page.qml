@@ -2,7 +2,7 @@ import QtQuick 2.10
 import QtQuick.Controls 2.3
 import QtQuick.Controls.impl 2.3
 import QtQuick.Templates 2.3 as T
-import LingmoUI 1.0 as LingmoUI
+import LingmoUI 3.0 as LingmoUI
 
 T.Page {
     id: control

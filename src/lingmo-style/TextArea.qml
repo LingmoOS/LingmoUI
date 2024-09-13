@@ -24,7 +24,7 @@ import QtQuick 2.6
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.6
 import QtQuick.Templates 2.6 as T
-import LingmoUI 1.0 as LingmoUI
+import LingmoUI 3.0 as LingmoUI
 
 T.TextArea {
     id: control

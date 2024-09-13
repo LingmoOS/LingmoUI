@@ -1,5 +1,5 @@
 import QtQuick 2.4
-import LingmoUI 1.0 as LingmoUI
+import LingmoUI 3.0 as LingmoUI
 
 Item {
     id: indicator

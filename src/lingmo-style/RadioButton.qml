@@ -24,7 +24,7 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
 import QtQuick.Templates 2.2 as T
-import LingmoUI 1.0 as LingmoUI
+import LingmoUI 3.0 as LingmoUI
 
 T.RadioButton {
     id: control
