@@ -6,6 +6,8 @@ unset(resource_files)
 unset(QML_PATHS)
 unset(RES_PATHS)
 
+qt_add_library(${MODULE_NAME} SHARED)
+
 set(SINGLETON_FILES "")
 
 #遍历所有qml文件
@@ -34,6 +36,7 @@ endforeach (filepath)
 
 # Set Qt6 QMl Plugins
 qt_add_qml_module(${MODULE_NAME}
+    PLUGIN_TARGET ${MODULE_NAME}
     OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/QtQuick/Controls/LingmoStyle
     VERSION ${MODULE_VERSION}
     URI "QtQuick.Controls.LingmoStyle"
