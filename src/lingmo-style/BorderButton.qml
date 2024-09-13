@@ -17,8 +17,8 @@ T.Button {
     spacing: LingmoUI.Units.smallSpacing
 
     property color defaultColor: "#0A84FF"  // 起始颜色
-    property color hoveredColor: "#0AaAFF"   // 终止颜色
-    property color pressedColor: "#0581F0"
+    // property color hoveredColor: "#0AaAFF"   // 终止颜色
+    // property color pressedColor: "#0581F0"
 
     property color hoveredColor: LingmoUI.Theme.darkMode ? Qt.lighter(LingmoUI.Theme.alternateBackgroundColor, 1.2)
                                                        : Qt.darker(LingmoUI.Theme.alternateBackgroundColor, 1.1)
