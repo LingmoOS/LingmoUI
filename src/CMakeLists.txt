@@ -72,6 +72,8 @@ if (UNIX)
     endif ()
 endif ()
 
+set(SINGLETON_FILES controls/Theme.qml controls/Units.qml)
+
 #遍历所有qml文件
 file(GLOB_RECURSE QML_PATHS controls/*.qml qmldir)
 foreach (filepath ${QML_PATHS})
@@ -80,6 +82,12 @@ foreach (filepath ${QML_PATHS})
         list(APPEND resource_files ${filename})
     else ()
         list(APPEND qml_files ${filename})
+        # Check for singleton
+        foreach (singletion_name ${SINGLETON_FILES})
+            if (${filename} MATCHES ${singletion_name})
+                set_source_files_properties(${filename} PROPERTIES QT_QML_SINGLETON_TYPE true)
+            endif ()
+        endforeach (singletion_name)
     endif ()
 endforeach (filepath)
 

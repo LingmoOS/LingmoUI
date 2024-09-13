@@ -37,6 +37,7 @@
 class ThemeManager : public QObject
 {
     Q_OBJECT
+    QML_SINGLETON
     QML_NAMED_ELEMENT(ThemeManager)
     Q_PROPERTY(bool darkMode READ darkMode NOTIFY darkModeChanged)
     Q_PROPERTY(QColor accentColor READ accentColor NOTIFY accentColorChanged)
