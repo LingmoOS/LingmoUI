@@ -24,7 +24,7 @@ import QtQuick.Layouts
 import QtQuick.Shapes
 import Qt5Compat.GraphicalEffects
 
-import LingmoUI as LingmoUI
+import LingmoUI 3.0 as LingmoUI
 
 QtQuick.Window {
     id: control
@@ -89,7 +89,7 @@ QtQuick.Window {
                               && control.heightResizable
         z: 999
 
-        onPressed: mouse.accepted = false
+        onPressed: function(mouse){ mouse.accepted = false; }
 
         DragHandler {
             grabPermissions: TapHandler.TakeOverForbidden
@@ -114,7 +114,7 @@ QtQuick.Window {
                               && control.heightResizable
         z: 999
 
-        onPressed: mouse.accepted = false
+        onPressed: function(mouse){ mouse.accepted = false; }
 
         DragHandler {
             grabPermissions: TapHandler.TakeOverForbidden
@@ -135,7 +135,7 @@ QtQuick.Window {
         cursorShape: Qt.SizeVerCursor
         z: 999
 
-        onPressed: mouse.accepted = false
+        onPressed: function(mouse){ mouse.accepted = false; }
 
         DragHandler {
             grabPermissions: TapHandler.TakeOverForbidden
@@ -156,7 +156,7 @@ QtQuick.Window {
         visible: !isMaximized && !isFullScreen && control.heightResizable
         z: 999
 
-        onPressed: mouse.accepted = false
+        onPressed: function(mouse){ mouse.accepted = false; }
 
         DragHandler {
             grabPermissions: TapHandler.TakeOverForbidden
@@ -177,7 +177,7 @@ QtQuick.Window {
         visible: !isMaximized && !isFullScreen && control.widthResizable
         z: 999
 
-        onPressed: mouse.accepted = false
+        onPressed: function(mouse){ mouse.accepted = false; }
 
         DragHandler {
             grabPermissions: TapHandler.TakeOverForbidden
@@ -198,7 +198,7 @@ QtQuick.Window {
         visible: !isMaximized && !isFullScreen && control.widthResizable
         z: 999
 
-        onPressed: mouse.accepted = false
+        onPressed: function(mouse){ mouse.accepted = false; }
 
         DragHandler {
             grabPermissions: TapHandler.TakeOverForbidden
@@ -275,7 +275,7 @@ QtQuick.Window {
 
             DragHandler {
                 target: null
-                acceptedDevices: PointerDevice.GenericPointer
+                acceptedDevices: PointerDevice.AllDevices
                 grabPermissions: PointerHandler.CanTakeOverFromItems | PointerHandler.CanTakeOverFromHandlersOfDifferentType | PointerHandler.ApprovesTakeOverByAnything
                 onActiveChanged: if (active) { windowHelper.startSystemMove(control) }
             }
