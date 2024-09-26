@@ -1,3 +1,10 @@
+lingmoui (2.2.1) hydrogen; urgency=high
+
+  [Elysia]
+  * Fix a typo: FishUI to LingmoUI in Button.qml.
+
+ -- Lingmo OS Team <team@lingmo.org>  Thr, 26 Sep 2024 18:08:00 +0800
+
 lingmoui (2.2.0) hydrogen; urgency=high
 
   [Lingmo OS Team]
