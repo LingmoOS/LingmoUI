@@ -13,6 +13,10 @@ set(TARGET_SOURCES
         qqmlsortfilterproxymodel.cpp
 
         desktop/menupopupwindow.cpp
+
+        LingmoApp.cpp
+        LingmoFrameless.cpp
+        LingmoTools.cpp
         )
 
 target_include_directories(${TARGET} PRIVATE desktop)
@@ -111,7 +115,8 @@ qt_add_qml_module(${TARGET}
     RESOURCE_PREFIX "/lingmoui/kit"
 )
 
-set_target_properties(${TARGET} PROPERTIES  VERSION ${MODULE_VERSION} SOVERSION ${MODULE_VERSION_MAJOR})
+set_target_properties(${TARGET}
+    PROPERTIES  VERSION ${MODULE_VERSION} SOVERSION ${MODULE_VERSION_MAJOR})
 
 install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/temp/${PROJECT_NAME} DESTINATION ${INSTALL_QMLDIR})
 generate_export_header(${TARGET} BASE_NAME ${TARGET})
