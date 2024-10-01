@@ -25,13 +25,12 @@
 #include <QQmlEngine>
 #include <QQmlParserStatus>
 #include <QRect>
-#include <QWindow>
 #include <QVector>
+#include <QWindow>
 
-class WindowBlur : public QObject, public QQmlParserStatus
-{
+class WindowBlur : public QObject, public QQmlParserStatus {
     Q_OBJECT
-    Q_PROPERTY(QWindow *view READ view WRITE setView NOTIFY viewChanged)
+    Q_PROPERTY(QWindow* view READ view WRITE setView NOTIFY viewChanged)
     Q_PROPERTY(QRect geometry READ geometry WRITE setGeometry NOTIFY geometryChanged)
     Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged)
     Q_PROPERTY(qreal windowRadius READ windowRadius WRITE setWindowRadius NOTIFY windowRadiusChanged)
@@ -39,16 +38,16 @@ class WindowBlur : public QObject, public QQmlParserStatus
     QML_NAMED_ELEMENT(WindowBlur)
 
 public:
-    WindowBlur(QObject *parent = nullptr) noexcept;
+    WindowBlur(QObject* parent = nullptr) noexcept;
     ~WindowBlur() override;
 
     void classBegin() override;
     void componentComplete() override;
 
-    void setView(QWindow *view);
-    QWindow *view() const;
+    void setView(QWindow* view);
+    QWindow* view() const;
 
-    void setGeometry(const QRect &rect);
+    void setGeometry(const QRect& rect);
     QRect geometry() const;
 
     void setEnabled(bool enabled);
@@ -70,7 +69,7 @@ signals:
     void geometryChanged();
 
 private:
-    QWindow *m_view;
+    QWindow* m_view;
     QRect m_rect;
     bool m_enabled;
     qreal m_windowRadius;

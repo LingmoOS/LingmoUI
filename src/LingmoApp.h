@@ -12,28 +12,28 @@
  * @brief The LingmoApp class. Used in all apps.
  */
 class LingmoApp : public QObject {
-  Q_OBJECT
-  QML_SINGLETON
-  QML_NAMED_ELEMENT(LingmoApp)
+    Q_OBJECT
+    QML_SINGLETON
+    QML_NAMED_ELEMENT(LingmoApp)
 
-  Q_PROPERTY_AUTO(QLocale, locale)
-  Q_PROPERTY_AUTO_P(QObject *, launcher)
+    Q_PROPERTY_AUTO(QLocale, locale)
+    Q_PROPERTY_AUTO_P(QObject*, launcher)
 
- private:
-  explicit LingmoApp(QObject *parent = nullptr);
+private:
+    explicit LingmoApp(QObject* parent = nullptr);
 
-  ~LingmoApp() override = default;
+    ~LingmoApp() override = default;
 
- public:
-  SINGLETON(LingmoApp)
+public:
+    SINGLETON(LingmoApp)
 
-  static LingmoApp *create(QQmlEngine *, QJSEngine *) { return getInstance(); }
+    static LingmoApp* create(QQmlEngine*, QJSEngine*) { return getInstance(); }
 
-  Q_INVOKABLE void init(QObject *launcher, QLocale locale = QLocale::system());
+    Q_INVOKABLE void init(QObject* launcher, QLocale locale = QLocale::system());
 
- private:
-  QQmlEngine *_engine{};
-  QTranslator *_translator = nullptr;
+private:
+    QQmlEngine* _engine {};
+    QTranslator* _translator = nullptr;
 };
 
-#endif  // LINGMOAPP_H
+#endif // LINGMOAPP_H

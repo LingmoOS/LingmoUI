@@ -19,20 +19,20 @@
 
 #include "newiconitem.h"
 
-#include <QQuickWindow>
 #include <QGuiApplication>
+#include <QIcon>
 #include <QImageReader>
 #include <QPainter>
-#include <QIcon>
+#include <QQuickWindow>
 
-NewIconItem::NewIconItem(QQuickItem *parent)
+NewIconItem::NewIconItem(QQuickItem* parent)
     : QQuickPaintedItem(parent)
 {
     setFlag(ItemHasContents, true);
     setSmooth(false);
 }
 
-void NewIconItem::setSource(const QVariant &source)
+void NewIconItem::setSource(const QVariant& source)
 {
     if (source == m_source) {
         return;
@@ -57,9 +57,7 @@ void NewIconItem::setSource(const QVariant &source)
     }
 
     if (!localFile.isEmpty()) {
-        if (sourceString.endsWith(QLatin1String(".svg"))
-            || sourceString.endsWith(QLatin1String(".svgz"))
-            || sourceString.endsWith(QLatin1String(".ico"))) {
+        if (sourceString.endsWith(QLatin1String(".svg")) || sourceString.endsWith(QLatin1String(".svgz")) || sourceString.endsWith(QLatin1String(".ico"))) {
             m_icon = QIcon(localFile);
             m_iconName.clear();
             m_image = QImage();
@@ -76,7 +74,7 @@ void NewIconItem::setSource(const QVariant &source)
         m_image = source.value<QImage>();
         m_iconName.clear();
         m_icon = QIcon();
-    }  else if (source.canConvert<QPixmap>()) {
+    } else if (source.canConvert<QPixmap>()) {
         m_image = source.value<QPixmap>().toImage();
         m_iconName.clear();
         m_icon = QIcon();
@@ -94,12 +92,9 @@ void NewIconItem::setSource(const QVariant &source)
     emit sourceChanged();
 }
 
-QVariant NewIconItem::source() const
-{
-    return m_source;
-}
+QVariant NewIconItem::source() const { return m_source; }
 
-void NewIconItem::paint(QPainter *painter)
+void NewIconItem::paint(QPainter* painter)
 {
     if (m_iconPixmap.isNull())
         return;
@@ -108,10 +103,7 @@ void NewIconItem::paint(QPainter *painter)
     painter->drawPixmap(contentsBoundingRect().toRect(), m_iconPixmap);
 }
 
-void NewIconItem::updateIcon()
-{
-    loadPixmap();
-}
+void NewIconItem::updateIcon() { loadPixmap(); }
 
 void NewIconItem::loadPixmap()
 {
@@ -122,8 +114,7 @@ void NewIconItem::loadPixmap()
     QSize size = QSize(width(), height());
     QPixmap result;
 
-    if (size.width() < 0 ||
-            size.height() < 0) {
+    if (size.width() < 0 || size.height() < 0) {
         m_iconPixmap = QPixmap();
         update();
         return;
@@ -150,7 +141,8 @@ void NewIconItem::loadPixmap()
     update();
 }
 
-void NewIconItem::geometryChange(const QRectF &newGeometry, const QRectF &oldGeometry)
+void NewIconItem::geometryChange(const QRectF& newGeometry,
+    const QRectF& oldGeometry)
 {
     if (newGeometry.width() > 0 && newGeometry.height() > 0) {
         loadPixmap();

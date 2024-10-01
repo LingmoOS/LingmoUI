@@ -20,27 +20,26 @@
 #ifndef MENUPOPUPWINDOW_H
 #define MENUPOPUPWINDOW_H
 
-#include <QQuickWindow>
-#include <QQuickItem>
 #include <QPointer>
 #include <QQmlEngine>
+#include <QQuickItem>
+#include <QQuickWindow>
 
-class MenuPopupWindow : public QQuickWindow
-{
+class MenuPopupWindow : public QQuickWindow {
     Q_OBJECT
-    Q_PROPERTY(QQuickItem *popupContentItem READ popupContentItem WRITE setPopupContentItem)
+    Q_PROPERTY(QQuickItem* popupContentItem READ popupContentItem WRITE setPopupContentItem)
     Q_CLASSINFO("DefaultProperty", "popupContentItem")
-    Q_PROPERTY(QQuickItem *parentItem READ parentItem WRITE setParentItem)
+    Q_PROPERTY(QQuickItem* parentItem READ parentItem WRITE setParentItem)
     QML_NAMED_ELEMENT(MenuPopupWindow)
 
 public:
-    MenuPopupWindow(QQuickWindow *parent = nullptr);
+    MenuPopupWindow(QQuickWindow* parent = nullptr);
 
-    QQuickItem *popupContentItem() const { return m_contentItem; }
-    void setPopupContentItem(QQuickItem *popupContentItem);
+    QQuickItem* popupContentItem() const { return m_contentItem; }
+    void setPopupContentItem(QQuickItem* popupContentItem);
 
-    QQuickItem *parentItem() const { return m_parentItem; }
-    virtual void setParentItem(QQuickItem *);
+    QQuickItem* parentItem() const { return m_parentItem; }
+    virtual void setParentItem(QQuickItem*);
 
 public slots:
     Q_INVOKABLE void show();
@@ -52,16 +51,16 @@ signals:
     void geometryChanged();
 
 protected:
-    void mousePressEvent(QMouseEvent *) override;
-    void mouseReleaseEvent(QMouseEvent *) override;
-    void mouseMoveEvent(QMouseEvent *) override;
-    bool event(QEvent *) override;
+    void mousePressEvent(QMouseEvent*) override;
+    void mouseReleaseEvent(QMouseEvent*) override;
+    void mouseMoveEvent(QMouseEvent*) override;
+    bool event(QEvent*) override;
 
 protected slots:
     void applicationStateChanged(Qt::ApplicationState state);
 
 private:
-    QQuickItem *m_parentItem;
+    QQuickItem* m_parentItem;
     QPointer<QQuickItem> m_contentItem;
     bool m_mouseMoved;
     bool m_dismissed;

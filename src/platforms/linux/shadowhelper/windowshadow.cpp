@@ -21,51 +21,37 @@
 #include "boxshadowrenderer.h"
 #include <QDebug>
 
-enum {
-    ShadowNone,
+enum { ShadowNone,
     ShadowSmall,
     ShadowMedium,
     ShadowLarge,
-    ShadowVeryLarge
-};
+    ShadowVeryLarge };
 
 const CompositeShadowParams s_shadowParams[] = {
     // None
     CompositeShadowParams(),
     // Small
-    CompositeShadowParams(
-        QPoint(0, 3),
-        ShadowParams(QPoint(0, 0), 16, 0.26),
+    CompositeShadowParams(QPoint(0, 3), ShadowParams(QPoint(0, 0), 16, 0.26),
         ShadowParams(QPoint(0, -2), 8, 0.16)),
     // Medium
-    CompositeShadowParams(
-        QPoint(0, 4),
-        ShadowParams(QPoint(0, 0), 20, 0.24),
+    CompositeShadowParams(QPoint(0, 4), ShadowParams(QPoint(0, 0), 20, 0.24),
         ShadowParams(QPoint(0, -2), 10, 0.14)),
     // Large
-    CompositeShadowParams(
-        QPoint(0, 5),
-        ShadowParams(QPoint(0, 0), 24, 0.22),
+    CompositeShadowParams(QPoint(0, 5), ShadowParams(QPoint(0, 0), 24, 0.22),
         ShadowParams(QPoint(0, -3), 12, 0.12)),
     // Very Large
-    CompositeShadowParams(
-        QPoint(0, 6),
-        ShadowParams(QPoint(0, 0), 36, 0.12),
+    CompositeShadowParams(QPoint(0, 6), ShadowParams(QPoint(0, 0), 36, 0.12),
         ShadowParams(QPoint(0, -3), 20, 0.05))
 };
 
-WindowShadow::WindowShadow(QObject *parent) noexcept
+WindowShadow::WindowShadow(QObject* parent) noexcept
     : QObject(parent)
     , m_view(nullptr)
     , m_shadow(new KWindowShadow(this))
 {
-
 }
 
-WindowShadow::~WindowShadow()
-{
-    m_shadow->destroy();
-}
+WindowShadow::~WindowShadow() { m_shadow->destroy(); }
 
 CompositeShadowParams WindowShadow::lookupShadowParams(int shadowSizeEnum)
 {
@@ -91,41 +77,32 @@ void WindowShadow::classBegin()
     m_shadowTiles = this->shadowTiles();
 
     QVector<KWindowShadowTile::Ptr> tiles = {
-        createTile(m_shadowTiles.pixmap(1)),
-        createTile(m_shadowTiles.pixmap(2)),
-        createTile(m_shadowTiles.pixmap(5)),
-        createTile(m_shadowTiles.pixmap(8)),
-        createTile(m_shadowTiles.pixmap(7)),
-        createTile(m_shadowTiles.pixmap(6)),
-        createTile(m_shadowTiles.pixmap(3)),
-        createTile(m_shadowTiles.pixmap(0))
+        createTile(m_shadowTiles.pixmap(1)), createTile(m_shadowTiles.pixmap(2)),
+        createTile(m_shadowTiles.pixmap(5)), createTile(m_shadowTiles.pixmap(8)),
+        createTile(m_shadowTiles.pixmap(7)), createTile(m_shadowTiles.pixmap(6)),
+        createTile(m_shadowTiles.pixmap(3)), createTile(m_shadowTiles.pixmap(0))
     };
 
     m_tile = tiles;
 }
 
-void WindowShadow::componentComplete()
-{
-    configureTiles();
-}
+void WindowShadow::componentComplete() { configureTiles(); }
 
-void WindowShadow::setView(QWindow *view)
+void WindowShadow::setView(QWindow* view)
 {
     if (view != m_view) {
         m_view = view;
         emit viewChanged();
         configureTiles();
 
-        connect(m_view, &QWindow::visibleChanged, this, &WindowShadow::onViewVisibleChanged);
+        connect(m_view, &QWindow::visibleChanged, this,
+            &WindowShadow::onViewVisibleChanged);
     }
 }
 
-QWindow *WindowShadow::view() const 
-{
-    return m_view;
-}
+QWindow* WindowShadow::view() const { return m_view; }
 
-void WindowShadow::setGeometry(const QRect &rect)
+void WindowShadow::setGeometry(const QRect& rect)
 {
     if (rect != m_rect) {
         m_rect = rect;
@@ -134,10 +111,7 @@ void WindowShadow::setGeometry(const QRect &rect)
     }
 }
 
-QRect WindowShadow::geometry() const
-{
-    return m_rect;
-}
+QRect WindowShadow::geometry() const { return m_rect; }
 
 void WindowShadow::setRadius(qreal value)
 {
@@ -151,10 +125,7 @@ void WindowShadow::setRadius(qreal value)
     }
 }
 
-qreal WindowShadow::strength() const
-{
-    return m_strength;
-}
+qreal WindowShadow::strength() const { return m_strength; }
 
 void WindowShadow::setStrength(qreal strength)
 {
@@ -210,7 +181,7 @@ TileSet WindowShadow::shadowTiles()
     if (params.isNone())
         return TileSet();
 
-    auto withOpacity = [](const QColor &color, qreal opacity) -> QColor {
+    auto withOpacity = [](const QColor& color, qreal opacity) -> QColor {
         QColor c(color);
         c.setAlphaF(opacity);
         return c;
@@ -220,7 +191,8 @@ TileSet WindowShadow::shadowTiles()
     const qreal strength = m_strength;
 
     const QSize boxSize = BoxShadowRenderer::calculateMinimumBoxSize(params.shadow1.radius)
-        .expandedTo(BoxShadowRenderer::calculateMinimumBoxSize(params.shadow2.radius));
+                              .expandedTo(BoxShadowRenderer::calculateMinimumBoxSize(
+                                  params.shadow2.radius));
 
     const qreal dpr = qApp->devicePixelRatio();
 
@@ -229,9 +201,11 @@ TileSet WindowShadow::shadowTiles()
     shadowRenderer.setBoxSize(boxSize);
     shadowRenderer.setDevicePixelRatio(dpr);
 
-    shadowRenderer.addShadow(params.shadow1.offset, params.shadow1.radius,
+    shadowRenderer.addShadow(
+        params.shadow1.offset, params.shadow1.radius,
         withOpacity(color, params.shadow1.opacity * strength));
-    shadowRenderer.addShadow(params.shadow2.offset, params.shadow2.radius,
+    shadowRenderer.addShadow(
+        params.shadow2.offset, params.shadow2.radius,
         withOpacity(color, params.shadow2.opacity * strength));
 
     QImage shadowTexture = shadowRenderer.render();
@@ -255,20 +229,14 @@ TileSet WindowShadow::shadowTiles()
     painter.setPen(Qt::NoPen);
     painter.setBrush(Qt::black);
     painter.setCompositionMode(QPainter::CompositionMode_DestinationOut);
-    painter.drawRoundedRect(
-        outerRect - margins,
-        frameRadius,
-        frameRadius);
+    painter.drawRoundedRect(outerRect - margins, frameRadius, frameRadius);
 
     // We're done.
     painter.end();
 
     const QPoint innerRectTopLeft = outerRect.center();
-    TileSet tiles = TileSet(
-        QPixmap::fromImage(shadowTexture),
-        innerRectTopLeft.x(),
-        innerRectTopLeft.y(),
-        1, 1);
+    TileSet tiles = TileSet(QPixmap::fromImage(shadowTexture),
+        innerRectTopLeft.x(), innerRectTopLeft.y(), 1, 1);
 
     return tiles;
 }
@@ -280,10 +248,13 @@ QMargins WindowShadow::shadowMargins(TileSet shadowTiles) const
         return QMargins();
 
     const QSize boxSize = BoxShadowRenderer::calculateMinimumBoxSize(params.shadow1.radius)
-        .expandedTo(BoxShadowRenderer::calculateMinimumBoxSize(params.shadow2.radius));
+                              .expandedTo(BoxShadowRenderer::calculateMinimumBoxSize(
+                                  params.shadow2.radius));
 
-    const QSize shadowSize = BoxShadowRenderer::calculateMinimumShadowTextureSize(boxSize, params.shadow1.radius, params.shadow1.offset)
-        .expandedTo(BoxShadowRenderer::calculateMinimumShadowTextureSize(boxSize, params.shadow2.radius, params.shadow2.offset));
+    const QSize shadowSize = BoxShadowRenderer::calculateMinimumShadowTextureSize(
+        boxSize, params.shadow1.radius, params.shadow1.offset)
+                                 .expandedTo(BoxShadowRenderer::calculateMinimumShadowTextureSize(
+                                     boxSize, params.shadow2.radius, params.shadow2.offset));
 
     const QRect shadowRect(QPoint(0, 0), shadowSize);
 

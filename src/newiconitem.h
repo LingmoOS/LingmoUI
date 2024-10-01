@@ -20,26 +20,25 @@
 #ifndef NEWICONITEM_H
 #define NEWICONITEM_H
 
-#include <QQuickPaintedItem>
+#include <QIcon>
 #include <QPixmap>
 #include <QPixmapCache>
 #include <QQmlEngine>
-#include <QIcon>
+#include <QQuickPaintedItem>
 
 class IconItemSource;
-class NewIconItem : public QQuickPaintedItem
-{
+class NewIconItem : public QQuickPaintedItem {
     Q_OBJECT
     Q_PROPERTY(QVariant source READ source WRITE setSource NOTIFY sourceChanged)
     QML_NAMED_ELEMENT(IconItem)
-    
-public:
-    NewIconItem(QQuickItem *parent = nullptr);
 
-    void setSource(const QVariant &source);
+public:
+    NewIconItem(QQuickItem* parent = nullptr);
+
+    void setSource(const QVariant& source);
     QVariant source() const;
 
-    void paint(QPainter *painter) override;
+    void paint(QPainter* painter) override;
 
     Q_INVOKABLE void updateIcon();
 
@@ -48,7 +47,7 @@ signals:
 
 protected:
     void loadPixmap();
-    void geometryChange(const QRectF &newGeometry, const QRectF &oldGeometry) override;
+    void geometryChange(const QRectF& newGeometry, const QRectF& oldGeometry) override;
 
 private:
     QVariant m_source;

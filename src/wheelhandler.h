@@ -8,9 +8,9 @@
 
 #include <QObject>
 #include <QPoint>
+#include <QQmlEngine>
 #include <QQuickItem>
 #include <QtQml>
-#include <QQmlEngine>
 
 class QWheelEvent;
 
@@ -19,8 +19,7 @@ class WheelHandler;
 /**
  * Describes the mouse wheel event
  */
-class KirigamiWheelEvent : public QObject
-{
+class KirigamiWheelEvent : public QObject {
     Q_OBJECT
 
     /**
@@ -107,10 +106,10 @@ class KirigamiWheelEvent : public QObject
     Q_PROPERTY(bool accepted READ isAccepted WRITE setAccepted)
 
 public:
-    KirigamiWheelEvent(QObject *parent = nullptr);
+    KirigamiWheelEvent(QObject* parent = nullptr);
     ~KirigamiWheelEvent();
 
-    void initializeFromEvent(QWheelEvent *event);
+    void initializeFromEvent(QWheelEvent* event);
 
     qreal x() const;
     qreal y() const;
@@ -133,26 +132,25 @@ private:
     bool m_accepted = false;
 };
 
-class GlobalWheelFilter : public QObject
-{
+class GlobalWheelFilter : public QObject {
     Q_OBJECT
 
 public:
-    GlobalWheelFilter(QObject *parent = nullptr);
+    GlobalWheelFilter(QObject* parent = nullptr);
     ~GlobalWheelFilter();
 
-    static GlobalWheelFilter *self();
+    static GlobalWheelFilter* self();
 
-    void setItemHandlerAssociation(QQuickItem *item, WheelHandler *handler);
-    void removeItemHandlerAssociation(QQuickItem *item, WheelHandler *handler);
+    void setItemHandlerAssociation(QQuickItem* item, WheelHandler* handler);
+    void removeItemHandlerAssociation(QQuickItem* item, WheelHandler* handler);
 
 protected:
-    bool eventFilter(QObject *watched, QEvent *event) override;
+    bool eventFilter(QObject* watched, QEvent* event) override;
 
 private:
-    void manageWheel(QQuickItem *target, QWheelEvent *wheel);
+    void manageWheel(QQuickItem* target, QWheelEvent* wheel);
 
-    QMultiHash<QQuickItem *, WheelHandler *> m_handlersForItem;
+    QMultiHash<QQuickItem*, WheelHandler*> m_handlersForItem;
     KirigamiWheelEvent m_wheelEvent;
     int m_scrollLines;
 };
@@ -163,11 +161,9 @@ private:
  * code. The handler can block completely the wheel events from its target, and
  * if it's a Flickable, it can automatically handle scrolling on it.
  */
-class WheelHandler : public QObject
-{
+class WheelHandler : public QObject {
     Q_OBJECT
     QML_NAMED_ELEMENT(WheelHandler)
-
 
     /**
      * target: Item
@@ -177,7 +173,7 @@ class WheelHandler : public QObject
      * the mouse wheel (or scrolls with the touchpad) on top
      * of that item.
      */
-    Q_PROPERTY(QQuickItem *target READ target WRITE setTarget NOTIFY targetChanged)
+    Q_PROPERTY(QQuickItem* target READ target WRITE setTarget NOTIFY targetChanged)
 
     /**
      * blockTargetWheel: bool
@@ -193,17 +189,17 @@ class WheelHandler : public QObject
     Q_PROPERTY(bool scrollFlickableTarget MEMBER m_scrollFlickableTarget NOTIFY scrollFlickableTargetChanged)
 
 public:
-    explicit WheelHandler(QObject *parent = nullptr);
+    explicit WheelHandler(QObject* parent = nullptr);
     ~WheelHandler() override;
 
-    QQuickItem *target() const;
-    void setTarget(QQuickItem *target);
+    QQuickItem* target() const;
+    void setTarget(QQuickItem* target);
 
 Q_SIGNALS:
     void targetChanged();
     void blockTargetWheelChanged();
     void scrollFlickableTargetChanged();
-    void wheel(KirigamiWheelEvent *wheel);
+    void wheel(KirigamiWheelEvent* wheel);
 
 private:
     QPointer<QQuickItem> m_target;

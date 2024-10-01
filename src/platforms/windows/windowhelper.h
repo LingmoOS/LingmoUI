@@ -24,20 +24,19 @@
 #include <QQmlEngine>
 #include <QWindow>
 
-class WindowHelper : public QObject
-{
+class WindowHelper : public QObject {
     Q_OBJECT
     QML_NAMED_ELEMENT(WindowHelper)
 public:
-    explicit WindowHelper(QObject *parent = nullptr);
+    explicit WindowHelper(QObject* parent = nullptr);
 
-    Q_INVOKABLE void startSystemMove(QWindow *w);
-    Q_INVOKABLE void startSystemResize(QWindow *w, Qt::Edges edges);
+    Q_INVOKABLE void startSystemMove(QWindow* w);
+    Q_INVOKABLE void startSystemResize(QWindow* w, Qt::Edges edges);
 
-    Q_INVOKABLE void minimizeWindow(QWindow *w);
+    Q_INVOKABLE void minimizeWindow(QWindow* w);
 
 private:
-    void doStartSystemMoveResize(QWindow *w, int edges);
+    void doStartSystemMoveResize(QWindow* w, int edges);
 
 private:
 };

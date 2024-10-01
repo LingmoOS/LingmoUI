@@ -22,7 +22,6 @@
 
 #include "tileset.h"
 
-
 #include <QGuiApplication>
 #include <QMap>
 #include <QObject>
@@ -31,55 +30,57 @@
 #include <QQmlEngine>
 #include <QQmlParserStatus>
 #include <QRect>
-#include <QWindow>
 #include <QVector>
+#include <QWindow>
 
-struct ShadowParams
-{
+struct ShadowParams {
     ShadowParams() = default;
 
-    ShadowParams(const QPoint &offset, int radius, qreal opacity):
-        offset(offset),
-        radius(radius),
-        opacity(opacity)
-    {}
+    ShadowParams(const QPoint& offset, int radius, qreal opacity)
+        : offset(offset)
+        , radius(radius)
+        , opacity(opacity)
+    {
+    }
 
     QPoint offset;
     int radius = 0;
     qreal opacity = 0;
 };
 
-struct CompositeShadowParams
-{
+struct CompositeShadowParams {
     CompositeShadowParams() = default;
 
     CompositeShadowParams(
-            const QPoint &offset,
-            const ShadowParams &shadow1,
-            const ShadowParams &shadow2)
+        const QPoint& offset,
+        const ShadowParams& shadow1,
+        const ShadowParams& shadow2)
         : offset(offset)
         , shadow1(shadow1)
-        , shadow2(shadow2) {}
+        , shadow2(shadow2)
+    {
+    }
 
     bool isNone() const
-    { return qMax(shadow1.radius, shadow2.radius) == 0; }
+    {
+        return qMax(shadow1.radius, shadow2.radius) == 0;
+    }
 
     QPoint offset;
     ShadowParams shadow1;
     ShadowParams shadow2;
 };
 
-class WindowShadow : public QObject, public QQmlParserStatus
-{
+class WindowShadow : public QObject, public QQmlParserStatus {
     Q_OBJECT
     Q_INTERFACES(QQmlParserStatus)
-    Q_PROPERTY(QWindow *view READ view WRITE setView NOTIFY viewChanged)
+    Q_PROPERTY(QWindow* view READ view WRITE setView NOTIFY viewChanged)
     Q_PROPERTY(QRect geometry READ geometry WRITE setGeometry NOTIFY geometryChanged)
     Q_PROPERTY(qreal radius READ radius WRITE setRadius NOTIFY radiusChanged)
     Q_PROPERTY(qreal strength READ strength WRITE setStrength NOTIFY strengthChanged)
     QML_NAMED_ELEMENT(WindowShadow)
 public:
-    WindowShadow(QObject *parent = nullptr) noexcept;
+    WindowShadow(QObject* parent = nullptr) noexcept;
     ~WindowShadow() override;
 
     static CompositeShadowParams lookupShadowParams(int shadowSizeEnum);
@@ -87,10 +88,10 @@ public:
     void classBegin() override;
     void componentComplete() override;
 
-    void setView(QWindow *view);
-    QWindow *view() const;
+    void setView(QWindow* view);
+    QWindow* view() const;
 
-    void setGeometry(const QRect &rect);
+    void setGeometry(const QRect& rect);
     QRect geometry() const;
 
     void setRadius(qreal value);
@@ -117,7 +118,7 @@ signals:
     void strengthChanged();
 
 private:
-    QWindow *m_view;
+    QWindow* m_view;
     QRect m_rect;
     TileSet m_shadowTiles;
     qreal m_radius = 10;

@@ -19,11 +19,11 @@
 
 #include "menupopupwindow.h"
 #include <QGuiApplication>
-#include <QQuickRenderControl>
 #include <QQuickItem>
+#include <QQuickRenderControl>
 #include <QScreen>
 
-MenuPopupWindow::MenuPopupWindow(QQuickWindow *parent)
+MenuPopupWindow::MenuPopupWindow(QQuickWindow* parent)
     : QQuickWindow(parent)
     , m_parentItem(0)
     , m_contentItem(0)
@@ -32,8 +32,8 @@ MenuPopupWindow::MenuPopupWindow(QQuickWindow *parent)
 {
     setFlags(Qt::Popup);
     setColor(Qt::transparent);
-    connect(qApp, SIGNAL(applicationStateChanged(Qt::ApplicationState)),
-            this, SLOT(applicationStateChanged(Qt::ApplicationState)));
+    connect(qApp, SIGNAL(applicationStateChanged(Qt::ApplicationState)), this,
+        SLOT(applicationStateChanged(Qt::ApplicationState)));
 }
 
 void MenuPopupWindow::applicationStateChanged(Qt::ApplicationState state)
@@ -51,7 +51,7 @@ void MenuPopupWindow::show()
     int posx = pos.x();
     int posy = pos.y();
 
-    QWindow *pw = transientParent();
+    QWindow* pw = transientParent();
     if (!pw && parentItem())
         pw = parentItem()->window();
     if (!pw)
@@ -60,7 +60,7 @@ void MenuPopupWindow::show()
     QRect g = pw->screen()->availableGeometry();
 
     if (posx + w > g.right()) {
-        if (qobject_cast<MenuPopupWindow *>(transientParent())) {
+        if (qobject_cast<MenuPopupWindow*>(transientParent())) {
             // reposition submenu window on the parent menu's left side
             int submenuOverlap = pw->x() + pw->width() - posx;
             posx -= pw->width() + w - 2 * submenuOverlap;
@@ -83,14 +83,14 @@ void MenuPopupWindow::show()
     setKeyboardGrabEnabled(true);
 }
 
-void MenuPopupWindow::setParentItem(QQuickItem *item)
+void MenuPopupWindow::setParentItem(QQuickItem* item)
 {
     m_parentItem = item;
     if (m_parentItem)
         setTransientParent(m_parentItem->window());
 }
 
-void MenuPopupWindow::setPopupContentItem(QQuickItem *contentItem)
+void MenuPopupWindow::setPopupContentItem(QQuickItem* contentItem)
 {
     if (!contentItem)
         return;
@@ -98,8 +98,10 @@ void MenuPopupWindow::setPopupContentItem(QQuickItem *contentItem)
     contentItem->setParentItem(this->contentItem());
     m_contentItem = contentItem;
 
-    connect(contentItem, &QQuickItem::implicitWidthChanged, this, &MenuPopupWindow::updateGeometry);
-    connect(contentItem, &QQuickItem::implicitHeightChanged, this, &MenuPopupWindow::updateGeometry);
+    connect(contentItem, &QQuickItem::implicitWidthChanged, this,
+        &MenuPopupWindow::updateGeometry);
+    connect(contentItem, &QQuickItem::implicitHeightChanged, this,
+        &MenuPopupWindow::updateGeometry);
 }
 
 void MenuPopupWindow::dismissPopup()
@@ -119,14 +121,14 @@ void MenuPopupWindow::updateGeometry()
     setGeometry(posx, posy, w, h);
 }
 
-void MenuPopupWindow::mouseMoveEvent(QMouseEvent *e)
+void MenuPopupWindow::mouseMoveEvent(QMouseEvent* e)
 {
     m_mouseMoved = true;
 
     QQuickWindow::mouseMoveEvent(e);
 }
 
-void MenuPopupWindow::mousePressEvent(QMouseEvent *e)
+void MenuPopupWindow::mousePressEvent(QMouseEvent* e)
 {
     QRect rect = QRect(QPoint(), size());
     if (rect.contains(e->pos())) {
@@ -136,12 +138,13 @@ void MenuPopupWindow::mousePressEvent(QMouseEvent *e)
     }
 }
 
-void MenuPopupWindow::mouseReleaseEvent(QMouseEvent *e)
+void MenuPopupWindow::mouseReleaseEvent(QMouseEvent* e)
 {
     QRect rect = QRect(QPoint(), size());
     if (rect.contains(e->pos())) {
         if (m_mouseMoved) {
-            QMouseEvent pe = QMouseEvent(QEvent::MouseButtonPress, e->pos(), e->button(), e->buttons(), e->modifiers());
+            QMouseEvent pe = QMouseEvent(QEvent::MouseButtonPress, e->pos(),
+                e->button(), e->buttons(), e->modifiers());
             QQuickWindow::mousePressEvent(&pe);
             if (!m_dismissed && e->button() != Qt::RightButton) {
                 dismissPopup();
@@ -155,24 +158,24 @@ void MenuPopupWindow::mouseReleaseEvent(QMouseEvent *e)
     // dismissPopup();
 }
 
-bool MenuPopupWindow::event(QEvent *event)
+bool MenuPopupWindow::event(QEvent* event)
 {
-    //QTBUG-45079
-    //This is a workaround for popup menu not being closed when using touch input.
-    //Currently mouse synthesized events are not created for touch events which are
-    //outside the qquickwindow.
+    // QTBUG-45079
+    // This is a workaround for popup menu not being closed when using touch
+    // input. Currently mouse synthesized events are not created for touch events
+    // which are outside the qquickwindow.
 
     if (event->type() == QEvent::TouchBegin && !qobject_cast<MenuPopupWindow*>(transientParent())) {
         QRect rect = QRect(QPoint(), size());
-        QTouchEvent *touch = static_cast<QTouchEvent*>(event);
+        QTouchEvent* touch = static_cast<QTouchEvent*>(event);
         QTouchEvent::TouchPoint point = touch->touchPoints().first();
         if ((point.state() == Qt::TouchPointPressed) && !rect.contains(point.pos().toPoint())) {
-          //first default handling
-          bool result = QQuickWindow::event(event);
-          //now specific broken case
-          if (!m_dismissed)
-              dismissPopup();
-          return result;
+            // first default handling
+            bool result = QQuickWindow::event(event);
+            // now specific broken case
+            if (!m_dismissed)
+                dismissPopup();
+            return result;
         }
     }
 
