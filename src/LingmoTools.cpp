@@ -113,10 +113,7 @@ void LingmoTools::deleteLater(QObject* p)
     }
 }
 
-QString LingmoTools::toLocalPath(const QUrl& url)
-{
-    return url.toLocalFile();
-}
+QString LingmoTools::toLocalPath(const QUrl& url) { return url.toLocalFile(); }
 
 QString LingmoTools::getFileNameByUrl(const QUrl& url)
 {
@@ -153,7 +150,8 @@ QColor LingmoTools::withOpacity(const QColor& color, qreal opacity)
 
 QString LingmoTools::md5(const QString& text)
 {
-    return QCryptographicHash::hash(text.toUtf8(), QCryptographicHash::Md5).toHex();
+    return QCryptographicHash::hash(text.toUtf8(), QCryptographicHash::Md5)
+        .toHex();
 }
 
 QString LingmoTools::toBase64(const QString& text)
@@ -180,13 +178,15 @@ bool LingmoTools::removeFile(const QString& filePath)
 
 QString LingmoTools::sha256(const QString& text)
 {
-    return QCryptographicHash::hash(text.toUtf8(), QCryptographicHash::Sha256).toHex();
+    return QCryptographicHash::hash(text.toUtf8(), QCryptographicHash::Sha256)
+        .toHex();
 }
 
 void LingmoTools::showFileInFolder(const QString& path)
 {
 #if defined(Q_OS_WIN)
-    QProcess::startDetached("explorer.exe", { "/select,", QDir::toNativeSeparators(path) });
+    QProcess::startDetached("explorer.exe",
+        { "/select,", QDir::toNativeSeparators(path) });
 #endif
 #if defined(Q_OS_LINUX)
     QFileInfo fileInfo(path);
@@ -195,9 +195,12 @@ void LingmoTools::showFileInFolder(const QString& path)
     QProcess::startDetached(process, arguments);
 #endif
 #if defined(Q_OS_MACOS)
+    QProcess::execute(
+        "/usr/bin/osascript",
+        { "-e",
+            "tell application \"Finder\" to reveal POSIX file \"" + path + "\"" });
     QProcess::execute("/usr/bin/osascript",
-        { "-e", "tell application \"Finder\" to reveal POSIX file \"" + path + "\"" });
-    QProcess::execute("/usr/bin/osascript", { "-e", "tell application \"Finder\" to activate" });
+        { "-e", "tell application \"Finder\" to activate" });
 #endif
 }
 
@@ -206,20 +209,14 @@ bool LingmoTools::isSoftware()
     return QQuickWindow::sceneGraphBackend() == "software";
 }
 
-QPoint LingmoTools::cursorPos()
-{
-    return QCursor::pos();
-}
+QPoint LingmoTools::cursorPos() { return QCursor::pos(); }
 
 qint64 LingmoTools::currentTimestamp()
 {
     return QDateTime::currentMSecsSinceEpoch();
 }
 
-QIcon LingmoTools::windowIcon()
-{
-    return QGuiApplication::windowIcon();
-}
+QIcon LingmoTools::windowIcon() { return QGuiApplication::windowIcon(); }
 
 int LingmoTools::cursorScreenIndex()
 {
@@ -241,7 +238,8 @@ int LingmoTools::windowBuildNumber()
 {
 #if defined(Q_OS_WIN)
     QSettings regKey {
-        QString::fromUtf8(R"(HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion)"),
+        QString::fromUtf8(
+            R"(HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion)"),
         QSettings::NativeFormat
     };
     if (regKey.contains(QString::fromUtf8("CurrentBuildNumber"))) {
@@ -326,7 +324,8 @@ QString LingmoTools::getWallpaperFilePath()
     QProcess process;
     QStringList args;
     args << "-e";
-    args << R"(tell application "Finder" to get POSIX path of (desktop picture as alias))";
+    args
+        << R"(tell application "Finder" to get POSIX path of (desktop picture as alias))";
     process.start("osascript", args);
     process.waitForFinished();
     QByteArray result = process.readAllStandardOutput().trimmed();

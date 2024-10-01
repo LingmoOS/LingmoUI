@@ -8,48 +8,47 @@
 #include <QDebug>
 #include <QWheelEvent>
 
-class GlobalWheelFilterSingleton
-{
+class GlobalWheelFilterSingleton {
 public:
     GlobalWheelFilter self;
 };
 
 Q_GLOBAL_STATIC(GlobalWheelFilterSingleton, privateGlobalWheelFilterSelf)
 
-GlobalWheelFilter::GlobalWheelFilter(QObject *parent)
+GlobalWheelFilter::GlobalWheelFilter(QObject* parent)
     : QObject(parent)
     , m_scrollLines(3)
 {
 }
 
-GlobalWheelFilter::~GlobalWheelFilter()
-{
-}
+GlobalWheelFilter::~GlobalWheelFilter() { }
 
-GlobalWheelFilter *GlobalWheelFilter::self()
+GlobalWheelFilter* GlobalWheelFilter::self()
 {
     return &privateGlobalWheelFilterSelf()->self;
 }
 
-void GlobalWheelFilter::setItemHandlerAssociation(QQuickItem *item, WheelHandler *handler)
+void GlobalWheelFilter::setItemHandlerAssociation(QQuickItem* item,
+    WheelHandler* handler)
 {
     if (!m_handlersForItem.contains(handler->target())) {
         handler->target()->installEventFilter(this);
     }
     m_handlersForItem.insert(item, handler);
 
-    connect(item, &QObject::destroyed, this, [this](QObject *obj) {
-        QQuickItem *item = static_cast<QQuickItem *>(obj);
+    connect(item, &QObject::destroyed, this, [this](QObject* obj) {
+        QQuickItem* item = static_cast<QQuickItem*>(obj);
         m_handlersForItem.remove(item);
     });
 
-    connect(handler, &QObject::destroyed, this, [this](QObject *obj) {
-        WheelHandler *handler = static_cast<WheelHandler *>(obj);
+    connect(handler, &QObject::destroyed, this, [this](QObject* obj) {
+        WheelHandler* handler = static_cast<WheelHandler*>(obj);
         removeItemHandlerAssociation(handler->target(), handler);
     });
 }
 
-void GlobalWheelFilter::removeItemHandlerAssociation(QQuickItem *item, WheelHandler *handler)
+void GlobalWheelFilter::removeItemHandlerAssociation(QQuickItem* item,
+    WheelHandler* handler)
 {
     if (!item || !handler) {
         return;
@@ -60,21 +59,21 @@ void GlobalWheelFilter::removeItemHandlerAssociation(QQuickItem *item, WheelHand
     }
 }
 
-bool GlobalWheelFilter::eventFilter(QObject *watched, QEvent *event)
+bool GlobalWheelFilter::eventFilter(QObject* watched, QEvent* event)
 {
     if (event->type() == QEvent::Wheel) {
-        QQuickItem *item = qobject_cast<QQuickItem *>(watched);
+        QQuickItem* item = qobject_cast<QQuickItem*>(watched);
         if (!item || !item->isEnabled()) {
             return QObject::eventFilter(watched, event);
         }
-        QWheelEvent *we = static_cast<QWheelEvent *>(event);
+        QWheelEvent* we = static_cast<QWheelEvent*>(event);
         m_wheelEvent.initializeFromEvent(we);
 
         bool shouldBlock = false;
         bool shouldScrollFlickable = false;
 
         const auto handlers = m_handlersForItem.values(item);
-        for (auto *handler : handlers) {
+        for (auto* handler : handlers) {
             if (handler->m_blockTargetWheel) {
                 shouldBlock = true;
             }
@@ -95,7 +94,7 @@ bool GlobalWheelFilter::eventFilter(QObject *watched, QEvent *event)
     return QObject::eventFilter(watched, event);
 }
 
-void GlobalWheelFilter::manageWheel(QQuickItem *target, QWheelEvent *event)
+void GlobalWheelFilter::manageWheel(QQuickItem* target, QWheelEvent* event)
 {
     // Duck typing: accept everyhint that has all the properties we need
     /* clang-format off */
@@ -125,7 +124,8 @@ void GlobalWheelFilter::manageWheel(QQuickItem *target, QWheelEvent *event)
 
     // Scroll Y
     if (contentHeight > target->height()) {
-        int y = event->pixelDelta().y() != 0 ? event->pixelDelta().y() : event->angleDelta().y() / 8;
+        int y = event->pixelDelta().y() != 0 ? event->pixelDelta().y()
+                                             : event->angleDelta().y() / 8;
 
         // if we don't have a pixeldelta, apply the configured mouse wheel lines
         if (!event->pixelDelta().y()) {
@@ -145,16 +145,20 @@ void GlobalWheelFilter::manageWheel(QQuickItem *target, QWheelEvent *event)
         qreal minYExtent = topMargin - originY;
         qreal maxYExtent = target->height() - (contentHeight + bottomMargin + originY);
 
-        target->setProperty("contentY", qMin(-maxYExtent, qMax(-minYExtent, contentY - y)));
+        target->setProperty("contentY",
+            qMin(-maxYExtent, qMax(-minYExtent, contentY - y)));
     }
 
     // Scroll X
     if (contentWidth > target->width()) {
-        int x = event->pixelDelta().x() != 0 ? event->pixelDelta().x() : event->angleDelta().x() / 8;
+        int x = event->pixelDelta().x() != 0 ? event->pixelDelta().x()
+                                             : event->angleDelta().x() / 8;
 
-        // Special case: when can't scroll vertically, scroll horizontally with vertical wheel as well
+        // Special case: when can't scroll vertically, scroll horizontally with
+        // vertical wheel as well
         if (x == 0 && contentHeight <= target->height()) {
-            x = event->pixelDelta().y() != 0 ? event->pixelDelta().y() : event->angleDelta().y() / 8;
+            x = event->pixelDelta().y() != 0 ? event->pixelDelta().y()
+                                             : event->angleDelta().y() / 8;
         }
 
         // if we don't have a pixeldelta, apply the configured mouse wheel lines
@@ -175,27 +179,27 @@ void GlobalWheelFilter::manageWheel(QQuickItem *target, QWheelEvent *event)
         qreal minXExtent = leftMargin - originX;
         qreal maxXExtent = target->width() - (contentWidth + rightMargin + originX);
 
-        target->setProperty("contentX", qMin(-maxXExtent, qMax(-minXExtent, contentX - x)));
+        target->setProperty("contentX",
+            qMin(-maxXExtent, qMax(-minXExtent, contentX - x)));
     }
 
     // this is just for making the scrollbar
-    target->metaObject()->invokeMethod(target, "flick", Q_ARG(double, 0), Q_ARG(double, 1));
+    target->metaObject()->invokeMethod(target, "flick", Q_ARG(double, 0),
+        Q_ARG(double, 1));
     target->metaObject()->invokeMethod(target, "cancelFlick");
 }
 
 ////////////////////////////
-KirigamiWheelEvent::KirigamiWheelEvent(QObject *parent)
+KirigamiWheelEvent::KirigamiWheelEvent(QObject* parent)
     : QObject(parent)
 {
 }
 
-KirigamiWheelEvent::~KirigamiWheelEvent()
-{
-}
+KirigamiWheelEvent::~KirigamiWheelEvent() { }
 
-void KirigamiWheelEvent::initializeFromEvent(QWheelEvent *event)
+void KirigamiWheelEvent::initializeFromEvent(QWheelEvent* event)
 {
- #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
     m_x = event->position().x();
     m_y = event->position().y();
 #else
@@ -210,68 +214,36 @@ void KirigamiWheelEvent::initializeFromEvent(QWheelEvent *event)
     m_inverted = event->inverted();
 }
 
-qreal KirigamiWheelEvent::x() const
-{
-    return m_x;
-}
+qreal KirigamiWheelEvent::x() const { return m_x; }
 
-qreal KirigamiWheelEvent::y() const
-{
-    return m_y;
-}
+qreal KirigamiWheelEvent::y() const { return m_y; }
 
-QPointF KirigamiWheelEvent::angleDelta() const
-{
-    return m_angleDelta;
-}
+QPointF KirigamiWheelEvent::angleDelta() const { return m_angleDelta; }
 
-QPointF KirigamiWheelEvent::pixelDelta() const
-{
-    return m_pixelDelta;
-}
+QPointF KirigamiWheelEvent::pixelDelta() const { return m_pixelDelta; }
 
-int KirigamiWheelEvent::buttons() const
-{
-    return m_buttons;
-}
+int KirigamiWheelEvent::buttons() const { return m_buttons; }
 
-int KirigamiWheelEvent::modifiers() const
-{
-    return m_modifiers;
-}
+int KirigamiWheelEvent::modifiers() const { return m_modifiers; }
 
-bool KirigamiWheelEvent::inverted() const
-{
-    return m_inverted;
-}
+bool KirigamiWheelEvent::inverted() const { return m_inverted; }
 
-bool KirigamiWheelEvent::isAccepted()
-{
-    return m_accepted;
-}
+bool KirigamiWheelEvent::isAccepted() { return m_accepted; }
 
-void KirigamiWheelEvent::setAccepted(bool accepted)
-{
-    m_accepted = accepted;
-}
+void KirigamiWheelEvent::setAccepted(bool accepted) { m_accepted = accepted; }
 
 ///////////////////////////////
 
-WheelHandler::WheelHandler(QObject *parent)
+WheelHandler::WheelHandler(QObject* parent)
     : QObject(parent)
 {
 }
 
-WheelHandler::~WheelHandler()
-{
-}
+WheelHandler::~WheelHandler() { }
 
-QQuickItem *WheelHandler::target() const
-{
-    return m_target;
-}
+QQuickItem* WheelHandler::target() const { return m_target; }
 
-void WheelHandler::setTarget(QQuickItem *target)
+void WheelHandler::setTarget(QQuickItem* target)
 {
     if (m_target == target) {
         return;

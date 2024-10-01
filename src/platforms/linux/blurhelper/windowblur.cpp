@@ -24,11 +24,11 @@
 #include <QScreen>
 #include <QtGui/private/qtx11extras_p.h>
 
-#include <xcb/xcb.h>
 #include <xcb/shape.h>
+#include <xcb/xcb.h>
 #include <xcb/xcb_icccm.h>
 
-WindowBlur::WindowBlur(QObject *parent) noexcept
+WindowBlur::WindowBlur(QObject* parent) noexcept
     : QObject(parent)
     , m_view(nullptr)
     , m_enabled(false)
@@ -36,36 +36,27 @@ WindowBlur::WindowBlur(QObject *parent) noexcept
 {
 }
 
-WindowBlur::~WindowBlur()
-{
-}
+WindowBlur::~WindowBlur() { }
 
-void WindowBlur::classBegin()
-{
-}
+void WindowBlur::classBegin() { }
 
-void WindowBlur::componentComplete()
-{
-    updateBlur();
-}
+void WindowBlur::componentComplete() { updateBlur(); }
 
-void WindowBlur::setView(QWindow *view)
+void WindowBlur::setView(QWindow* view)
 {
     if (view != m_view) {
         m_view = view;
         updateBlur();
         emit viewChanged();
 
-        connect(m_view, &QWindow::visibleChanged, this, &WindowBlur::onViewVisibleChanged);
+        connect(m_view, &QWindow::visibleChanged, this,
+            &WindowBlur::onViewVisibleChanged);
     }
 }
 
-QWindow* WindowBlur::view() const
-{
-    return m_view;
-}
+QWindow* WindowBlur::view() const { return m_view; }
 
-void WindowBlur::setGeometry(const QRect &rect)
+void WindowBlur::setGeometry(const QRect& rect)
 {
     if (rect != m_rect) {
         m_rect = rect;
@@ -74,10 +65,7 @@ void WindowBlur::setGeometry(const QRect &rect)
     }
 }
 
-QRect WindowBlur::geometry() const
-{
-    return m_rect;
-}
+QRect WindowBlur::geometry() const { return m_rect; }
 
 void WindowBlur::setEnabled(bool enabled)
 {
@@ -88,10 +76,7 @@ void WindowBlur::setEnabled(bool enabled)
     }
 }
 
-bool WindowBlur::enabled() const
-{
-    return m_enabled;
-}
+bool WindowBlur::enabled() const { return m_enabled; }
 
 void WindowBlur::setWindowRadius(qreal radius)
 {
@@ -102,10 +87,7 @@ void WindowBlur::setWindowRadius(qreal radius)
     }
 }
 
-qreal WindowBlur::windowRadius() const
-{
-    return m_windowRadius;
-}
+qreal WindowBlur::windowRadius() const { return m_windowRadius; }
 
 void WindowBlur::onViewVisibleChanged(bool visible)
 {
@@ -118,13 +100,15 @@ void WindowBlur::updateBlur()
     if (!m_view)
         return;
 
-    xcb_connection_t *c = QX11Info::connection();
+    xcb_connection_t* c = QX11Info::connection();
     if (!c)
         return;
 
     const QByteArray effectName = QByteArrayLiteral("_KDE_NET_WM_BLUR_BEHIND_REGION");
-    xcb_intern_atom_cookie_t atomCookie = xcb_intern_atom_unchecked(c, false, effectName.length(), effectName.constData());
-    QScopedPointer<xcb_intern_atom_reply_t, QScopedPointerPodDeleter> atom(xcb_intern_atom_reply(c, atomCookie, nullptr));
+    xcb_intern_atom_cookie_t atomCookie = xcb_intern_atom_unchecked(
+        c, false, effectName.length(), effectName.constData());
+    QScopedPointer<xcb_intern_atom_reply_t, QScopedPointerPodDeleter> atom(
+        xcb_intern_atom_reply(c, atomCookie, nullptr));
     if (!atom)
         return;
 
@@ -132,18 +116,18 @@ void WindowBlur::updateBlur()
         qreal devicePixelRatio = m_view->screen()->devicePixelRatio();
         QPainterPath path;
         path.addRoundedRect(QRectF(QPoint(0, 0), m_view->size() * devicePixelRatio),
-                            m_windowRadius * devicePixelRatio,
-                            m_windowRadius * devicePixelRatio);
+            m_windowRadius * devicePixelRatio,
+            m_windowRadius * devicePixelRatio);
         QVector<uint32_t> data;
-        foreach (const QPolygonF &polygon, path.toFillPolygons()) {
+        foreach (const QPolygonF& polygon, path.toFillPolygons()) {
             QRegion region = polygon.toPolygon();
             for (auto i = region.begin(); i != region.end(); ++i) {
                 data << i->x() << i->y() << i->width() << i->height();
             }
         }
 
-        xcb_change_property(c, XCB_PROP_MODE_REPLACE, m_view->winId(), atom->atom, XCB_ATOM_CARDINAL,
-                            32, data.size(), data.constData());
+        xcb_change_property(c, XCB_PROP_MODE_REPLACE, m_view->winId(), atom->atom,
+            XCB_ATOM_CARDINAL, 32, data.size(), data.constData());
 
     } else {
         xcb_delete_property(c, m_view->winId(), atom->atom);

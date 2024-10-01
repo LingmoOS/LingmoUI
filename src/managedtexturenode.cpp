@@ -5,9 +5,7 @@
 
 #include "managedtexturenode.h"
 
-ManagedTextureNode::ManagedTextureNode()
-{
-}
+ManagedTextureNode::ManagedTextureNode() { }
 
 void ManagedTextureNode::setTexture(QSharedPointer<QSGTexture> texture)
 {

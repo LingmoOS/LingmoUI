@@ -27,15 +27,14 @@
 #ifndef QQMLSORTFILTERPROXYMODEL_H
 #define QQMLSORTFILTERPROXYMODEL_H
 
-#include <QSortFilterProxyModel>
-#include <QQmlExpression>
 #include <QQmlEngine>
+#include <QQmlExpression>
+#include <QSortFilterProxyModel>
 
 #include <QRegularExpression>
 #include <qqmlintegration.h>
 
-class QQmlSortFilterProxyModel : public QSortFilterProxyModel
-{
+class QQmlSortFilterProxyModel : public QSortFilterProxyModel {
     Q_OBJECT
     QML_NAMED_ELEMENT(SortFilterProxyModel)
     Q_PROPERTY(int count READ count NOTIFY countChanged)
@@ -44,7 +43,7 @@ class QQmlSortFilterProxyModel : public QSortFilterProxyModel
         QString filterPattern READ filterPattern WRITE setFilterPattern NOTIFY filterPatternChanged)
     Q_PROPERTY(QVariant filterValue READ filterValue WRITE setFilterValue NOTIFY filterValueChanged)
     Q_PROPERTY(QQmlScriptString filterExpression READ filterExpression WRITE setFilterExpression
-                   NOTIFY filterExpressionChanged)
+            NOTIFY filterExpressionChanged)
 
     Q_PROPERTY(
         QString sortRoleName READ sortRoleName WRITE setSortRoleName NOTIFY sortRoleNameChanged)
@@ -52,31 +51,31 @@ class QQmlSortFilterProxyModel : public QSortFilterProxyModel
     Q_PROPERTY(QQmlScriptString sortExpression READ sortExpression WRITE setSortExpression NOTIFY sortExpressionChanged)
 
 public:
-    QQmlSortFilterProxyModel(QObject *parent = 0);
+    QQmlSortFilterProxyModel(QObject* parent = 0);
 
     int count() const;
 
     QHash<int, QByteArray> roleNames() const override;
 
-    const QString &filterRoleName() const;
-    void setFilterRoleName(const QString &filterRoleName);
+    const QString& filterRoleName() const;
+    void setFilterRoleName(const QString& filterRoleName);
 
     QString filterPattern() const;
-    void setFilterPattern(const QString &filterPattern);
+    void setFilterPattern(const QString& filterPattern);
 
-    const QVariant &filterValue() const;
-    void setFilterValue(const QVariant &filterValue);
+    const QVariant& filterValue() const;
+    void setFilterValue(const QVariant& filterValue);
 
-    const QQmlScriptString &filterExpression() const;
-    void setFilterExpression(const QQmlScriptString &filterScriptString);
+    const QQmlScriptString& filterExpression() const;
+    void setFilterExpression(const QQmlScriptString& filterScriptString);
 
-    const QString &sortRoleName() const;
-    void setSortRoleName(const QString &sortRoleName);
+    const QString& sortRoleName() const;
+    void setSortRoleName(const QString& sortRoleName);
 
     void setSortOrder(Qt::SortOrder sortOrder);
 
-    const QQmlScriptString &sortExpression() const;
-    void setSortExpression(const QQmlScriptString &compareScriptString);
+    const QQmlScriptString& sortExpression() const;
+    void setSortExpression(const QQmlScriptString& compareScriptString);
 
 signals:
     void countChanged();
@@ -91,8 +90,8 @@ signals:
     void sortExpressionChanged();
 
 protected:
-    bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
-    bool lessThan(const QModelIndex &source_left, const QModelIndex &source_right) const override;
+    bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const override;
+    bool lessThan(const QModelIndex& source_left, const QModelIndex& source_right) const override;
 
 private slots:
     void invalidateFilter();
@@ -101,16 +100,16 @@ private slots:
     void updateRoles();
 
 private:
-    QVariantMap modelDataMap(const QModelIndex &modelIndex) const;
+    QVariantMap modelDataMap(const QModelIndex& modelIndex) const;
 
     QString m_filterRoleName;
     QString m_sortRoleName;
 
     QQmlScriptString m_filterScriptString;
-    QQmlExpression *m_filterExpression;
+    QQmlExpression* m_filterExpression;
 
     QQmlScriptString m_compareScriptString;
-    QQmlExpression *m_compareExpression;
+    QQmlExpression* m_compareExpression;
     QVariant m_filterValue;
 
     QRegularExpression m_regExp;

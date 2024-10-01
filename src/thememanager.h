@@ -20,22 +20,21 @@
 #ifndef THEMEMANAGER_H
 #define THEMEMANAGER_H
 
-#include <QObject>
-#include <QFont>
 #include <QColor>
+#include <QFont>
+#include <QObject>
 
 #include <QQmlEngine>
 
-#define ACCENTCOLOR_BLUE   0
-#define ACCENTCOLOR_RED    1
-#define ACCENTCOLOR_GREEN  2
+#define ACCENTCOLOR_BLUE 0
+#define ACCENTCOLOR_RED 1
+#define ACCENTCOLOR_GREEN 2
 #define ACCENTCOLOR_PURPLE 3
-#define ACCENTCOLOR_PINK   4
+#define ACCENTCOLOR_PINK 4
 #define ACCENTCOLOR_ORANGE 5
-#define ACCENTCOLOR_GREY   6
+#define ACCENTCOLOR_GREY 6
 
-class ThemeManager : public QObject
-{
+class ThemeManager : public QObject {
     Q_OBJECT
     QML_SINGLETON
     QML_NAMED_ELEMENT(ThemeManager)
@@ -60,7 +59,7 @@ class ThemeManager : public QObject
     Q_PROPERTY(QString fontFamily READ fontFamily NOTIFY fontFamilyChanged)
 
 public:
-    explicit ThemeManager(QObject *parent = nullptr);
+    explicit ThemeManager(QObject* parent = nullptr);
 
     qreal devicePixelRatio() const;
 
@@ -107,13 +106,13 @@ private:
     bool m_darkMode;
     int m_accentColorIndex;
 
-    QColor m_blueColor   = QColor(51,  133, 255);   // #3385FF
-    QColor m_redColor    = QColor(255, 92,  109);   // #FF5C6D
-    QColor m_greenColor  = QColor(53,  191, 86);    // #35BF56
-    QColor m_purpleColor = QColor(130, 102, 255);   // #8266FF
-    QColor m_pinkColor   = QColor(202, 100, 172);   // #CA64AC
-    QColor m_orangeColor = QColor(254, 160, 66);    // #FEA042
-    QColor m_greyColor   = QColor(79, 89, 107);     // #4F596B
+    QColor m_blueColor = QColor(51, 133, 255); // #3385FF
+    QColor m_redColor = QColor(255, 92, 109); // #FF5C6D
+    QColor m_greenColor = QColor(53, 191, 86); // #35BF56
+    QColor m_purpleColor = QColor(130, 102, 255); // #8266FF
+    QColor m_pinkColor = QColor(202, 100, 172); // #CA64AC
+    QColor m_orangeColor = QColor(254, 160, 66); // #FEA042
+    QColor m_greyColor = QColor(79, 89, 107); // #4F596B
 
     QColor m_accentColor;
     qreal m_fontSize;

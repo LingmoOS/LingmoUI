@@ -20,8 +20,8 @@
 #include "windowhelper.h"
 
 #include <QApplication>
-#include <QtGui/private/qtx11extras_p.h>
 #include <QCursor>
+#include <QtGui/private/qtx11extras_p.h>
 
 #include <KWindowSystem>
 #include <KX11Extras>
@@ -48,48 +48,49 @@ static uint qtEdgesToXcbMoveResizeDirection(Qt::Edges edges)
     return 0;
 }
 
-WindowHelper::WindowHelper(QObject *parent)
+WindowHelper::WindowHelper(QObject* parent)
     : QObject(parent)
     , m_moveResizeAtom(0)
     , m_compositing(false)
 {
     // create move-resize atom
-    // ref: https://github.com/qt/qtbase/blob/9db7cc79a26ced4997277b5c206ca15949133240/src/plugins/platforms/xcb/qxcbwindow.cpp
+    // ref:
+    // https://github.com/qt/qtbase/blob/9db7cc79a26ced4997277b5c206ca15949133240/src/plugins/platforms/xcb/qxcbwindow.cpp
     xcb_connection_t* connection(QX11Info::connection());
     const QString atomName(QStringLiteral("_NET_WM_MOVERESIZE"));
-    xcb_intern_atom_cookie_t cookie(xcb_intern_atom(connection, false, atomName.size(), qPrintable(atomName)));
-    QScopedPointer<xcb_intern_atom_reply_t> reply(xcb_intern_atom_reply(connection, cookie, nullptr));
+    xcb_intern_atom_cookie_t cookie(xcb_intern_atom(
+        connection, false, atomName.size(), qPrintable(atomName)));
+    QScopedPointer<xcb_intern_atom_reply_t> reply(
+        xcb_intern_atom_reply(connection, cookie, nullptr));
     m_moveResizeAtom = reply ? reply->atom : 0;
 
     onCompositingChanged(KX11Extras::compositingActive());
-    connect(KX11Extras::self(), &KX11Extras::compositingChanged, this, &WindowHelper::onCompositingChanged);
+    connect(KX11Extras::self(), &KX11Extras::compositingChanged, this,
+        &WindowHelper::onCompositingChanged);
 }
 
-bool WindowHelper::compositing() const
-{
-    return m_compositing;
-}
+bool WindowHelper::compositing() const { return m_compositing; }
 
-void WindowHelper::startSystemMove(QWindow *w)
+void WindowHelper::startSystemMove(QWindow* w)
 {
     doStartSystemMoveResize(w, 16);
 }
 
-void WindowHelper::startSystemResize(QWindow *w, Qt::Edges edges)
+void WindowHelper::startSystemResize(QWindow* w, Qt::Edges edges)
 {
     doStartSystemMoveResize(w, edges);
 }
 
-void WindowHelper::minimizeWindow(QWindow *w)
+void WindowHelper::minimizeWindow(QWindow* w)
 {
     KX11Extras::minimizeWindow(w->winId());
 }
 
-void WindowHelper::doStartSystemMoveResize(QWindow *w, int edges)
+void WindowHelper::doStartSystemMoveResize(QWindow* w, int edges)
 {
     const qreal dpiRatio = qApp->devicePixelRatio();
 
-    xcb_connection_t *connection(QX11Info::connection());
+    xcb_connection_t* connection(QX11Info::connection());
     xcb_client_message_event_t xev;
     xev.response_type = XCB_CLIENT_MESSAGE;
     xev.type = m_moveResizeAtom;
@@ -108,8 +109,8 @@ void WindowHelper::doStartSystemMoveResize(QWindow *w, int edges)
     xev.data.data32[4] = 0;
     xcb_ungrab_pointer(connection, XCB_CURRENT_TIME);
     xcb_send_event(connection, false, QX11Info::appRootWindow(),
-                   XCB_EVENT_MASK_SUBSTRUCTURE_REDIRECT | XCB_EVENT_MASK_SUBSTRUCTURE_NOTIFY,
-                   (const char *)&xev);
+        XCB_EVENT_MASK_SUBSTRUCTURE_REDIRECT | XCB_EVENT_MASK_SUBSTRUCTURE_NOTIFY,
+        (const char*)&xev);
 }
 
 void WindowHelper::onCompositingChanged(bool enabled)

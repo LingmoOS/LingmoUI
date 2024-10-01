@@ -3,14 +3,12 @@
 
 #include <QObject>
 
-class PlatformMenuItem : public QObject
-{
+class PlatformMenuItem : public QObject {
     Q_OBJECT
 public:
-    explicit PlatformMenuItem(QObject *parent = nullptr);
+    explicit PlatformMenuItem(QObject* parent = nullptr);
 
 signals:
-
 };
 
 #endif // PLATFORMMENUITEM_H
