@@ -10,6 +10,7 @@
 
 /**
  * @brief The LingmoApp class. Used in all apps.
+ * @since LingmoUI 3.0
  */
 class LingmoApp : public QObject {
     Q_OBJECT
