@@ -336,6 +336,7 @@ QString LingmoTools::getWallpaperFilePath()
 #else
     return {};
 #endif
+    // TODO: Using standard FreeDesktop API
     return {};
 }
 

@@ -9,6 +9,10 @@
 using QT_NATIVE_EVENT_RESULT_TYPE = qintptr;
 using QT_ENTER_EVENT_TYPE = QEnterEvent;
 
+/**
+ * @brief The LingmoFrameless class. Providing a frameless window.
+ * @since LingmoUI 3.0
+ */
 class LingmoFrameless : public QQuickItem, QAbstractNativeEventFilter {
     Q_OBJECT
     Q_PROPERTY_AUTO_P(QQuickItem*, appbar)

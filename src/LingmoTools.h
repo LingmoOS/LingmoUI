@@ -11,6 +11,7 @@
 
 /**
  * @brief The LingmoTools class. Contains some small utils.
+ * @since LingmoUI 3.0
  */
 class LingmoTools : public QObject {
     Q_OBJECT
@@ -77,7 +78,7 @@ public:
 
     Q_INVOKABLE void showFileInFolder(const QString& path);
 
-    Q_INVOKABLE bool isSoftware();
+    Q_INVOKABLE bool isSoftware(); // Checkfor software rendering
 
     Q_INVOKABLE qint64 currentTimestamp();
 
