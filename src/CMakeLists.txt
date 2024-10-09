@@ -76,10 +76,10 @@ if (UNIX)
     endif ()
 endif ()
 
-set(SINGLETON_FILES controls/Theme.qml controls/Units.qml)
+set(SINGLETON_FILES Controls/Theme.qml Controls/Units.qml)
 
 #遍历所有qml文件
-file(GLOB_RECURSE QML_PATHS controls/*.qml qmldir)
+file(GLOB_RECURSE QML_PATHS Controls/*.qml qmldir)
 foreach (filepath ${QML_PATHS})
     string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
     if (${filename} MATCHES "qmldir")
@@ -123,6 +123,6 @@ generate_export_header(${TARGET} BASE_NAME ${TARGET})
 
 install(TARGETS ${TARGET} EXPORT ${TARGET}Targets DESTINATION ${INSTALL_QMLDIR}/${PROJECT_NAME})
 
-set(${LINGMOUI_TEMP_IMPORT_PATH} ${CMAKE_CURRENT_BINARY_DIR}/temp/ PARENT_SCOPE)
+set(LINGMOUI_TEMP_IMPORT_PATH ${CMAKE_CURRENT_BINARY_DIR}/temp/ PARENT_SCOPE)
 
 add_subdirectory(lingmo-style)

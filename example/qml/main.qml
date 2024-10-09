@@ -1,9 +1,9 @@
 import QtQuick 
 import QtQuick.Controls 
 import QtQuick.Layouts 
-import LingmoUI 
+import LingmoUI 3.0 as LingmoUI
 
-Window {
+LingmoUI.Window {
     visible: true
     width: 640
     height: 480
