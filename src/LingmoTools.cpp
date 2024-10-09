@@ -4,6 +4,8 @@
 #include <QColor>
 #include <QCryptographicHash>
 #include <QCursor>
+#include <QDBusInterface>
+#include <QDBusReply>
 #include <QDateTime>
 #include <QDir>
 #include <QFileInfo>
@@ -23,6 +25,19 @@
 #include <windowsx.h>
 
 #endif
+
+hash_t hash_(char const* str)
+{
+    hash_t ret { basis };
+
+    while (*str) {
+        ret ^= *str;
+        ret *= prime;
+        str++;
+    }
+
+    return ret;
+}
 
 LingmoTools::LingmoTools(QObject* parent)
     : QObject { parent }
@@ -301,25 +316,66 @@ QString LingmoTools::getWallpaperFilePath()
     return QString::fromWCharArray(path);
 #elif defined(Q_OS_LINUX)
     auto type = QSysInfo::productType();
-    if (type == "uos") {
-        QProcess process;
-        QStringList args;
-        args << "--session";
-        args << "--type=method_call";
-        args << "--print-reply";
-        args << "--dest=com.deepin.wm";
-        args << "/com/deepin/wm";
-        args << "com.deepin.wm.GetCurrentWorkspaceBackgroundForMonitor";
-        args << QString("string:'%1'").arg(currentTimestamp());
-        process.start("dbus-send", args);
-        process.waitForFinished();
-        QByteArray result = process.readAllStandardOutput().trimmed();
+
+    switch (hash_(type.toStdString().c_str())) {
+    case hash_compile_time("uos"): {
+        QDBusInterface interface("com.deepin.wm",
+            "/com/deepin/wm",
+            "com.deepin.wm",
+            QDBusConnection::sessionBus());
+
+        if (!interface.isValid()) {
+            qWarning() << QDBusConnection::sessionBus().lastError().message();
+            return QString();
+        }
+
+        // Call the method and get the reply
+        QDBusReply<QString> reply = interface.call("GetCurrentWorkspaceBackgroundForMonitor",
+            QString("string:'%1'").arg(currentTimestamp()));
+
+        if (!reply.isValid()) {
+            // Handle the error
+            qWarning() << reply.error().message();
+            return QString();
+        }
+
+        QString result = reply.value().trimmed();
+
         int startIndex = result.indexOf("file:///");
         if (startIndex != -1) {
             auto path = result.mid(startIndex + 7, result.length() - startIndex - 8);
             return path;
         }
+        break;
     }
+    case hash_compile_time("lingmo"): {
+        QDBusInterface interface("com.lingmo.Settings",
+            "/Theme",
+            "org.freedesktop.DBus.Properties",
+            QDBusConnection::sessionBus());
+
+        if (!interface.isValid()) {
+            qWarning() << QDBusConnection::sessionBus().lastError().message();
+            return QString();
+        }
+
+        // 使用 org.freedesktop.DBus.Properties.Get 方法来获取属性
+        QDBusReply<QVariant> reply = interface.call("Get",
+            "com.lingmo.Theme", // 接口名
+            "wallpaper");
+
+        if (!reply.isValid()) {
+            qWarning() << "Error getting property:" << reply.error().message();
+            return QString();
+        }
+
+        QString result = reply.value().toString();
+
+        return result;
+        break;
+    }
+    }
+
 #elif defined(Q_OS_MACOS)
     QProcess process;
     QStringList args;
@@ -336,7 +392,6 @@ QString LingmoTools::getWallpaperFilePath()
 #else
     return {};
 #endif
-    // TODO: Using standard FreeDesktop API
     return {};
 }
 
