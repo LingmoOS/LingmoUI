@@ -123,9 +123,4 @@ generate_export_header(${TARGET} BASE_NAME ${TARGET})
 
 install(TARGETS ${TARGET} EXPORT ${TARGET}Targets DESTINATION ${INSTALL_QMLDIR}/${PROJECT_NAME})
 
-# Install Controls
-# install(DIRECTORY controls/ DESTINATION ${INSTALL_QMLDIR}/${PROJECT_NAME})
-
-# INSTALL STYLE
-# install(DIRECTORY lingmo-style DESTINATION ${INSTALL_QMLDIR}/QtQuick/Controls)
 add_subdirectory(lingmo-style)
