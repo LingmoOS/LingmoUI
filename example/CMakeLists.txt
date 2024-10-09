@@ -44,6 +44,9 @@ foreach (filepath ${RES_PATHS})
     list(APPEND resource_files ${filename})
 endforeach (filepath)
 
+message(STATUS "LINGMOUI_TEMP_IMPORT_PATH: ${LINGMOUI_TEMP_IMPORT_PATH}")
+add_compile_definitions(LINGMOUI_TEMP_IMPORT_PATH="${LINGMOUI_TEMP_IMPORT_PATH}")
+
 qt_add_executable(${PROJECT_NAME}
     MANUAL_FINALIZATION
     ${sources_files}
@@ -61,7 +64,5 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
         Qt${QT_VERSION_MAJOR}::Network
         ${TARGET}
 )
-
-add_compile_definitions(LINGMOUI_TEMP_IMPORT_PATH=${LINGMOUI_TEMP_IMPORT_PATH})
 
 qt_finalize_executable(${PROJECT_NAME})
