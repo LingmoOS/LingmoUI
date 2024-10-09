@@ -22,10 +22,10 @@ T.Button {
     // property color pressedColor: LingmoUI.Theme.darkMode ? Qt.lighter(LingmoUI.Theme.alternateBackgroundColor, 1.1)
     //                                                    : Qt.darker(LingmoUI.Theme.alternateBackgroundColor, 1.2)
 
-    property color hoveredColor: Qt.tint(FishUI.Theme.textColor, Qt.rgba(LingmoUI.Theme.backgroundColor.r,
+    property color hoveredColor: Qt.tint(LingmoUI.Theme.textColor, Qt.rgba(LingmoUI.Theme.backgroundColor.r,
                                                                        LingmoUI.Theme.backgroundColor.g,
                                                                        LingmoUI.Theme.backgroundColor.b, 0.9))
-    property color pressedColor: Qt.tint(FishUI.Theme.textColor, Qt.rgba(LingmoUI.Theme.backgroundColor.r,
+    property color pressedColor: Qt.tint(LingmoUI.Theme.textColor, Qt.rgba(LingmoUI.Theme.backgroundColor.r,
                                                                        LingmoUI.Theme.backgroundColor.g,
                                                                        LingmoUI.Theme.backgroundColor.b, 0.8))
 
