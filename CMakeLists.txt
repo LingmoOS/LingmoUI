@@ -14,15 +14,6 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-#DEFAULT COMPONENTS DEFINITIONS
-option(COMPONENT_EDITOR "Build editor component" ON)
-option(COMPONENT_FM "Build filemanager component" ON)
-option(COMPONENT_ACCOUNTS "Build accounts component" ON)
-option(COMPONENT_TERMINAL "Build terminal component" ON)
-option(COMPONENT_STORE "Build store component" OFF)
-option(COMPONENT_TAGGING "Build tagging component" ON)
-option(COMPONENT_SYNCING "Build syncing component" ON)
-
 find_package(ECM REQUIRED NO_MODULE)
 list(APPEND CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 message(STATUS "ECM version: ${ECM_VERSION}")
@@ -80,6 +71,8 @@ message(STATUS "CMake Config install directory:" "${CMAKECONFIG_INSTALL_DIR}")
 #endif ()
 
 add_subdirectory(src)
+
+add_subdirectory(example)
 
 configure_package_config_file(
         "${CMAKE_CURRENT_SOURCE_DIR}/LingmoUIConfig.cmake.in"

@@ -123,4 +123,6 @@ generate_export_header(${TARGET} BASE_NAME ${TARGET})
 
 install(TARGETS ${TARGET} EXPORT ${TARGET}Targets DESTINATION ${INSTALL_QMLDIR}/${PROJECT_NAME})
 
+set(${LINGMOUI_TEMP_IMPORT_PATH} ${CMAKE_CURRENT_BINARY_DIR}/temp/ PARENT_SCOPE)
+
 add_subdirectory(lingmo-style)
