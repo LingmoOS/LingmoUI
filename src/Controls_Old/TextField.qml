@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2021 LingmoOS Team.
  *
- * Author:     lingmo <lingmo@lingmo.org>
+ * Author:     revenmartin <revenmartin@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,27 +17,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LINGMOUI_H
-#define LINGMOUI_H
+import QtQuick 2.12
+import QtQuick.Controls 2.12 as Controls
+import LingmoUI as LingmoUI
 
-#include <QtQml/QQmlExtensionPlugin>
+Controls.TextField {
+    id: control
 
-class LingmoUI : public QQmlExtensionPlugin
-{
-    Q_OBJECT
-    Q_PLUGIN_METADATA(IID QQmlExtensionInterface_iid)
-
-public:
-    void initializeEngine(QQmlEngine *engine, const char *uri);
-    void registerTypes(const char *uri);
-
-private:
-    QUrl componentUrl(const QString &fileName) const;
-    QString resolveFilePath(const QString &path) const
-    {
-        return baseUrl().toLocalFile() + QLatin1Char('/') + path;
+    background: Rectangle {
+        
     }
-
-};
-
-#endif // LINGMOUI_H
+}

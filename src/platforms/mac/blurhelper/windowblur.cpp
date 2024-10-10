@@ -19,12 +19,12 @@
 
 #include "windowblur.h"
 
+#include <QDebug>
 #include <QGuiApplication>
 #include <QPainterPath>
 #include <QScreen>
-#include <QDebug>
 
-WindowBlur::WindowBlur(QObject *parent) noexcept
+WindowBlur::WindowBlur(QObject* parent) noexcept
     : QObject(parent)
     , m_view(nullptr)
     , m_enabled(false)
@@ -32,36 +32,27 @@ WindowBlur::WindowBlur(QObject *parent) noexcept
 {
 }
 
-WindowBlur::~WindowBlur()
-{
-}
+WindowBlur::~WindowBlur() { }
 
-void WindowBlur::classBegin()
-{
-}
+void WindowBlur::classBegin() { }
 
-void WindowBlur::componentComplete()
-{
-    updateBlur();
-}
+void WindowBlur::componentComplete() { updateBlur(); }
 
-void WindowBlur::setView(QWindow *view)
+void WindowBlur::setView(QWindow* view)
 {
     if (view != m_view) {
         m_view = view;
         updateBlur();
         emit viewChanged();
 
-        connect(m_view, &QWindow::visibleChanged, this, &WindowBlur::onViewVisibleChanged);
+        connect(m_view, &QWindow::visibleChanged, this,
+            &WindowBlur::onViewVisibleChanged);
     }
 }
 
-QWindow* WindowBlur::view() const
-{
-    return m_view;
-}
+QWindow* WindowBlur::view() const { return m_view; }
 
-void WindowBlur::setGeometry(const QRect &rect)
+void WindowBlur::setGeometry(const QRect& rect)
 {
     if (rect != m_rect) {
         m_rect = rect;
@@ -70,10 +61,7 @@ void WindowBlur::setGeometry(const QRect &rect)
     }
 }
 
-QRect WindowBlur::geometry() const
-{
-    return m_rect;
-}
+QRect WindowBlur::geometry() const { return m_rect; }
 
 void WindowBlur::setEnabled(bool enabled)
 {
@@ -84,10 +72,7 @@ void WindowBlur::setEnabled(bool enabled)
     }
 }
 
-bool WindowBlur::enabled() const
-{
-    return m_enabled;
-}
+bool WindowBlur::enabled() const { return m_enabled; }
 
 void WindowBlur::setWindowRadius(qreal radius)
 {
@@ -98,10 +83,7 @@ void WindowBlur::setWindowRadius(qreal radius)
     }
 }
 
-qreal WindowBlur::windowRadius() const
-{
-    return m_windowRadius;
-}
+qreal WindowBlur::windowRadius() const { return m_windowRadius; }
 
 void WindowBlur::onViewVisibleChanged(bool visible)
 {

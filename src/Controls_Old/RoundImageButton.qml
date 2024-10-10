@@ -20,7 +20,7 @@
 import QtQuick 2.12
 import QtQuick.Window 2.3
 import QtQuick.Controls 2.4
-import LingmoUI 1.0 as LingmoUI
+import LingmoUI as LingmoUI
 
 Item {
     id: control

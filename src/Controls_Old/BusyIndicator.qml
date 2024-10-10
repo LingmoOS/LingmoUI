@@ -16,15 +16,37 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+ 
+import QtQuick
+import QtQuick.Controls
+import Qt5Compat.GraphicalEffects
+import LingmoUI as LingmoUI
 
-import QtQuick 2.12
-import QtQuick.Controls 2.12 as Controls
-import LingmoUI 1.0 as LingmoUI
-
-Controls.TextField {
+Image {
     id: control
+    width: 22
+    height: width
+    source: "qrc:/lingmoui/kit/images/refresh.svg"
+    sourceSize: Qt.size(width, height)
+    visible: true
 
-    background: Rectangle {
-        
+    property alias running: rotationAnimator.running
+
+    ColorOverlay {
+        anchors.fill: control
+        source: control
+        color: LingmoUI.Theme.textColor
+        opacity: 1
+        visible: true
+    }
+
+    RotationAnimator {
+        id: rotationAnimator
+        target: control
+        running: control.visible
+        from: 0
+        to: 360
+        loops: Animation.Infinite
+        duration: 1000
     }
 }

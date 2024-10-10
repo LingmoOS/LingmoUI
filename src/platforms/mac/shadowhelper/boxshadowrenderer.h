@@ -24,8 +24,7 @@
 #include <QPoint>
 #include <QSize>
 
-class BoxShadowRenderer
-{
+class BoxShadowRenderer {
 public:
     // Compiler generated constructors & destructor are fine.
 
@@ -33,7 +32,7 @@ public:
      * Set the size of the box.
      * @param size The size of the box.
      **/
-    void setBoxSize(const QSize &size);
+    void setBoxSize(const QSize& size);
 
     /**
      * Set the radius of box' corners.
@@ -53,7 +52,7 @@ public:
      * @param radius The blur radius.
      * @param color The color of the shadow.
      **/
-    void addShadow(const QPoint &offset, int radius, const QColor &color);
+    void addShadow(const QPoint& offset, int radius, const QColor& color);
 
     /**
      * Render the shadow.
@@ -80,7 +79,7 @@ public:
      * @param radius The blur radius.
      * @param offset The offset of the shadow.
      **/
-    static QSize calculateMinimumShadowTextureSize(const QSize &boxSize, int radius, const QPoint &offset);
+    static QSize calculateMinimumShadowTextureSize(const QSize& boxSize, int radius, const QPoint& offset);
 
 private:
     QSize m_boxSize;

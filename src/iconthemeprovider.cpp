@@ -7,8 +7,8 @@ IconThemeProvider::IconThemeProvider()
 {
 }
 
-QPixmap IconThemeProvider::requestPixmap(const QString &id, QSize *realSize,
-                                         const QSize &requestedSize)
+QPixmap IconThemeProvider::requestPixmap(const QString& id, QSize* realSize,
+    const QSize& requestedSize)
 {
     // Sanitize requested size
     QSize size(requestedSize);

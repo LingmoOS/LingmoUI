@@ -16,10 +16,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import QtQuick 2.12
-import QtQuick.Layouts 1.12
-import QtQuick.Controls 2.12
-import LingmoUI 1.0 as LingmoUI
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
+import LingmoUI as LingmoUI
 
 TextField {
     id: control

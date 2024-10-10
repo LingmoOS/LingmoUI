@@ -11,8 +11,7 @@
 #include <QSharedPointer>
 #include <qglobal.h>
 
-class ManagedTextureNode : public QSGSimpleTextureNode
-{
+class ManagedTextureNode : public QSGSimpleTextureNode {
     Q_DISABLE_COPY(ManagedTextureNode)
 
 public:

@@ -39,8 +39,8 @@ import QtQuick.Window 2.4
 import QtQuick.Controls 2.4
 import QtQuick.Controls.impl 2.4
 import QtQuick.Templates 2.12 as T
-import QtGraphicalEffects 1.0
-import LingmoUI 1.0 as LingmoUI
+import Qt5Compat.GraphicalEffects
+import LingmoUI 3.0 as LingmoUI
 
 T.ComboBox {
     id: control

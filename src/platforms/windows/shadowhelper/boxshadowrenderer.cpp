@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
 // own
@@ -44,9 +44,8 @@ static inline QSize calculateBlurExtent(int radius)
     return QSize(blurRadius, blurRadius);
 }
 
-struct BoxLobes
-{
-    int left;  ///< how many pixels sample to the left
+struct BoxLobes {
+    int left; ///< how many pixels sample to the left
     int right; ///< how many pixels sample to the right
 };
 
@@ -90,11 +89,7 @@ static QVector<BoxLobes> computeLobes(int radius)
 
     Q_ASSERT(major + minor + final == blurRadius);
 
-    return {
-        {major, minor},
-        {minor, major},
-        {final, final}
-    };
+    return { { major, minor }, { minor, major }, { final, final } };
 }
 
 /**
@@ -110,9 +105,10 @@ static QVector<BoxLobes> computeLobes(int radius)
  * @param transposeInput Whether the input is transposed.
  * @param transposeOutput Whether the output should be transposed.
  **/
-static inline void boxBlurRowAlpha(const uint8_t *src, uint8_t *dst, int width, int horizontalStride,
-                                   int verticalStride, const BoxLobes &lobes, bool transposeInput,
-                                   bool transposeOutput)
+static inline void boxBlurRowAlpha(const uint8_t* src, uint8_t* dst, int width,
+    int horizontalStride, int verticalStride,
+    const BoxLobes& lobes, bool transposeInput,
+    bool transposeOutput)
 {
     const int inputStep = transposeInput ? verticalStride : horizontalStride;
     const int outputStep = transposeOutput ? verticalStride : horizontalStride;
@@ -122,22 +118,22 @@ static inline void boxBlurRowAlpha(const uint8_t *src, uint8_t *dst, int width, 
 
     uint32_t alphaSum = (boxSize + 1) / 2;
 
-    const uint8_t *left = src;
-    const uint8_t *right = src;
-    uint8_t *out = dst;
+    const uint8_t* left = src;
+    const uint8_t* right = src;
+    uint8_t* out = dst;
 
     const uint8_t firstValue = src[0];
     const uint8_t lastValue = src[(width - 1) * inputStep];
 
     alphaSum += firstValue * lobes.left;
 
-    const uint8_t *initEnd = src + (boxSize - lobes.left) * inputStep;
+    const uint8_t* initEnd = src + (boxSize - lobes.left) * inputStep;
     while (right < initEnd) {
         alphaSum += *right;
         right += inputStep;
     }
 
-    const uint8_t *leftEnd = src + boxSize * inputStep;
+    const uint8_t* leftEnd = src + boxSize * inputStep;
     while (right < leftEnd) {
         *out = (alphaSum * reciprocal) >> 24;
         alphaSum += *right - firstValue;
@@ -145,7 +141,7 @@ static inline void boxBlurRowAlpha(const uint8_t *src, uint8_t *dst, int width, 
         out += outputStep;
     }
 
-    const uint8_t *centerEnd = src + width * inputStep;
+    const uint8_t* centerEnd = src + width * inputStep;
     while (right < centerEnd) {
         *out = (alphaSum * reciprocal) >> 24;
         alphaSum += *right - *left;
@@ -154,7 +150,7 @@ static inline void boxBlurRowAlpha(const uint8_t *src, uint8_t *dst, int width, 
         out += outputStep;
     }
 
-    const uint8_t *rightEnd = dst + width * outputStep;
+    const uint8_t* rightEnd = dst + width * outputStep;
     while (out < rightEnd) {
         *out = (alphaSum * reciprocal) >> 24;
         alphaSum += lastValue - *left;
@@ -168,10 +164,11 @@ static inline void boxBlurRowAlpha(const uint8_t *src, uint8_t *dst, int width, 
  *
  * @param image The input image.
  * @param radius The blur radius.
- * @param rect Specifies what part of the image to blur. If nothing is provided, then
- *    the whole alpha channel of the input image will be blurred.
+ * @param rect Specifies what part of the image to blur. If nothing is provided,
+ *then the whole alpha channel of the input image will be blurred.
  **/
-static inline void boxBlurAlpha(QImage &image, int radius, const QRect &rect = {})
+static inline void boxBlurAlpha(QImage& image, int radius,
+    const QRect& rect = {})
 {
     if (radius < 2) {
         return;
@@ -188,28 +185,35 @@ static inline void boxBlurAlpha(QImage &image, int radius, const QRect &rect = {
     const int pixelStride = image.depth() >> 3;
 
     const int bufferStride = qMax(width, height) * pixelStride;
-    QScopedPointer<uint8_t, QScopedPointerArrayDeleter<uint8_t> > buf(new uint8_t[2 * bufferStride]);
-    uint8_t *buf1 = buf.data();
-    uint8_t *buf2 = buf1 + bufferStride;
+    QScopedPointer<uint8_t, QScopedPointerArrayDeleter<uint8_t>> buf(
+        new uint8_t[2 * bufferStride]);
+    uint8_t* buf1 = buf.data();
+    uint8_t* buf2 = buf1 + bufferStride;
 
     // Blur the image in horizontal direction.
     for (int i = 0; i < height; ++i) {
-        uint8_t *row = image.scanLine(blurRect.y() + i) + blurRect.x() * pixelStride + alphaOffset;
-        boxBlurRowAlpha(row, buf1, width, pixelStride, rowStride, lobes[0], false, false);
-        boxBlurRowAlpha(buf1, buf2, width, pixelStride, rowStride, lobes[1], false, false);
-        boxBlurRowAlpha(buf2, row, width, pixelStride, rowStride, lobes[2], false, false);
+        uint8_t* row = image.scanLine(blurRect.y() + i) + blurRect.x() * pixelStride + alphaOffset;
+        boxBlurRowAlpha(row, buf1, width, pixelStride, rowStride, lobes[0], false,
+            false);
+        boxBlurRowAlpha(buf1, buf2, width, pixelStride, rowStride, lobes[1], false,
+            false);
+        boxBlurRowAlpha(buf2, row, width, pixelStride, rowStride, lobes[2], false,
+            false);
     }
 
     // Blur the image in vertical direction.
     for (int i = 0; i < width; ++i) {
-        uint8_t *column = image.scanLine(blurRect.y()) + (blurRect.x() + i) * pixelStride + alphaOffset;
-        boxBlurRowAlpha(column, buf1, height, pixelStride, rowStride, lobes[0], true, false);
-        boxBlurRowAlpha(buf1, buf2, height, pixelStride, rowStride, lobes[1], false, false);
-        boxBlurRowAlpha(buf2, column, height, pixelStride, rowStride, lobes[2], false, true);
+        uint8_t* column = image.scanLine(blurRect.y()) + (blurRect.x() + i) * pixelStride + alphaOffset;
+        boxBlurRowAlpha(column, buf1, height, pixelStride, rowStride, lobes[0],
+            true, false);
+        boxBlurRowAlpha(buf1, buf2, height, pixelStride, rowStride, lobes[1], false,
+            false);
+        boxBlurRowAlpha(buf2, column, height, pixelStride, rowStride, lobes[2],
+            false, true);
     }
 }
 
-static inline void mirrorTopLeftQuadrant(QImage &image)
+static inline void mirrorTopLeftQuadrant(QImage& image)
 {
     const int width = image.width();
     const int height = image.height();
@@ -221,8 +225,8 @@ static inline void mirrorTopLeftQuadrant(QImage &image)
     const int stride = image.depth() >> 3;
 
     for (int y = 0; y < centerY; ++y) {
-        uint8_t *in = image.scanLine(y) + alphaOffset;
-        uint8_t *out = in + (width - 1) * stride;
+        uint8_t* in = image.scanLine(y) + alphaOffset;
+        uint8_t* out = in + (width - 1) * stride;
 
         for (int x = 0; x < centerX; ++x, in += stride, out -= stride) {
             *out = *in;
@@ -230,8 +234,8 @@ static inline void mirrorTopLeftQuadrant(QImage &image)
     }
 
     for (int y = 0; y < centerY; ++y) {
-        const uint8_t *in = image.scanLine(y) + alphaOffset;
-        uint8_t *out = image.scanLine(width - y - 1) + alphaOffset;
+        const uint8_t* in = image.scanLine(y) + alphaOffset;
+        uint8_t* out = image.scanLine(width - y - 1) + alphaOffset;
 
         for (int x = 0; x < width; ++x, in += stride, out += stride) {
             *out = *in;
@@ -239,7 +243,9 @@ static inline void mirrorTopLeftQuadrant(QImage &image)
     }
 }
 
-static void renderShadow(QPainter *painter, const QRect &rect, qreal borderRadius, const QPoint &offset, int radius, const QColor &color)
+static void renderShadow(QPainter* painter, const QRect& rect,
+    qreal borderRadius, const QPoint& offset, int radius,
+    const QColor& color)
 {
     const QSize inflation = calculateBlurExtent(radius);
     const QSize size = rect.size() + 2 * inflation;
@@ -266,7 +272,8 @@ static void renderShadow(QPainter *painter, const QRect &rect, qreal borderRadiu
 
     // Because the shadow texture is symmetrical, that's enough to blur
     // only the top-left quadrant and then mirror it.
-    const QRect blurRect(0, 0, qCeil(shadow.width() * 0.5), qCeil(shadow.height() * 0.5));
+    const QRect blurRect(0, 0, qCeil(shadow.width() * 0.5),
+        qCeil(shadow.height() * 0.5));
     const int scaledRadius = qRound(radius * dpr);
     boxBlurAlpha(shadow, scaledRadius, blurRect);
     mirrorTopLeftQuadrant(shadow);
@@ -284,22 +291,17 @@ static void renderShadow(QPainter *painter, const QRect &rect, qreal borderRadiu
     painter->drawImage(shadowRect, shadow);
 }
 
-void BoxShadowRenderer::setBoxSize(const QSize &size)
-{
-    m_boxSize = size;
-}
+void BoxShadowRenderer::setBoxSize(const QSize& size) { m_boxSize = size; }
 
 void BoxShadowRenderer::setBorderRadius(qreal radius)
 {
     m_borderRadius = radius;
 }
 
-void BoxShadowRenderer::setDevicePixelRatio(qreal dpr)
-{
-    m_dpr = dpr;
-}
+void BoxShadowRenderer::setDevicePixelRatio(qreal dpr) { m_dpr = dpr; }
 
-void BoxShadowRenderer::addShadow(const QPoint &offset, int radius, const QColor &color)
+void BoxShadowRenderer::addShadow(const QPoint& offset, int radius,
+    const QColor& color)
 {
     Shadow shadow = {};
     shadow.offset = offset;
@@ -315,9 +317,9 @@ QImage BoxShadowRenderer::render() const
     }
 
     QSize canvasSize;
-    for (const Shadow &shadow : qAsConst(m_shadows)) {
-        canvasSize = canvasSize.expandedTo(
-            calculateMinimumShadowTextureSize(m_boxSize, shadow.radius, shadow.offset));
+    for (const Shadow& shadow : qAsConst(m_shadows)) {
+        canvasSize = canvasSize.expandedTo(calculateMinimumShadowTextureSize(
+            m_boxSize, shadow.radius, shadow.offset));
     }
 
     QImage canvas(canvasSize * m_dpr, QImage::Format_ARGB32_Premultiplied);
@@ -328,8 +330,9 @@ QImage BoxShadowRenderer::render() const
     boxRect.moveCenter(QRect(QPoint(0, 0), canvasSize).center());
 
     QPainter painter(&canvas);
-    for (const Shadow &shadow : qAsConst(m_shadows)) {
-        renderShadow(&painter, boxRect, m_borderRadius, shadow.offset, shadow.radius, shadow.color);
+    for (const Shadow& shadow : qAsConst(m_shadows)) {
+        renderShadow(&painter, boxRect, m_borderRadius, shadow.offset,
+            shadow.radius, shadow.color);
     }
     painter.end();
 
@@ -342,7 +345,8 @@ QSize BoxShadowRenderer::calculateMinimumBoxSize(int radius)
     return 2 * blurExtent + QSize(1, 1);
 }
 
-QSize BoxShadowRenderer::calculateMinimumShadowTextureSize(const QSize &boxSize, int radius, const QPoint &offset)
+QSize BoxShadowRenderer::calculateMinimumShadowTextureSize(
+    const QSize& boxSize, int radius, const QPoint& offset)
 {
     return boxSize + 2 * calculateBlurExtent(radius) + QSize(qAbs(offset.x()), qAbs(offset.y()));
 }
