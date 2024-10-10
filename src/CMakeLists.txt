@@ -76,10 +76,10 @@ if (UNIX)
     endif ()
 endif ()
 
-set(SINGLETON_FILES Controls/Theme.qml Controls/Units.qml)
+set(SINGLETON_FILES Controls_Old/Theme.qml Controls_Old/Units.qml)
 
 #遍历所有qml文件
-file(GLOB_RECURSE QML_PATHS Controls/*.qml qmldir)
+file(GLOB_RECURSE QML_PATHS Controls/*.qml Controls_Old/*.qml qmldir)
 foreach (filepath ${QML_PATHS})
     string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
     if (${filename} MATCHES "qmldir")
