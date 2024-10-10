@@ -17,6 +17,7 @@ set(TARGET_SOURCES
         LingmoApp.cpp
         LingmoFrameless.cpp
         LingmoTools.cpp
+        LingmoDefines.h
         )
 
 target_include_directories(${TARGET} PRIVATE desktop)
