@@ -17,6 +17,7 @@ class LingmoApp : public QObject {
     QML_SINGLETON
     QML_NAMED_ELEMENT(LingmoApp)
 
+    Q_PROPERTY_AUTO(QString, windowIcon)
     Q_PROPERTY_AUTO(QLocale, locale)
     Q_PROPERTY_AUTO_P(QObject*, launcher)
 
