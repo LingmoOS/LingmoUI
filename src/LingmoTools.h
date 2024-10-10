@@ -31,7 +31,7 @@ constexpr hash_t hash_compile_time(char const* str, hash_t last_value = basis)
  */
 class LingmoTools : public QObject {
     Q_OBJECT
-    QML_NAMED_ELEMENT(FluTools)
+    QML_NAMED_ELEMENT(LingmoTools)
     QML_SINGLETON
 
 private:
