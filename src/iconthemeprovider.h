@@ -3,12 +3,11 @@
 
 #include <QtQuick/QQuickImageProvider>
 
-class IconThemeProvider : public QQuickImageProvider
-{
+class IconThemeProvider : public QQuickImageProvider {
 public:
     IconThemeProvider();
 
-    QPixmap requestPixmap(const QString &id, QSize *realSize, const QSize &requestedSize);
+    QPixmap requestPixmap(const QString& id, QSize* realSize, const QSize& requestedSize);
 };
 
 #endif // ICONTHEMEPROVIDER_H

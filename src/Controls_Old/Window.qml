@@ -17,15 +17,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.12
-import QtQuick.Window 2.3
-import QtQuick.Controls 2.4
-import QtQuick.Layouts 1.3
-import QtQuick.Shapes 1.12
-import QtGraphicalEffects 1.0
-import LingmoUI 1.0 as LingmoUI
+import QtQuick 2.15 as QtQuick
+import QtQuick.Window
+import QtQuick.Controls
+import QtQuick.Layouts
+import QtQuick.Shapes
+import Qt5Compat.GraphicalEffects
 
-Window {
+import LingmoUI 3.0 as LingmoUI
+
+QtQuick.Window {
     id: control
     width: 640
     height: 480
@@ -41,8 +42,8 @@ Window {
 
     // Window helper
     property alias compositing: windowHelper.compositing
-    property var contentTopMargin: _header.height
-    property var windowRadius: compositing ? LingmoUI.Theme.windowRadius : 0
+    property int contentTopMargin: _header.height
+    property int windowRadius: compositing ? LingmoUI.Theme.windowRadius : 0
     property alias helper: windowHelper
 
     // Other
@@ -88,7 +89,7 @@ Window {
                               && control.heightResizable
         z: 999
 
-        onPressed: mouse.accepted = false
+        onPressed: function(mouse){ mouse.accepted = false; }
 
         DragHandler {
             grabPermissions: TapHandler.TakeOverForbidden
@@ -113,7 +114,7 @@ Window {
                               && control.heightResizable
         z: 999
 
-        onPressed: mouse.accepted = false
+        onPressed: function(mouse){ mouse.accepted = false; }
 
         DragHandler {
             grabPermissions: TapHandler.TakeOverForbidden
@@ -134,7 +135,7 @@ Window {
         cursorShape: Qt.SizeVerCursor
         z: 999
 
-        onPressed: mouse.accepted = false
+        onPressed: function(mouse){ mouse.accepted = false; }
 
         DragHandler {
             grabPermissions: TapHandler.TakeOverForbidden
@@ -155,7 +156,7 @@ Window {
         visible: !isMaximized && !isFullScreen && control.heightResizable
         z: 999
 
-        onPressed: mouse.accepted = false
+        onPressed: function(mouse){ mouse.accepted = false; }
 
         DragHandler {
             grabPermissions: TapHandler.TakeOverForbidden
@@ -176,7 +177,7 @@ Window {
         visible: !isMaximized && !isFullScreen && control.widthResizable
         z: 999
 
-        onPressed: mouse.accepted = false
+        onPressed: function(mouse){ mouse.accepted = false; }
 
         DragHandler {
             grabPermissions: TapHandler.TakeOverForbidden
@@ -197,7 +198,7 @@ Window {
         visible: !isMaximized && !isFullScreen && control.widthResizable
         z: 999
 
-        onPressed: mouse.accepted = false
+        onPressed: function(mouse){ mouse.accepted = false; }
 
         DragHandler {
             grabPermissions: TapHandler.TakeOverForbidden
@@ -215,6 +216,7 @@ Window {
         anchors.margins: 0
         radius: !isMaximized && !isFullScreen && windowHelper.compositing ? control.windowRadius : 0
         color: LingmoUI.Theme.backgroundColor
+
         antialiasing: true
 
         Behavior on color {
@@ -273,7 +275,7 @@ Window {
 
             DragHandler {
                 target: null
-                acceptedDevices: PointerDevice.GenericPointer
+                acceptedDevices: PointerDevice.AllDevices
                 grabPermissions: PointerHandler.CanTakeOverFromItems | PointerHandler.CanTakeOverFromHandlersOfDifferentType | PointerHandler.ApprovesTakeOverByAnything
                 onActiveChanged: if (active) { windowHelper.startSystemMove(control) }
             }
@@ -295,7 +297,7 @@ Window {
                     // Window buttons
                     RoundImageButton {
                         size: _header.buttonSize
-                        source: "qrc:/lingmoui/kit/images/" + (LingmoUI.Theme.darkMode ? "dark/" : "light/") + "minimize.svg"
+                        source: "qrc:/lingmoui/kit/LingmoUI/images/" + (LingmoUI.Theme.darkMode ? "dark/" : "light/") + "minimize.svg"
                         onClicked: windowHelper.minimizeWindow(control)
                         visible: control.minimizeButtonVisible
                         Layout.alignment: Qt.AlignTop
@@ -307,7 +309,7 @@ Window {
 
                     RoundImageButton {
                         size: _header.buttonSize
-                        source: "qrc:/lingmoui/kit/images/" +
+                        source: "qrc:/lingmoui/kit/LingmoUI/images/" +
                             (LingmoUI.Theme.darkMode ? "dark/" : "light/") +
                             (control.visibility === Window.Maximized ? "restore.svg" : "maximize.svg")
                         onClicked: control.toggleMaximized()
@@ -321,7 +323,7 @@ Window {
 
                     RoundImageButton {
                         size: _header.buttonSize
-                        source: "qrc:/lingmoui/kit/images/" + (LingmoUI.Theme.darkMode ? "dark/" : "light/") + "close.svg"
+                        source: "qrc:/lingmoui/kit/LingmoUI/images/" + (LingmoUI.Theme.darkMode ? "dark/" : "light/") + "close.svg"
                         onClicked: control.close()
                         // visible: !control.isFullScreen
                         Layout.alignment: Qt.AlignTop
@@ -374,7 +376,7 @@ Window {
 
     function showPassiveNotification(message, timeout, actionText, callBack) {
         if (!internal.passiveNotification) {
-            var component = Qt.createComponent("qrc:/lingmoui/kit/Toast.qml")
+            var component = Qt.createComponent("qrc:/lingmoui/kit/LingmoUI/controls/Toast.qml")
             internal.passiveNotification = component.createObject(control)
         }
 

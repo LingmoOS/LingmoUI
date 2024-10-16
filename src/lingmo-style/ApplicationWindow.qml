@@ -45,11 +45,11 @@ T.ApplicationWindow {
 
     color: palette.window
 
-    overlay.modal: Rectangle {
+    Overlay.modal: Rectangle {
         color: Color.transparent(window.palette.shadow, 0.5)
     }
 
-    overlay.modeless: Rectangle {
+    Overlay.modeless: Rectangle {
         color: Color.transparent(window.palette.shadow, 0.12)
     }
 }

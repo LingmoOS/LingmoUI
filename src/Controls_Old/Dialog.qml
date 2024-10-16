@@ -17,10 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-import QtQuick 2.12
-import QtQuick.Controls 2.12 as QQC2
-import QtQuick.Layout 1.12
-import LingmoUI 1.0 as LingmoUI
+import QtQuick
+import QtQuick.Controls 2 as QQC2
+import QtQuick.Layouts
+import LingmoUI as LingmoUI
 
 QQC2.Popup {
     id: control
@@ -57,11 +57,11 @@ QQC2.Popup {
             }
 
             RowLayout {
-                Button {
+                QQC2.Button {
                     text: control.leftButtonText
                 }
 
-                Button {
+                QQC2.Button {
                     text: control.rightButtonText
                 }
             }

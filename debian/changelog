@@ -1,3 +1,9 @@
+lingmoui (3.0.0-dev1) UNRELEASED; urgency=high
+
+  * Port to Qt6
+
+ -- Elysia <c.elysia@foxmail.com>  Thu, 12 Jul 2024 17:57:00 +0800
+
 lingmoui (2.2.1) hydrogen; urgency=high
 
   [Elysia]

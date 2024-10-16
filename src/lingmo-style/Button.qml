@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Templates 2.12 as T
-import QtGraphicalEffects 1.0
-import LingmoUI 1.0 as LingmoUI
+import Qt5Compat.GraphicalEffects
+import LingmoUI 3.0 as LingmoUI
 import QtQuick.Controls.impl 2.12
 
 T.Button {
