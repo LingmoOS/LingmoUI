@@ -128,7 +128,7 @@ void NewIconItem::loadPixmap()
 
         result = icon.pixmap(size * qApp->devicePixelRatio());
     } else if (!m_icon.isNull()) {
-        result = m_icon.pixmap(window(), size * qApp->devicePixelRatio());
+        result = m_icon.pixmap(size * qApp->devicePixelRatio(), qApp->devicePixelRatio());
     } else if (!m_image.isNull()) {
         result = QPixmap::fromImage(m_image);
     } else {
