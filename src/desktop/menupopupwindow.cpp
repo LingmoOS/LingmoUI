@@ -169,7 +169,7 @@ bool MenuPopupWindow::event(QEvent* event)
         QRect rect = QRect(QPoint(), size());
         QTouchEvent* touch = static_cast<QTouchEvent*>(event);
         QTouchEvent::TouchPoint point = touch->touchPoints().first();
-        if ((point.state() == Qt::TouchPointPressed) && !rect.contains(point.pos().toPoint())) {
+        if ((point.state() == QEventPoint::State::Pressed) && !rect.contains(point.pos().toPoint())) {
             // first default handling
             bool result = QQuickWindow::event(event);
             // now specific broken case
