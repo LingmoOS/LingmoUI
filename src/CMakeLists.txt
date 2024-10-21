@@ -18,7 +18,11 @@ set(TARGET_SOURCES
         LingmoFrameless.cpp
         LingmoTools.cpp
         LingmoDefines.h
+        LingmoTheme.h
         LingmoTheme.cpp
+        LingmoColor.cpp
+        LingmoColor.h
+        LingmoAccentColor.cpp
         )
 
 target_include_directories(${TARGET} PRIVATE desktop)
