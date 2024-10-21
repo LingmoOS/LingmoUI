@@ -143,7 +143,7 @@ void MenuPopupWindow::mouseReleaseEvent(QMouseEvent* e)
     QRect rect = QRect(QPoint(), size());
     if (rect.contains(e->pos())) {
         if (m_mouseMoved) {
-            QMouseEvent pe = QMouseEvent(QEvent::MouseButtonPress, e->pos(),
+            QMouseEvent pe = QMouseEvent(QEvent::MouseButtonPress, e->pos(), e->globalPosition(),
                 e->button(), e->buttons(), e->modifiers());
             QQuickWindow::mousePressEvent(&pe);
             if (!m_dismissed && e->button() != Qt::RightButton) {
@@ -168,8 +168,8 @@ bool MenuPopupWindow::event(QEvent* event)
     if (event->type() == QEvent::TouchBegin && !qobject_cast<MenuPopupWindow*>(transientParent())) {
         QRect rect = QRect(QPoint(), size());
         QTouchEvent* touch = static_cast<QTouchEvent*>(event);
-        QTouchEvent::TouchPoint point = touch->touchPoints().first();
-        if ((point.state() == QEventPoint::State::Pressed) && !rect.contains(point.pos().toPoint())) {
+        QTouchEvent::TouchPoint point = touch->points().first();
+        if ((point.state() == QEventPoint::State::Pressed) && !rect.contains(point.position().toPoint())) {
             // first default handling
             bool result = QQuickWindow::event(event);
             // now specific broken case
