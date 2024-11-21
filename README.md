@@ -12,6 +12,10 @@ LingmoUI is a GUI library based on QQC2 (Qt Quick Controls 2), every Lingmo appl
 * The style of the Qt Quick control
 * ...
 
+## Structures
+
+- `Compatible`: This fold stores the old version of LingmoUI 1.0. (Will be removed in the future)
+
 ## Dependencies
 
 ```bash
