@@ -1,1 +1,1 @@
-FROM FROM ghcr.io/lingmoos/lingmo-dev-container:main
+FROM ghcr.io/lingmoos/lingmo-dev-container:main
