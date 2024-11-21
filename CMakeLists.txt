@@ -67,6 +67,9 @@ else ()
 endif ()
 message(STATUS "CMake Config install directory:" "${CMAKECONFIG_INSTALL_DIR}")
 
+# Set temp dir for import qml files in example app
+set(LINGMOUI_TEMP_IMPORT_PATH ${CMAKE_BINARY_DIR}/temp/)
+
 # Qt Widgets Style
 #if (UNIX)
 #    find_package(ECM REQUIRED NO_MODULE)
@@ -77,6 +80,9 @@ message(STATUS "CMake Config install directory:" "${CMAKECONFIG_INSTALL_DIR}")
 #endif ()
 
 add_subdirectory(src)
+
+# For compatible with old LingmoUI 1.0
+add_subdirectory(Compatible)
 
 add_subdirectory(example)
 
