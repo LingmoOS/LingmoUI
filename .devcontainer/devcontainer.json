@@ -2,6 +2,9 @@
   "build": {
 	"dockerfile": "Dockerfile"
    },
+    "runArgs": [
+        "-i"
+    ],
   "remoteUser": "node",
   "features": {
     "ghcr.io/devcontainers/features/github-cli:1": {}
