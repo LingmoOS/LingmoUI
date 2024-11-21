@@ -4,7 +4,6 @@
    },
   "remoteUser": "node",
   "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
     "ghcr.io/devcontainers/features/github-cli:1": {}
   },
   "customizations": {
@@ -12,7 +11,6 @@
 		"vscode": {
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
-				"ms-azuretools.vscode-docker",
 				"ms-vscode.cpptools-extension-pack",
 				"mads-hartmann.bash-ide-vscode",
 				"EditorConfig.EditorConfig",
