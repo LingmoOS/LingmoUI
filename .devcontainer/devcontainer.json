@@ -1,5 +1,7 @@
 {
-  "image": "ghcr.io/lingmoos/lingmo-dev-container:main",
+  "build": {
+	"dockerfile": "Dockerfile"
+   },
   "remoteUser": "node",
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {},
