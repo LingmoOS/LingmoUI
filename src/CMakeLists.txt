@@ -71,7 +71,7 @@ qt_add_qml_module(${TARGET}
     VERSION ${MODULE_VERSION_MAJOR}.${MODULE_VERSION_MINOR}
     URI ${PROJECT_NAME}
     TYPEINFO "plugins.qmltypes"
-    SOURCES ${TARGET_SOURCES} 
+    SOURCES ${sources_files}
     QML_FILES ${qml_files}
     RESOURCES ${resource_files}
     RESOURCE_PREFIX "/lingmoui/kit"
