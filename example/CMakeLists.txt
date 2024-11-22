@@ -13,6 +13,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 REQUIRED COMPONENTS Core Widgets Svg Quick QuickControls2 DBus Core5Compat)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Widgets Svg Quick QuickControls2 DBus Core5Compat)
 
+# Clear the list of source files
+set(sources_files "")
+set(qml_files "")
+set(resource_files "")
+
 #遍历所有Cpp文件
 file(GLOB_RECURSE CPP_FILES *.cpp *.h)
 foreach (filepath ${CPP_FILES})

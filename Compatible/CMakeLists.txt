@@ -72,6 +72,11 @@ if (UNIX)
     endif ()
 endif ()
 
+# Clear the list of source files
+set(sources_files "")
+set(qml_files "")
+set(resource_files "")
+
 set(SINGLETON_FILES Controls/Theme.qml Controls/Units.qml)
 
 #遍历所有qml文件
