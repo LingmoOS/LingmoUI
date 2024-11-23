@@ -11,10 +11,10 @@ Button {
     property bool disabled: false
     property int radius: 4
     property string contentDescription: ""
-    property color hoverColor: FluTheme.itemHoverColor
-    property color pressedColor: FluTheme.itemPressColor
-    property color normalColor: FluTheme.itemNormalColor
-    property color disableColor: FluTheme.itemNormalColor
+    property color hoverColor: LingmoTheme.itemHoverColor
+    property color pressedColor: LingmoTheme.itemPressColor
+    property color normalColor: LingmoTheme.itemNormalColor
+    property color disableColor: LingmoTheme.itemNormalColor
     property Component iconDelegate: com_icon
     property color color: {
         if (!enabled) {
@@ -26,7 +26,7 @@ Button {
         return hovered ? hoverColor : normalColor
     }
     property color iconColor: {
-        if (FluTheme.dark) {
+        if (LingmoTheme.dark) {
             if (!enabled) {
                 return Qt.rgba(130 / 255, 130 / 255, 130 / 255, 1)
             }
@@ -38,7 +38,7 @@ Button {
             return Qt.rgba(0, 0, 0, 1)
         }
     }
-    property color textColor: FluTheme.fontPrimaryColor
+    property color textColor: LingmoTheme.fontPrimaryColor
     Accessible.role: Accessible.Button
     Accessible.name: control.text
     Accessible.description: contentDescription

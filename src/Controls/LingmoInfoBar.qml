@@ -110,11 +110,11 @@ LingmoObject {
                             duration: 167
                         }
                     }
-                    sourceComponent: itemcomponent ? itemcomponent : mcontrol.Lingmoent_sytle
+                    sourceComponent: itemcomponent ? itemcomponent : mcontrol.lingmo_style
                 }
             }
         }
-        property Component Lingmoent_sytle: Rectangle {
+        property Component lingmo_style: Rectangle {
             width: rowlayout.width + (btn_close.visible ? 30 : 48)
             height: rowlayout.height + 20
             color: {

@@ -120,7 +120,8 @@ Window {
         maximizeButton: appBar.buttonMaximize
         fixSize: window.fixSize
         topmost: window.stayTop
-        disabled: LingmoApp.useSystemAppBar
+        // disabled: LingmoApp.useSystemAppBar
+        disabled: false
         isDarkMode: LingmoTheme.dark
         useSystemEffect: !LingmoTheme.blurBehindWindowEnabled
         Component.onCompleted: {

@@ -3,10 +3,13 @@
 
 #include <QObject>
 #include <QQmlEngine>
+#include <QJsonArray>
 #include <QTranslator>
 
 #include "singleton.h"
 #include "stdafx.h"
+
+#include "LingmoIconDef.h"
 
 /**
  * @brief The LingmoApp class. Used in all apps.
@@ -32,6 +35,8 @@ public:
     static LingmoApp* create(QQmlEngine*, QJSEngine*) { return getInstance(); }
 
     Q_INVOKABLE void init(QObject* launcher, QLocale locale = QLocale::system());
+
+    [[maybe_unused]] Q_INVOKABLE static QJsonArray iconData(const QString &keyword = "");
 
 private:
     QQmlEngine* _engine {};

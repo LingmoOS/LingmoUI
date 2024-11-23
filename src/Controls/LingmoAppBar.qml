@@ -98,7 +98,7 @@ Rectangle {
         property bool hoverMaxBtn: false
         property var win: Window.window
         property bool stayTop: {
-            if (d.win instanceof FluWindow) {
+            if (d.win instanceof LingmoWindow) {
                 return d.win.stayTop
             }
             return false
@@ -171,11 +171,11 @@ Rectangle {
             verticalPadding: 0
             horizontalPadding: 0
             rightPadding: 2
-            iconSource: FluTheme.dark ? FluentIcons.Brightness : FluentIcons.QuietHours
+            iconSource: LingmoTheme.dark ? LingmoIcons.Brightness : LingmoIcons.QuietHours
             Layout.alignment: Qt.AlignVCenter
             iconSize: 15
             visible: showDark
-            text: FluTheme.dark ? control.lightText : control.darkText
+            text: LingmoTheme.dark ? control.lightText : control.darkText
             radius: 0
             iconColor: control.textColor
             onClicked: () => darkClickListener(btn_dark)
@@ -187,18 +187,18 @@ Rectangle {
             padding: 0
             verticalPadding: 0
             horizontalPadding: 0
-            iconSource: FluentIcons.Pinned
+            iconSource: LingmoIcons.Pinned
             Layout.alignment: Qt.AlignVCenter
             iconSize: 14
             visible: {
-                if (!(d.win instanceof FluWindow)) {
+                if (!(d.win instanceof LingmoWindow)) {
                     return false
                 }
                 return showStayTop
             }
             text: d.stayTop ? control.stayTopCancelText : control.stayTopText
             radius: 0
-            iconColor: d.stayTop ? FluTheme.primaryColor : control.textColor
+            iconColor: d.stayTop ? LingmoTheme.primaryColor : control.textColor
             onClicked: stayTopClickListener()
         }
         LingmoIconButton {
@@ -208,7 +208,7 @@ Rectangle {
             padding: 0
             verticalPadding: 0
             horizontalPadding: 0
-            iconSource: FluentIcons.ChromeMinimize
+            iconSource: LingmoIcons.ChromeMinimize
             Layout.alignment: Qt.AlignVCenter
             iconSize: 11
             text: minimizeText
@@ -231,7 +231,7 @@ Rectangle {
             padding: 0
             verticalPadding: 0
             horizontalPadding: 0
-            iconSource: d.isRestore ? FluentIcons.ChromeRestore : FluentIcons.ChromeMaximize
+            iconSource: d.isRestore ? LingmoIcons.ChromeRestore : LingmoIcons.ChromeMaximize
             color: {
                 if (down) {
                     return maximizePressColor
@@ -253,7 +253,7 @@ Rectangle {
             padding: 0
             verticalPadding: 0
             horizontalPadding: 0
-            iconSource: FluentIcons.ChromeClose
+            iconSource: LingmoIcons.ChromeClose
             Layout.alignment: Qt.AlignVCenter
             text: closeText
             visible: !isMac && showClose
