@@ -55,7 +55,7 @@ Button {
         implicitHeight: 30
         radius: control.radius
         color: control.color
-        FluFocusRectangle {
+        LingmoFocusRectangle {
             visible: control.activeFocus
         }
     }
