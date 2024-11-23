@@ -158,6 +158,126 @@ Rectangle {
     // ***************
     // * Real Layout *
     // ***************
+    RowLayout {
+        id: layout_standard_buttons
+        height: parent.height
+        anchors.right: parent.right
+        spacing: 0
+        LingmoIconButton {
+            id: btn_dark
+            Layout.preferredWidth: 40
+            Layout.preferredHeight: 30
+            padding: 0
+            verticalPadding: 0
+            horizontalPadding: 0
+            rightPadding: 2
+            iconSource: FluTheme.dark ? FluentIcons.Brightness : FluentIcons.QuietHours
+            Layout.alignment: Qt.AlignVCenter
+            iconSize: 15
+            visible: showDark
+            text: FluTheme.dark ? control.lightText : control.darkText
+            radius: 0
+            iconColor: control.textColor
+            onClicked: () => darkClickListener(btn_dark)
+        }
+        LingmoIconButton {
+            id: btn_stay_top
+            Layout.preferredWidth: 40
+            Layout.preferredHeight: 30
+            padding: 0
+            verticalPadding: 0
+            horizontalPadding: 0
+            iconSource: FluentIcons.Pinned
+            Layout.alignment: Qt.AlignVCenter
+            iconSize: 14
+            visible: {
+                if (!(d.win instanceof FluWindow)) {
+                    return false
+                }
+                return showStayTop
+            }
+            text: d.stayTop ? control.stayTopCancelText : control.stayTopText
+            radius: 0
+            iconColor: d.stayTop ? FluTheme.primaryColor : control.textColor
+            onClicked: stayTopClickListener()
+        }
+        LingmoIconButton {
+            id: btn_minimize
+            Layout.preferredWidth: 40
+            Layout.preferredHeight: 30
+            padding: 0
+            verticalPadding: 0
+            horizontalPadding: 0
+            iconSource: FluentIcons.ChromeMinimize
+            Layout.alignment: Qt.AlignVCenter
+            iconSize: 11
+            text: minimizeText
+            radius: 0
+            visible: !isMac && showMinimize
+            iconColor: control.textColor
+            color: {
+                if (pressed) {
+                    return minimizePressColor
+                }
+                return hovered ? minimizeHoverColor : minimizeNormalColor
+            }
+            onClicked: minClickListener()
+        }
+        LingmoIconButton {
+            id: btn_maximize
+            property bool hover: btn_maximize.hovered
+            Layout.preferredWidth: 40
+            Layout.preferredHeight: 30
+            padding: 0
+            verticalPadding: 0
+            horizontalPadding: 0
+            iconSource: d.isRestore ? FluentIcons.ChromeRestore : FluentIcons.ChromeMaximize
+            color: {
+                if (down) {
+                    return maximizePressColor
+                }
+                return btn_maximize.hover ? maximizeHoverColor : maximizeNormalColor
+            }
+            Layout.alignment: Qt.AlignVCenter
+            visible: d.resizable && !isMac && showMaximize
+            radius: 0
+            iconColor: control.textColor
+            text: d.isRestore ? restoreText : maximizeText
+            iconSize: 11
+            onClicked: maxClickListener()
+        }
+        LingmoIconButton {
+            id: btn_close
+            Layout.preferredWidth: 40
+            Layout.preferredHeight: 30
+            padding: 0
+            verticalPadding: 0
+            horizontalPadding: 0
+            iconSource: FluentIcons.ChromeClose
+            Layout.alignment: Qt.AlignVCenter
+            text: closeText
+            visible: !isMac && showClose
+            radius: 0
+            iconSize: 10
+            iconColor: hovered ? Qt.rgba(1, 1, 1, 1) : control.textColor
+            color: {
+                if (pressed) {
+                    return closePressColor
+                }
+                return hovered ? closeHoverColor : closeNormalColor
+            }
+            onClicked: closeClickListener()
+        }
+    }
 
-
+    // Buttons for macOS
+    LingmoLoader {
+        id: layout_macos_buttons
+        anchors {
+            verticalCenter: parent.verticalCenter
+            left: parent.left
+            leftMargin: 10
+        }
+        sourceComponent: isMac ? com_macos_buttons : undefined
+    }
 }
