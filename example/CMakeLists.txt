@@ -67,7 +67,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
         Qt${QT_VERSION_MAJOR}::Quick
         Qt${QT_VERSION_MAJOR}::Svg
         Qt${QT_VERSION_MAJOR}::Network
-        ${TARGET}CompatibleModule
+        ${TARGET}
 )
 
 qt_finalize_executable(${PROJECT_NAME})
