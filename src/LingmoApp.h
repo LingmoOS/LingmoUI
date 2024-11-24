@@ -23,6 +23,7 @@ class LingmoApp : public QObject {
     Q_PROPERTY_AUTO(QString, windowIcon)
     Q_PROPERTY_AUTO(QLocale, locale)
     Q_PROPERTY_AUTO_P(QObject*, launcher)
+    Q_PROPERTY_AUTO(bool, useSystemAppBar)
 
 private:
     explicit LingmoApp(QObject* parent = nullptr);
