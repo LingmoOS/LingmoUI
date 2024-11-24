@@ -31,6 +31,7 @@ class LingmoTheme : public QObject {
     Q_PROPERTY_AUTO(QColor, itemCheckColor)
     Q_PROPERTY_AUTO(QString, desktopImagePath)
     Q_PROPERTY_AUTO(int, darkMode)
+    Q_PROPERTY_AUTO(int, roundWindowRadius)
     Q_PROPERTY_AUTO(bool, nativeText)
     Q_PROPERTY_AUTO(bool, animationEnabled)
     Q_PROPERTY_AUTO(bool, blurBehindWindowEnabled)

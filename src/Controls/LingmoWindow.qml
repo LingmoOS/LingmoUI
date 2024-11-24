@@ -285,7 +285,7 @@ Window {
         id: com_border
         Rectangle {
             color: "transparent"
-            radius: 10
+            radius: LingmoTheme.roundWindowRadius
             border.width: window.resizeBorderWidth
             border.color: window.resizeBorderColor
             border.pixelAligned: Screen.devicePixelRatio > 1 ? false : true
