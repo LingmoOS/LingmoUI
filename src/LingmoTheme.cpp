@@ -19,6 +19,7 @@ LingmoTheme::LingmoTheme(QObject* parent)
 {
     _accentColor = LingmoColor::getInstance()->Blue();
     _darkMode = LingmoThemeType::DarkMode::Light;
+    _roundWindowRadius = 10;
     _nativeText = false;
     _animationEnabled = true;
     _systemDark = systemDark();
