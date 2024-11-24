@@ -10,6 +10,8 @@ LingmoWindow {
     height: 480
     title: qsTr("LingmoUI Example")
 
+    showDark: true
+
     Button {
         id: button
         anchors.centerIn: parent

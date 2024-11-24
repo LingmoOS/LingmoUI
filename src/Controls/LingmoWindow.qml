@@ -279,14 +279,21 @@ Window {
             }
         }
     }
+
+    // Provide Border line and rounded window
     Component {
         id: com_border
         Rectangle {
             color: "transparent"
+            radius: 10
             border.width: window.resizeBorderWidth
             border.color: window.resizeBorderColor
+            border.pixelAligned: Screen.devicePixelRatio > 1 ? false : true
+            antialiasing: true
+            z: 999
         }
     }
+
     Item {
         id: layout_container
         anchors.fill: parent
