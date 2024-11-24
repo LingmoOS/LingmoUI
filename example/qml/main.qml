@@ -3,20 +3,17 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import LingmoUI
 
-LingmoWindow {
+LingmoObject {
     id: root
-    visible: true
-    width: 640
-    height: 480
-    title: qsTr("LingmoUI Example")
+    Component.onCompleted: {
+        LingmoApp.init(root, Qt.locale("zh_CN"));
+        LingmoTheme.animationEnabled = true;
+        LingmoTheme.darkMode = LingmoThemeType.Dark;
 
-    showDark: true
+        LingmoRouter.routes = {
+            "/": "qrc:/qml/windows/MainPage.qml"
+        };
 
-    Button {
-        id: button
-        anchors.centerIn: parent
-        text: "About Qt" // 按钮文本
-
-        onClicked: {aboutQtController.showAboutQtDialog();}
+        LingmoRouter.navigate("/");
     }
 }

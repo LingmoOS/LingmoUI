@@ -38,7 +38,7 @@ foreach (filepath ${CPP_FILES})
     list(APPEND sources_files ${filename})
 endforeach (filepath)
 
-set(SINGLETON_FILES "")
+set(SINGLETON_FILES "Controls/LingmoRouter.qml")
 
 #遍历所有qml文件
 file(GLOB_RECURSE QML_PATHS Controls/*.qml Controls/*.qml qmldir)

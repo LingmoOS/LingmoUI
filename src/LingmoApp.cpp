@@ -2,20 +2,21 @@
 
 #include "LingmoApp.h"
 
-#include <QGuiApplication>
-#include <QQuickItem>
-#include <QTimer>
-#include <QUuid>
-#include <QFontDatabase>
+#include "LingmoIconDef.h"
 #include <QClipboard>
-#include <QTranslator>
+#include <QFontDatabase>
+#include <QGuiApplication>
 #include <QJsonArray>
 #include <QJsonObject>
+#include <QQuickItem>
+#include <QTimer>
+#include <QTranslator>
+#include <QUuid>
 #include <utility>
-#include "LingmoIconDef.h"
 
 LingmoApp::LingmoApp(QObject* parent)
     : QObject { parent }
+    , _useSystemAppBar { false }
 {
 }
 
@@ -40,7 +41,8 @@ void LingmoApp::init(QObject* launcher, QLocale locale)
     }
 }
 
-[[maybe_unused]] QJsonArray LingmoApp::iconData(const QString &keyword) {
+[[maybe_unused]] QJsonArray LingmoApp::iconData(const QString& keyword)
+{
     QJsonArray arr;
     QMetaEnum enumType = LingmoIcons::staticMetaObject.enumerator(
         LingmoIcons::staticMetaObject.indexOfEnumerator("Type"));
@@ -56,4 +58,3 @@ void LingmoApp::init(QObject* launcher, QLocale locale)
     }
     return arr;
 }
-
