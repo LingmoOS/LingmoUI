@@ -39,7 +39,7 @@ Button {
     background: Rectangle {
         implicitWidth: 30
         implicitHeight: 30
-        radius: 4
+        radius: LingmoTheme.roundWindowRadius
         color: {
             if (!enabled) {
                 return backgroundDisableColor

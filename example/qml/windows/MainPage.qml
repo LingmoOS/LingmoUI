@@ -10,11 +10,18 @@ LingmoWindow {
     height: 480
     title: qsTr("LingmoUI Example")
 
-    LingmoTextButton {
+    showDark: true
+
+    LingmoLoadingButton {
         id: button
         anchors.centerIn: parent
         text: "About Qt" // 按钮文本
+        disabled: false
+        loading: true
 
-        onClicked: {aboutQtController.showAboutQtDialog();}
+        onClicked: {
+            button.loading = false;
+            // aboutQtController.showAboutQtDialog();
+        }
     }
 }
