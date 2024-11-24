@@ -141,6 +141,7 @@ Window {
         Item {
             Rectangle {
                 anchors.fill: parent
+                radius: LingmoTheme.roundWindowRadius
                 color: window.backgroundColor
             }
             Image {
@@ -287,8 +288,6 @@ Window {
             radius: LingmoTheme.roundWindowRadius
             border.width: window.resizeBorderWidth
             border.color: window.resizeBorderColor
-            border.pixelAligned: Screen.devicePixelRatio > 1 ? false : true
-            antialiasing: true
             z: 999
         }
     }

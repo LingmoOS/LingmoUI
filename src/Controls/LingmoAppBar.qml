@@ -176,7 +176,7 @@ Rectangle {
             iconSize: 15
             visible: showDark
             text: LingmoTheme.dark ? control.lightText : control.darkText
-            radius: 0
+            radius: LingmoTheme.roundWindowRadius
             iconColor: control.textColor
             onClicked: () => darkClickListener(btn_dark)
         }
@@ -197,7 +197,7 @@ Rectangle {
                 return showStayTop
             }
             text: d.stayTop ? control.stayTopCancelText : control.stayTopText
-            radius: 0
+            radius: LingmoTheme.roundWindowRadius
             iconColor: d.stayTop ? LingmoTheme.primaryColor : control.textColor
             onClicked: stayTopClickListener()
         }
@@ -212,7 +212,7 @@ Rectangle {
             Layout.alignment: Qt.AlignVCenter
             iconSize: 11
             text: minimizeText
-            radius: 0
+            radius: LingmoTheme.roundWindowRadius
             visible: !isMac && showMinimize
             iconColor: control.textColor
             color: {
@@ -240,7 +240,7 @@ Rectangle {
             }
             Layout.alignment: Qt.AlignVCenter
             visible: d.resizable && !isMac && showMaximize
-            radius: 0
+            radius: LingmoTheme.roundWindowRadius
             iconColor: control.textColor
             text: d.isRestore ? restoreText : maximizeText
             iconSize: 11
@@ -257,7 +257,7 @@ Rectangle {
             Layout.alignment: Qt.AlignVCenter
             text: closeText
             visible: !isMac && showClose
-            radius: 0
+            radius: LingmoTheme.roundWindowRadius
             iconSize: 10
             iconColor: hovered ? Qt.rgba(1, 1, 1, 1) : control.textColor
             color: {
