@@ -9,7 +9,7 @@
           "label": "desktop"
         }
     },
-
+    "postStartCommand": "sudo bash -c \"nohup /app/entrypoint.sh &\"",
     // Configure tool-specific properties.
     "customizations": {
         // Configure properties specific to VS Code.
