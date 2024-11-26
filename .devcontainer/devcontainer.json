@@ -3,7 +3,7 @@
     "remoteUser": "codespace",
     "containerUser": "codespace",
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
-    "forwardPorts": [6080],
+    "forwardPorts": [8080],
     "portsAttributes": {
         "6080": {
           "label": "desktop"
