@@ -13,7 +13,7 @@
         "DISPLAY_WIDTH": "1024",
         "DISPLAY_HEIGHT": "768"
     },
-    "postStartCommand": "sudo bash -c \"nohup /app/entrypoint.sh &\"",
+    "postStartCommand": "sudo bash -c \"nohup bash /app/entrypoint.sh &\"",
     // Configure tool-specific properties.
     "customizations": {
         // Configure properties specific to VS Code.
