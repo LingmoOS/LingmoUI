@@ -59,7 +59,7 @@ void ThemeManager::initData()
     QDBusInterface iface(Service, ObjectPath, Interface, QDBusConnection::sessionBus(), this);
 
     if (iface.isValid()) {
-        onDBusColorChanged();
+        // onDBusColorChanged();
         m_darkMode = iface.property("isDarkMode").toBool();
         int accentColorID = iface.property("accentColor").toInt();
         setAccentColor(accentColorID);
@@ -87,86 +87,86 @@ void ThemeManager::initDBusSignals()
                                               this, SLOT(onDBusFontSizeChanged()));
         QDBusConnection::sessionBus().connect(Service, ObjectPath, Interface, "systemFontChanged",
                                               this, SLOT(onDBusFontFamilyChanged()));
-        QDBusConnection::sessionBus().connect(Service, ObjectPath, Interface, "colorChanged",
-                                              this, SLOT(onDBusColorChanged()));
+        // QDBusConnection::sessionBus().connect(Service, ObjectPath, Interface, "colorChanged",
+        //                                       this, SLOT(onDBusColorChanged()));
     }
 }
 
-void ThemeManager::onDBusColorChanged()
-{
-    QDBusInterface iface(Service, ObjectPath, Interface, QDBusConnection::sessionBus(), this);
+// void ThemeManager::onDBusColorChanged()
+// {
+//     QDBusInterface iface(Service, ObjectPath, Interface, QDBusConnection::sessionBus(), this);
 
-    QString color0 = iface.property("color0").toString();
-    if(color0 != m_blueColor.name() && color0.startsWith("#"))
-    {
-        m_blueColor = QColor(color0);
-    }
+//     QString color0 = iface.property("color0").toString();
+//     if(color0 != m_blueColor.name() && color0.startsWith("#"))
+//     {
+//         m_blueColor = QColor(color0);
+//     }
 
-    QString color1 = iface.property("color1").toString();
-    if(color1 != m_redColor.name() && color1.startsWith("#"))
-    {
-        m_redColor = QColor(color1);
-    }
-\
-    QString color2 = iface.property("color2").toString();
-    if(color2 != m_greenColor.name() && color2.startsWith("#"))
-    {
-        m_greenColor = QColor(color2);
-    }
+//     QString color1 = iface.property("color1").toString();
+//     if(color1 != m_redColor.name() && color1.startsWith("#"))
+//     {
+//         m_redColor = QColor(color1);
+//     }
 
-    QString color3 = iface.property("color3").toString();
-    if(color3 != m_purpleColor.name() && color3.startsWith("#"))
-    {
-        m_purpleColor = QColor(color3);
-    }
+//     QString color2 = iface.property("color2").toString();
+//     if(color2 != m_greenColor.name() && color2.startsWith("#"))
+//     {
+//         m_greenColor = QColor(color2);
+//     }
 
-    QString color4 = iface.property("color4").toString();
-    if(color4 != m_pinkColor.name() && color4.startsWith("#"))
-    {
-        m_pinkColor = QColor(color4);
-    }
+//     QString color3 = iface.property("color3").toString();
+//     if(color3 != m_purpleColor.name() && color3.startsWith("#"))
+//     {
+//         m_purpleColor = QColor(color3);
+//     }
 
-    QString color5 = iface.property("color5").toString();
-    if(color5 != m_orangeColor.name() && color5.startsWith("#"))
-    {
-        m_orangeColor = QColor(color5);
-    }
+//     QString color4 = iface.property("color4").toString();
+//     if(color4 != m_pinkColor.name() && color4.startsWith("#"))
+//     {
+//         m_pinkColor = QColor(color4);
+//     }
 
-    QString color6 = iface.property("color6").toString();
-    if(color6 != m_greyColor.name() && color6.startsWith("#"))
-    {
-        m_greyColor = QColor(color6);
-    }
+//     QString color5 = iface.property("color5").toString();
+//     if(color5 != m_orangeColor.name() && color5.startsWith("#"))
+//     {
+//         m_orangeColor = QColor(color5);
+//     }
 
-    switch (m_accentColorIndex) {
-    case ACCENTCOLOR_BLUE:
-        m_accentColor = m_blueColor;
-        break;
-     case ACCENTCOLOR_RED:
-        m_accentColor = m_redColor;
-        break;
-     case ACCENTCOLOR_GREEN:
-        m_accentColor = m_greenColor;
-        break;
-     case ACCENTCOLOR_PURPLE:
-        m_accentColor = m_purpleColor;
-        break;
-     case ACCENTCOLOR_PINK:
-        m_accentColor = m_pinkColor;
-        break;
-     case ACCENTCOLOR_ORANGE:
-        m_accentColor = m_orangeColor;
-        break;
-     case ACCENTCOLOR_GREY:
-        m_accentColor = m_greyColor;
-        break;
-     default:
-        m_accentColor = m_blueColor;
-        break;
-     }
-    emit accentColorChanged();
-    emit colorChanged();
-}
+//     QString color6 = iface.property("color6").toString();
+//     if(color6 != m_greyColor.name() && color6.startsWith("#"))
+//     {
+//         m_greyColor = QColor(color6);
+//     }
+
+//     switch (m_accentColorIndex) {
+//     case ACCENTCOLOR_BLUE:
+//         m_accentColor = m_blueColor;
+//         break;
+//      case ACCENTCOLOR_RED:
+//         m_accentColor = m_redColor;
+//         break;
+//      case ACCENTCOLOR_GREEN:
+//         m_accentColor = m_greenColor;
+//         break;
+//      case ACCENTCOLOR_PURPLE:
+//         m_accentColor = m_purpleColor;
+//         break;
+//      case ACCENTCOLOR_PINK:
+//         m_accentColor = m_pinkColor;
+//         break;
+//      case ACCENTCOLOR_ORANGE:
+//         m_accentColor = m_orangeColor;
+//         break;
+//      case ACCENTCOLOR_GREY:
+//         m_accentColor = m_greyColor;
+//         break;
+//      default:
+//         m_accentColor = m_blueColor;
+//         break;
+//      }
+//     emit accentColorChanged();
+//     emit colorChanged();
+// }
 
 void ThemeManager::onDBusDarkModeChanged(bool darkMode)
 {

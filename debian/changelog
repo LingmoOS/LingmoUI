@@ -1,3 +1,10 @@
+lingmoui (2.3.0) hydrogen; urgency=high
+
+  [lingmo]
+  * update ColorManager
+
+ -- Lingmo OS Team <team@lingmo.org>  Sun, 10 Nov 2024 09:30:00 +0800
+
 lingmoui (2.2.1) hydrogen; urgency=high
 
   [Elysia]
