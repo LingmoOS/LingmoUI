@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQuick.Window
 import LingmoUI
 
 Window {
@@ -141,7 +142,7 @@ Window {
         Item {
             Rectangle {
                 anchors.fill: parent
-                radius: LingmoTheme.roundWindowRadius
+                radius: Window.window.visibility === Window.Maximized ? 0 : LingmoTheme.roundWindowRadius
                 color: window.backgroundColor
             }
             Image {
@@ -281,11 +282,12 @@ Window {
     }
 
     // Provide Border line and rounded window
+    // TODO: Radius can be dynamically provided globally?
     Component {
         id: com_border
         Rectangle {
             color: "transparent"
-            radius: LingmoTheme.roundWindowRadius
+            radius: Window.window.visibility === Window.Maximized ? 0 : LingmoTheme.roundWindowRadius
             border.width: window.resizeBorderWidth
             border.color: window.resizeBorderColor
             z: 999
