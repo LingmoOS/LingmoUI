@@ -11,7 +11,8 @@ LingmoButton {
     verticalPadding: 0
     horizontalPadding:12
     LingmoIcon{
-        iconSource:LingmoIcons.ChevronDown
+        id: icon
+        iconSource: LingmoIcons.ChevronDown
         iconSize: 15
         anchors{
             right: parent.right
@@ -42,5 +43,11 @@ LingmoButton {
         id:menu
         modal:true
         width: control.width
+        onAboutToHide: {
+            icon.iconSource = LingmoIcons.ChevronDown
+        }
+        onAboutToShow: {
+            icon.iconSource = LingmoIcons.ChevronUp
+        }
     }
 }
