@@ -29,11 +29,16 @@ LingmoWindow {
         }
 
         LingmoDropDownBox {
+            id: dropBox
             text: "DropDownButton"
             Layout.alignment: Qt.AlignHCenter
 
             LingmoMenuItem {
                 text: "Menu_1"
+                onTriggered: {
+                    console.log("Menu_1 Selected!")
+                    dropBox.text = text
+                }
             }
             LingmoMenuItem {
                 text: "Menu_2"
@@ -44,6 +49,8 @@ LingmoWindow {
             LingmoMenuItem {
                 text: "Menu_4"
             }
+
+
         }
     }
 }
