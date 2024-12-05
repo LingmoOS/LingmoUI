@@ -49,8 +49,14 @@ LingmoWindow {
             LingmoMenuItem {
                 text: "Menu_4"
             }
+        }
 
-
+        LingmoSlider {
+            Layout.alignment: Qt.AlignHCenter
+        }
+        LingmoSlider {
+            Layout.alignment: Qt.AlignHCenter
+            orientation: Qt.Vertical
         }
     }
 }
