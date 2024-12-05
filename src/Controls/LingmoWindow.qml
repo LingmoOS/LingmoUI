@@ -15,6 +15,8 @@ Window {
     property bool fitsAppBarWindows: false
     property var tintOpacity: LingmoTheme.dark ? 0.80 : 0.75
     property int blurRadius: 60
+    // Do not change this in other place!
+    property var windowVisibility: window.visibility
     property alias effect: frameless.effect
     readonly property alias effective: frameless.effective
     readonly property alias availableEffects: frameless.availableEffects

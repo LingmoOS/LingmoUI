@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Controls.impl
 import QtQuick.Templates as T
+import QtQuick.Window
 import LingmoUI
 
 T.Menu {
@@ -59,10 +60,10 @@ T.Menu {
     }
     T.Overlay.modal: Rectangle {
         color: LingmoTools.withOpacity(control.palette.shadow, 0.5)
-        radius: LingmoTheme.roundWindowRadius
+        radius: window.windowVisibility === Window.Maximized ? 0 : LingmoTheme.roundWindowRadius
     }
     T.Overlay.modeless: Rectangle {
         color: LingmoTools.withOpacity(control.palette.shadow, 0.12)
-        radius: LingmoTheme.roundWindowRadius
+        radius: window.windowVisibility === Window.Maximized ? 0 : LingmoTheme.roundWindowRadius
     }
 }
