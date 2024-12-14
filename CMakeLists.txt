@@ -1,37 +1,35 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.25)
 
-set(LINGMOUI_VERSION 1.0)
-project(lingmoui VERSION ${LINGMOUI_VERSION})
+add_compile_options(-Wall -Werror)
+add_compile_definitions(QT_DISABLE_DEPRECATED_BEFORE=0x050F00)
+
+set(PROJECT_NAME LingmoUI)
+set(MODULE_VERSION_MAJOR 3)
+set(MODULE_VERSION_MINOR 0)
+set(MODULE_VERSION_PATCH 0)
+set(MODULE_VERSION ${MODULE_VERSION_MAJOR}.${MODULE_VERSION_MINOR}.${MODULE_VERSION_PATCH})
+set(TARGET ${PROJECT_NAME}${MODULE_VERSION_MAJOR})
+
+# Set this to allow indexing when we are using Qt Creator
+set(QML_IMPORT_PATH ${CMAKE_BINARY_DIR}/temp CACHE STRING "" FORCE)
+
+project(${PROJECT_NAME} VERSION ${MODULE_VERSION})
+
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-#DEFAULT COMPONENTS DEFINITIONS
-option(COMPONENT_EDITOR "Build editor component" ON)
-option(COMPONENT_FM "Build filemanager component" ON)
-option(COMPONENT_ACCOUNTS "Build accounts component" ON)
-option(COMPONENT_TERMINAL "Build terminal component" ON)
-option(COMPONENT_STORE "Build store component" OFF)
-option(COMPONENT_TAGGING "Build tagging component" ON)
-option(COMPONENT_SYNCING "Build syncing component" ON)
+find_package(ECM REQUIRED NO_MODULE)
+list(APPEND CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
+message(STATUS "ECM version: ${ECM_VERSION}")
 
-find_package(ECM 5.45.0 NO_MODULE)
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
-
-set(QT Core Widgets Quick QuickControls2 DBus)
+set(QT Core Widgets Quick QuickControls2 DBus Core5Compat)
+find_package(Qt6 REQUIRED ${QT})
 if (UNIX)
     if (NOT APPLE)
-        set(QT ${QT} X11Extras)
-    endif ()
-endif ()
-find_package(Qt5 REQUIRED ${QT})
-if (UNIX)
-    if (NOT APPLE)
-        find_package(KF5WindowSystem REQUIRED)
+        list(APPEND QT GuiPrivate)
+        find_package(KF6WindowSystem REQUIRED)
     endif ()
 endif ()
 
@@ -41,19 +39,18 @@ include(CMakePackageConfigHelpers)
 include(ECMGenerateHeaders)
 
 # Get the installation directory from qmake
-get_target_property(QT_QMAKE_EXECUTABLE ${Qt5Core_QMAKE_EXECUTABLE} IMPORTED_LOCATION)
-if (NOT QT_QMAKE_EXECUTABLE)
-    message(FATAL_ERROR "qmake is not found.")
-endif ()
+if(ECM_VERSION VERSION_LESS 5.93.0)
+    include(ECMQueryQmake)
+    query_qmake(INSTALL_QMLDIR QT_INSTALL_QML)
+else()
+    include(ECMQueryQt)
+    ecm_query_qt(INSTALL_QMLDIR QT_INSTALL_QML)
+endif()
 
-execute_process(COMMAND ${QT_QMAKE_EXECUTABLE} -query QT_INSTALL_QML
-        OUTPUT_VARIABLE INSTALL_QMLDIR
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-        )
 if (INSTALL_QMLDIR)
-    message(STATUS "qml directory:" "${INSTALL_QMLDIR}")
+    message(STATUS "QML directory:" "${INSTALL_QMLDIR}")
 else ()
-    message(FATAL_ERROR "qml directory cannot be detected.")
+    message(FATAL_ERROR "QML directory cannot be detected.")
 endif ()
 
 # Install
@@ -63,12 +60,15 @@ if (MSVC)
     # _VCPKG_INSTALLED_DIR:PATH=C:/app/vcpkg/installed
     # VCPKG_TARGET_TRIPLET:STRING=x64-windows
     # The final installed dir is C:/app/vcpkg/installed/x64-windows/share/LingmoUI
-    set(CMAKECONFIG_INSTALL_DIR "${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/share/LingmoUI")
+    set(CMAKECONFIG_INSTALL_DIR "${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/share/${TARGET}")
     set(CMAKE_INSTALL_PREFIX "${_VCPKG_INSTALLED_DIR}")
 else ()
-    set(CMAKECONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/LingmoUI")
+    set(CMAKECONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/${TARGET}")
 endif ()
-message(STATUS "install directory:" "${CMAKECONFIG_INSTALL_DIR}")
+message(STATUS "CMake Config install directory:" "${CMAKECONFIG_INSTALL_DIR}")
+
+# Set temp dir for import qml files in example app
+set(LINGMOUI_TEMP_IMPORT_PATH ${CMAKE_BINARY_DIR}/temp/)
 
 # Qt Widgets Style
 #if (UNIX)
@@ -81,9 +81,14 @@ message(STATUS "install directory:" "${CMAKECONFIG_INSTALL_DIR}")
 
 add_subdirectory(src)
 
+# For compatible with old LingmoUI 1.0
+add_subdirectory(Compatible)
+
+add_subdirectory(example)
+
 configure_package_config_file(
         "${CMAKE_CURRENT_SOURCE_DIR}/LingmoUIConfig.cmake.in"
-        "${CMAKE_CURRENT_BINARY_DIR}/LingmoUIConfig.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/${TARGET}Config.cmake"
         INSTALL_DESTINATION
         "${CMAKECONFIG_INSTALL_DIR}"
         PATH_VARS
@@ -91,25 +96,25 @@ configure_package_config_file(
 )
 
 write_basic_package_version_file(
-        ${CMAKE_CURRENT_BINARY_DIR}/LingmoUIConfigVersion.cmake
-        VERSION ${LIB_VERSION}
+        ${CMAKE_CURRENT_BINARY_DIR}/${TARGET}ConfigVersion.cmake
+        VERSION ${MODULE_VERSION}
         COMPATIBILITY AnyNewerVersion
 )
 if(NOT APPLE)
 install(
         FILES
-        "${CMAKE_CURRENT_BINARY_DIR}/LingmoUIConfig.cmake"
-        "${CMAKE_CURRENT_BINARY_DIR}/LingmoUIConfigVersion.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/${TARGET}Config.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/${TARGET}ConfigVersion.cmake"
         DESTINATION
         "${CMAKECONFIG_INSTALL_DIR}"
         COMPONENT
         Devel
 )
-install(FILES conf/version DESTINATION /etc/LingmoUI/ COMPONENT Runtime)
+install(FILES conf/version DESTINATION /etc/${TARGET}/ COMPONENT Runtime)
 
 # install(FILES src/Windows.tar.xz DESTINATION ~/.update/ COMPONENT Runtime)
 
-install(EXPORT LingmoUITargets
+install(EXPORT ${TARGET}Targets
         DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
         FILE LingmoUITargets.cmake
         )

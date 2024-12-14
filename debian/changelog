@@ -1,3 +1,9 @@
+lingmoui (3.0.0) UNRELEASED; urgency=high
+
+  * Port to Qt6
+
+ -- Elysia <c.elysia@foxmail.com>  Thu, 12 Jul 2024 17:57:00 +0800
+
 lingmoui (2.3.0) hydrogen; urgency=high
 
   [lingmo]
@@ -10,7 +16,7 @@ lingmoui (2.2.1) hydrogen; urgency=high
   [Elysia]
   * Fix a typo: FishUI to LingmoUI in Button.qml.
 
- -- Lingmo OS Team <team@lingmo.org>  Thr, 26 Sep 2024 18:08:00 +0800
+ -- Lingmo OS Team <team@lingmo.org>  Thu, 26 Sep 2024 18:08:00 +0800
 
 lingmoui (2.2.0) hydrogen; urgency=high
 
