@@ -1,4 +1,4 @@
-# LingmoUI
+# Lingmo UI
 
 LingmoUI is a GUI library based on QQC (Qt Quick Controls) and Qt 6, every Lingmo application uses it.
 

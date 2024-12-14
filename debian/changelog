@@ -1,8 +1,15 @@
-lingmoui (3.0.0-dev1) UNRELEASED; urgency=high
+lingmoui (3.0.0) UNRELEASED; urgency=high
 
   * Port to Qt6
 
  -- Elysia <c.elysia@foxmail.com>  Thu, 12 Jul 2024 17:57:00 +0800
+
+lingmoui (2.3.0) hydrogen; urgency=high
+
+  [lingmo]
+  * update ColorManager
+
+ -- Lingmo OS Team <team@lingmo.org>  Sun, 10 Nov 2024 09:30:00 +0800
 
 lingmoui (2.2.1) hydrogen; urgency=high
 
