@@ -94,7 +94,7 @@ private slots:
     void initData();
     void initDBusSignals();
     void onDBusDarkModeChanged(bool darkMode);
-    void onDBusColorChanged();
+    // void onDBusColorChanged();
     void onDBusAccentColorChanged(int accentColorID);
     void onDBusFontSizeChanged();
     void onDBusFontFamilyChanged();
@@ -106,13 +106,13 @@ private:
     bool m_darkMode;
     int m_accentColorIndex;
 
-    QColor m_blueColor = QColor(51, 133, 255); // #3385FF
-    QColor m_redColor = QColor(255, 92, 109); // #FF5C6D
-    QColor m_greenColor = QColor(53, 191, 86); // #35BF56
-    QColor m_purpleColor = QColor(130, 102, 255); // #8266FF
-    QColor m_pinkColor = QColor(202, 100, 172); // #CA64AC
-    QColor m_orangeColor = QColor(254, 160, 66); // #FEA042
-    QColor m_greyColor = QColor(79, 89, 107); // #4F596B
+    QColor m_blueColor   = QColor(34,  119, 255);   // #2277FF
+    QColor m_redColor    = QColor(255, 92,  109);   // #FF5C6D
+    QColor m_greenColor  = QColor(53,  191, 86);    // #35BF56
+    QColor m_purpleColor = QColor(130, 102, 255);   // #8266FF
+    QColor m_pinkColor   = QColor(202, 100, 172);   // #CA64AC
+    QColor m_orangeColor = QColor(254, 160, 66);    // #FEA042
+    QColor m_greyColor   = QColor(79, 89, 107);     // #4F596B
 
     QColor m_accentColor;
     qreal m_fontSize;
