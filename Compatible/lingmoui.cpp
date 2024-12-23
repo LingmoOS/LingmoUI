@@ -18,7 +18,7 @@
 
 QUrl componentUrl(const QString& fileName)
 {
-    return QUrl(QStringLiteral("qrc:/lingmoui/kit/compatible_module/LingmoUI/CompatibleModule/Controls") + fileName);
+    return QUrl(QStringLiteral("qrc:/lingmoui/kit/compatible_module/LingmoUI/CompatibleModule/Controls/") + fileName);
 }
 
 void LingmoUI::initializeEngine(QQmlEngine* engine, const char* uri)
