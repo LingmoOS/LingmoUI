@@ -35,7 +35,7 @@ void LingmoUI::initializeEngine(QQmlEngine* engine, const char* uri)
     engine->addImageProvider(QStringLiteral("icontheme"), new IconThemeProvider());
 }
 
-void registerTypes(const char* uri)
+void LingmoUI::registerTypes(const char* uri)
 {
     Q_ASSERT(QLatin1String(uri) == QLatin1String("LingmoUI.CompatibleModule"));
 
