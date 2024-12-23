@@ -13,6 +13,8 @@ set(TARGET_SOURCES
         qqmlsortfilterproxymodel.cpp
 
         desktop/menupopupwindow.cpp
+
+        lingmoui.cpp
         )
 
 target_include_directories(${TARGET}CompatibleModule PRIVATE desktop)
@@ -114,6 +116,7 @@ qt_add_qml_module(${TARGET}CompatibleModule
     QML_FILES ${qml_files}
     RESOURCES ${resource_files}
     RESOURCE_PREFIX "/lingmoui/kit/compatible_module"
+    NO_GENERATE_PLUGIN_SOURCE
 )
 
 set_target_properties(${TARGET}CompatibleModule
