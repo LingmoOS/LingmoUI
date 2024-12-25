@@ -24,7 +24,7 @@ LingmoWindow {
 
             onClicked: {
                 button.loading = false
-                // aboutQtController.showAboutQtDialog();
+                aboutQtController.showAboutQtDialog();
             }
         }
 
