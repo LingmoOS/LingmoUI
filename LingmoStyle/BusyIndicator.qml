@@ -1,10 +1,12 @@
-// Copyright (C) 2017 The Qt Company Ltd.
-// SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
 
+/*
+ * SPDX-FileCopyrightText: 2024 Elysia <elysia@lingmo.org>
+ *
+ * SPDX-License-Identifier: GPL-3.0
+ */
 import QtQuick
 import QtQuick.Templates as T
-import QtQuick.Controls.Universal
-import QtQuick.Controls.Universal.impl
+import LingmoUI as LUI
 
 T.BusyIndicator {
     id: control
@@ -14,14 +16,11 @@ T.BusyIndicator {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
 
-    contentItem: BusyIndicatorImpl {
-        implicitWidth: 20
-        implicitHeight: 20
-
-        readonly property real size: Math.min(control.availableWidth, control.availableHeight)
-
-        count: size < 60 ? 5 : 6 // "Small" vs. "Large"
-        color: control.Universal.accent
+    contentItem: LUI.LingmoProgressRing {
+        width: control.implicitWidth
+        height: control.implicitHeight
+        strokeWidth: size < 40 ? 3 : 4 // "Small" vs. "Large"
+        anchors.centerIn: parent
         visible: control.running
     }
 }

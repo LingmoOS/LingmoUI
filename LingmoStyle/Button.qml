@@ -1,10 +1,12 @@
-// Copyright (C) 2017 The Qt Company Ltd.
-// SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
-
+/*
+ * SPDX-FileCopyrightText: 2024 Elysia <elysia@lingmo.org>
+ *
+ * SPDX-License-Identifier: GPL-3.0
+ */
 import QtQuick
 import QtQuick.Templates as T
 import QtQuick.Controls.impl
-import QtQuick.Controls.Universal
+import LingmoUI
 
 T.Button {
     id: control
@@ -15,42 +17,89 @@ T.Button {
                              implicitContentHeight + topPadding + bottomPadding)
 
     padding: 8
-    verticalPadding: padding - 4
+    verticalPadding: 0
     spacing: 8
 
     icon.width: 20
     icon.height: 20
     icon.color: Color.transparent(Universal.foreground, enabled ? 1.0 : 0.2)
 
+    Accessible.role: Accessible.Button
+    Accessible.name: control.text
+    Accessible.description: contentDescription
+    Accessible.onPressAction: control.clicked()
+
+    enabled: !disabled
+    horizontalPadding: 12
+    font: LingmoTextStyle.Body
+    focusPolicy: Qt.TabFocus
+
     property bool useSystemFocusVisuals: true
 
-    contentItem: IconLabel {
-        spacing: control.spacing
-        mirrored: control.mirrored
-        display: control.display
-
-        icon: control.icon
-        text: control.text
-        font: control.font
-        color: Color.transparent(control.Universal.foreground, enabled ? 1.0 : 0.2)
+    property bool disabled: false
+    property string contentDescription: ""
+    property color normalColor: LingmoTheme.dark ? Qt.rgba(
+                                                       62 / 255, 62 / 255,
+                                                       62 / 255,
+                                                       1) : Qt.rgba(254 / 255, 254
+                                                                    / 255, 254 / 255, 1)
+    property color hoverColor: LingmoTheme.dark ? Qt.rgba(
+                                                      68 / 255, 68 / 255,
+                                                      68 / 255,
+                                                      1) : Qt.rgba(246 / 255, 246
+                                                                   / 255, 246 / 255, 1)
+    property color disableColor: LingmoTheme.dark ? Qt.rgba(
+                                                        59 / 255, 59 / 255,
+                                                        59 / 255,
+                                                        1) : Qt.rgba(251 / 255, 251
+                                                                     / 255, 251 / 255, 1)
+    property color dividerColor: LingmoTheme.dark ? Qt.rgba(
+                                                        80 / 255, 80 / 255,
+                                                        80 / 255,
+                                                        1) : Qt.rgba(233 / 255, 233
+                                                                     / 255, 233 / 255, 1)
+    property color textColor: {
+        if (LingmoTheme.dark) {
+            if (!enabled) {
+                return Qt.rgba(131 / 255, 131 / 255, 131 / 255, 1)
+            }
+            if (pressed) {
+                return Qt.rgba(162 / 255, 162 / 255, 162 / 255, 1)
+            }
+            return Qt.rgba(1, 1, 1, 1)
+        } else {
+            if (!enabled) {
+                return Qt.rgba(160 / 255, 160 / 255, 160 / 255, 1)
+            }
+            if (pressed) {
+                return Qt.rgba(96 / 255, 96 / 255, 96 / 255, 1)
+            }
+            return Qt.rgba(0, 0, 0, 1)
+        }
     }
 
-    background: Rectangle {
-        implicitWidth: 32
-        implicitHeight: 32
+    contentItem: LingmoText {
+        text: control.text
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        font: control.font
+        color: control.textColor
+    }
 
-        visible: !control.flat || control.down || control.checked || control.highlighted
-        color: control.down ? control.Universal.baseMediumLowColor :
-               control.enabled && (control.highlighted || control.checked) ? control.Universal.accent :
-                                                                             control.Universal.baseLowColor
-
-        Rectangle {
-            width: parent.width
-            height: parent.height
-            color: "transparent"
-            visible: enabled && control.hovered
-            border.width: 2 // ButtonBorderThemeThickness
-            border.color: control.Universal.baseMediumLowColor
+    background: LingmoControlBackground {
+        implicitWidth: 30
+        implicitHeight: 30
+        radius: LingmoTheme.roundWindowRadius
+        color: {
+            if (!enabled) {
+                return disableColor
+            }
+            return hovered ? hoverColor : normalColor
+        }
+        shadow: !pressed && enabled
+        LingmoFocusRectangle {
+            visible: control.activeFocus
+            radius: 4
         }
     }
 }
