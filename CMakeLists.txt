@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.25)
 
-add_compile_options(-Wall -Werror)
 add_compile_definitions(QT_DISABLE_DEPRECATED_BEFORE=0x050F00)
 
 set(PROJECT_NAME LingmoUI)
