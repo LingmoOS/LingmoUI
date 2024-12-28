@@ -24,9 +24,9 @@ T.ToolTip {
     background: Rectangle {
         color: LingmoTheme.dark ? Qt.rgba(50 / 255, 49 / 255, 48 / 255,
                                           1) : Qt.rgba(1, 1, 1, 1)
-        radius: LingmoUnits.windowRadius
+        radius: LingmoUnits.smallRadius
         LingmoShadow {
-            radius: LingmoUnits.windowRadius
+            radius: LingmoUnits.smallRadius
         }
     }
 }

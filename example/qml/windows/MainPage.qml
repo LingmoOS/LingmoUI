@@ -75,5 +75,9 @@ LingmoWindow {
                 textRight: false
             }
         }
+
+        LingmoTextBox {
+            Layout.alignment: Qt.AlignHCenter
+        }
     }
 }

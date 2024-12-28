@@ -16,7 +16,7 @@ TextField{
     property bool cleanEnabled: true
     id:control
     padding: 7
-    leftPadding: padding+4
+    leftPadding: padding + 4
     enabled: !disabled
     color: {
         if(!enabled){
