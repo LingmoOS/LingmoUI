@@ -41,7 +41,7 @@ Button {
     background: LingmoControlBackground {
         implicitWidth: 30
         implicitHeight: 30
-        radius: LingmoTheme.roundWindowRadius
+        radius: LingmoUnits.windowRadius
         bottomMargin: enabled ? 2 : 0
         border.width: enabled ? 1 : 0
         border.color: enabled ? Qt.darker(control.normalColor,

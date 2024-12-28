@@ -56,7 +56,7 @@ Button {
     background: LingmoControlBackground {
         implicitWidth: 30
         implicitHeight: 30
-        radius: LingmoTheme.roundWindowRadius
+        radius: LingmoUnits.windowRadius
         color: {
             if (!enabled) {
                 return disableColor

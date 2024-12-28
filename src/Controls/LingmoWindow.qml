@@ -144,7 +144,7 @@ Window {
         Item {
             Rectangle {
                 anchors.fill: parent
-                radius: Window.window.visibility === Window.Maximized ? 0 : LingmoTheme.roundWindowRadius
+                radius: Window.window.visibility === Window.Maximized ? 0 : LingmoUnits.windowRadius
                 color: window.backgroundColor
             }
             Image {
@@ -289,7 +289,7 @@ Window {
         id: com_border
         Rectangle {
             color: "transparent"
-            radius: Window.window.visibility === Window.Maximized ? 0 : LingmoTheme.roundWindowRadius
+            radius: Window.window.visibility === Window.Maximized ? 0 : LingmoUnits.windowRadius
             border.width: window.resizeBorderWidth
             border.color: window.resizeBorderColor
             z: 999

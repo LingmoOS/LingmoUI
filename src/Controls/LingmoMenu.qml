@@ -53,17 +53,17 @@ T.Menu {
                                              26 / 255, 26 / 255, 26 / 255,
                                              1) : Qt.rgba(191 / 255, 191 / 255, 191 / 255, 1)
         border.width: 1
-        radius: LingmoTheme.roundWindowRadius + 1
+        radius: LingmoUnits.windowRadius + 1
         LingmoShadow {
-            radius: LingmoTheme.roundWindowRadius
+            radius: LingmoUnits.windowRadius
         }
     }
     T.Overlay.modal: Rectangle {
         color: LingmoTools.withOpacity(control.palette.shadow, 0.5)
-        radius: window.windowVisibility === Window.Maximized ? 0 : LingmoTheme.roundWindowRadius
+        radius: window.windowVisibility === Window.Maximized ? 0 : LingmoUnits.windowRadius
     }
     T.Overlay.modeless: Rectangle {
         color: LingmoTools.withOpacity(control.palette.shadow, 0.12)
-        radius: window.windowVisibility === Window.Maximized ? 0 : LingmoTheme.roundWindowRadius
+        radius: window.windowVisibility === Window.Maximized ? 0 : LingmoUnits.windowRadius
     }
 }

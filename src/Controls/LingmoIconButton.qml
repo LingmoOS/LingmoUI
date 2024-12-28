@@ -9,7 +9,7 @@ Button {
     property int iconSize: 20
     property int iconSource
     property bool disabled: false
-    property int radius: LingmoTheme.roundWindowRadius
+    property int radius: LingmoUnits.windowRadius
     property string contentDescription: ""
     property color hoverColor: LingmoTheme.itemHoverColor
     property color pressedColor: LingmoTheme.itemPressColor
