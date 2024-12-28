@@ -3,6 +3,8 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import LingmoUI
 
+import "./"
+
 LingmoWindow {
     id: window
     visible: true
@@ -24,7 +26,7 @@ LingmoWindow {
 
             onClicked: {
                 button.loading = false
-                aboutQtController.showAboutQtDialog();
+                aboutQtController.showAboutQtDialog()
             }
         }
 
@@ -59,13 +61,13 @@ LingmoWindow {
             orientation: Qt.Vertical
         }
 
-        RowLayout{
+        RowLayout {
             spacing: 30
             Layout.alignment: Qt.AlignHCenter
-            LingmoCheckBox{
+            LingmoCheckBox {
                 text: qsTr("Right")
             }
-            LingmoCheckBox{
+            LingmoCheckBox {
                 text: qsTr("Left")
                 textRight: false
             }
@@ -73,6 +75,17 @@ LingmoWindow {
 
         LingmoTextBox {
             Layout.alignment: Qt.AlignHCenter
+        }
+
+        LingmoDelayButton {
+            Layout.alignment: Qt.AlignHCenter
+            id: delayBtn
+            delay: 1000
+            text: "PressAndHold"
+
+            onActivated: {
+                console.log("成功点击！")
+            }
         }
     }
 }
