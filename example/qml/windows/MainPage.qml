@@ -63,14 +63,9 @@ LingmoWindow {
             spacing: 30
             Layout.alignment: Qt.AlignHCenter
             LingmoCheckBox{
-                disabled: check_box_switch_two.checked
-            }
-            LingmoCheckBox{
-                disabled: check_box_switch_two.checked
                 text: qsTr("Right")
             }
             LingmoCheckBox{
-                disabled: check_box_switch_two.checked
                 text: qsTr("Left")
                 textRight: false
             }
