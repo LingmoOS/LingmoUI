@@ -111,8 +111,6 @@ install(
 )
 install(FILES conf/version DESTINATION /etc/${TARGET}/ COMPONENT Runtime)
 
-# install(FILES src/Windows.tar.xz DESTINATION ~/.update/ COMPONENT Runtime)
-
 install(EXPORT ${TARGET}Targets
         DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
         FILE LingmoUITargets.cmake

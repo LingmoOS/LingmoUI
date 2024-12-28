@@ -53,9 +53,9 @@ T.Menu {
                                              26 / 255, 26 / 255, 26 / 255,
                                              1) : Qt.rgba(191 / 255, 191 / 255, 191 / 255, 1)
         border.width: 1
-        radius: LingmoUnits.windowRadius + 1
+        radius: LingmoUnits.smallRadius + 1
         LingmoShadow {
-            radius: LingmoUnits.windowRadius
+            radius: LingmoUnits.smallRadius
         }
     }
     T.Overlay.modal: Rectangle {
