@@ -2,6 +2,9 @@ import QtQuick
 import QtQuick.Controls
 import LingmoUI
 
+/**
+  * This provides a basic background for components
+  */
 Item {
     id: control
     property int radius: 4
