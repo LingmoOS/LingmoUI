@@ -1,9 +1,12 @@
-// Copyright (C) 2023 The Qt Company Ltd.
-// SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+/*
+ * SPDX-FileCopyrightText: 2024 Elysia <elysia@lingmo.org>
+ *
+ * SPDX-License-Identifier: GPL-3.0
+ */
 
 import QtQuick
 import QtQuick.Templates as T
-import QtQuick.Controls.Universal
+import LingmoUI
 
 T.DialogButtonBox {
     id: control
@@ -14,13 +17,13 @@ T.DialogButtonBox {
                              implicitContentHeight + topPadding + bottomPadding)
     contentWidth: (contentItem as ListView)?.contentWidth
 
-    spacing: 4
+    spacing: 10
     padding: 24
     topPadding: position === T.DialogButtonBox.Footer ? 6 : 24
     bottomPadding: position === T.DialogButtonBox.Header ? 6 : 24
     alignment: count === 1 ? Qt.AlignRight : undefined
 
-    delegate: Button {
+    delegate: LingmoButton {
         width: control.count === 1 ? control.availableWidth / 2 : undefined
     }
 
@@ -35,7 +38,8 @@ T.DialogButtonBox {
 
     background: Rectangle {
         implicitHeight: 32
-        color: control.Universal.chromeMediumLowColor
+        radius: LingmoUnits.windowRadius
+        color: LingmoTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
         x: 1; y: 1
         width: parent.width - 2
         height: parent.height - 2
