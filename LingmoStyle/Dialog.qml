@@ -12,6 +12,18 @@ import "./"
 T.Dialog {
     id: control
 
+    property color resizeBorderColor: {
+        if (window.active) {
+            return LingmoTheme.dark ? Qt.rgba(
+                                          51 / 255, 51 / 255, 51 / 255,
+                                          1) : Qt.rgba(110 / 255, 110 / 255, 110 / 255, 1)
+        }
+        return LingmoTheme.dark ? Qt.rgba(
+                                      61 / 255, 61 / 255, 61 / 255,
+                                      1) : Qt.rgba(167 / 255, 167 / 255, 167 / 255, 1)
+    }
+    property int resizeBorderWidth: 1
+
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             contentWidth + leftPadding + rightPadding,
                             implicitHeaderWidth,
@@ -26,6 +38,8 @@ T.Dialog {
 
     background: Rectangle {
         color: LingmoTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
+        border.width: control.resizeBorderWidth
+        border.color: control.resizeBorderColor
         radius: LingmoUnits.windowRadius
     }
 

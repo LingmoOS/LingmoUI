@@ -1,9 +1,12 @@
-// Copyright (C) 2017 The Qt Company Ltd.
-// SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+/*
+ * SPDX-FileCopyrightText: 2024 Elysia <elysia@lingmo.org>
+ *
+ * SPDX-License-Identifier: GPL-3.0
+ */
 
 import QtQuick
 import QtQuick.Templates as T
-import QtQuick.Controls.Universal
+import LingmoUI
 
 T.Drawer {
     id: control
@@ -29,17 +32,18 @@ T.Drawer {
             readonly property bool horizontal: control.edge === Qt.LeftEdge || control.edge === Qt.RightEdge
             width: horizontal ? 1 : parent.width
             height: horizontal ? parent.height : 1
-            color: control.Universal.chromeHighColor
+            radius: LingmoUnits.windowRadius
+            color: LingmoTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
             x: control.edge === Qt.LeftEdge ? parent.width - 1 : 0
             y: control.edge === Qt.TopEdge ? parent.height - 1 : 0
         }
     }
 
     T.Overlay.modal: Rectangle {
-        color: control.Universal.baseLowColor
+        color: LingmoTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
     }
 
     T.Overlay.modeless: Rectangle {
-        color: control.Universal.baseLowColor
+        color: LingmoTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
     }
 }
