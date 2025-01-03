@@ -50,8 +50,8 @@ QtObject {
      * the default font as rendered on the screen, so it takes user-configured font size and DPI
      * into account.
      */
-    // property int smallSpacing: Math.floor(gridUnit / 4)
-    property int smallSpacing: 6
+    property int smallSpacing: Math.floor(gridUnit / 4)
+    // property int smallSpacing: 6
 
     /**
      * units.largeSpacing is the amount of spacing that should be used inside bigger UI elements,
@@ -89,4 +89,15 @@ QtObject {
             }
         }
     }
+
+    // Small Radius Size
+    property real smallRadius: 8.0
+    // Medium Radius Size
+    property real mediumRadius: 10.0
+    // Big Radius Size
+    property real bigRadius: 12.0
+    // Large Radius size
+    property real hugeRadius: 14.0
+    // Default Raduius size used for Windows.
+    property real windowRadius: 11.0
 }

@@ -56,7 +56,7 @@ Button {
     background: LingmoControlBackground {
         implicitWidth: 30
         implicitHeight: 30
-        radius: LingmoTheme.roundWindowRadius
+        radius: LingmoUnits.smallRadius
         color: {
             if (!enabled) {
                 return disableColor
@@ -66,7 +66,7 @@ Button {
         shadow: !pressed && enabled
         LingmoFocusRectangle {
             visible: control.activeFocus
-            radius: 4
+            radius: LingmoUnits.smallRadius
         }
     }
     contentItem: LingmoText {

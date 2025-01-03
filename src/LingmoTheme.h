@@ -7,9 +7,9 @@
 #include <QObject>
 #include <QQmlEngine>
 
+#include "LingmoAccentColor.h"
 #include "singleton.h"
 #include "stdafx.h"
-#include "LingmoAccentColor.h"
 
 class LingmoTheme : public QObject {
     Q_OBJECT
@@ -31,7 +31,6 @@ class LingmoTheme : public QObject {
     Q_PROPERTY_AUTO(QColor, itemCheckColor)
     Q_PROPERTY_AUTO(QString, desktopImagePath)
     Q_PROPERTY_AUTO(int, darkMode)
-    Q_PROPERTY_AUTO(int, roundWindowRadius)
     Q_PROPERTY_AUTO(bool, nativeText)
     Q_PROPERTY_AUTO(bool, animationEnabled)
     Q_PROPERTY_AUTO(bool, blurBehindWindowEnabled)
@@ -55,10 +54,7 @@ public:
 
     Q_SIGNAL void darkChanged();
 
-    static LingmoTheme* create(QQmlEngine*, QJSEngine*)
-    {
-        return getInstance();
-    }
+    static LingmoTheme* create(QQmlEngine*, QJSEngine*) { return getInstance(); }
 
     bool dark() const;
 

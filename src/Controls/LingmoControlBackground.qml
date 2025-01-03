@@ -2,9 +2,12 @@ import QtQuick
 import QtQuick.Controls
 import LingmoUI
 
+/**
+  * This provides a basic background for components
+  */
 Item {
     id: control
-    property int radius: 4
+    property int radius: LingmoUnits.smallRadius
     property bool shadow: true
     property alias border: d.border
     property var bottomMargin: undefined
