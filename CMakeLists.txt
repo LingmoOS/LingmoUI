@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 3.25)
 
 add_compile_definitions(QT_DISABLE_DEPRECATED_BEFORE=0x050F00)
 
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
 set(PROJECT_NAME LingmoUI)
 set(MODULE_VERSION_MAJOR 3)
 set(MODULE_VERSION_MINOR 0)
@@ -79,6 +83,8 @@ set(LINGMOUI_TEMP_IMPORT_PATH ${CMAKE_BINARY_DIR}/temp/)
 #endif ()
 
 add_subdirectory(src)
+
+add_subdirectory(LingmoStyle)
 
 # For compatible with old LingmoUI 1.0
 add_subdirectory(Compatible)
