@@ -24,7 +24,7 @@ LingmoWindow {
 
             onClicked: {
                 button.loading = false
-                // aboutQtController.showAboutQtDialog();
+                aboutQtController.showAboutQtDialog()
             }
         }
 
@@ -57,6 +57,33 @@ LingmoWindow {
         LingmoSlider {
             Layout.alignment: Qt.AlignHCenter
             orientation: Qt.Vertical
+        }
+
+        RowLayout {
+            spacing: 30
+            Layout.alignment: Qt.AlignHCenter
+            LingmoCheckBox {
+                text: qsTr("Right")
+            }
+            LingmoCheckBox {
+                text: qsTr("Left")
+                textRight: false
+            }
+        }
+
+        LingmoTextBox {
+            Layout.alignment: Qt.AlignHCenter
+        }
+
+        LingmoDelayButton {
+            Layout.alignment: Qt.AlignHCenter
+            id: delayBtn
+            delay: 1000
+            text: "PressAndHold"
+
+            onActivated: {
+                console.log("成功点击！")
+            }
         }
     }
 }

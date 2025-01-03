@@ -99,7 +99,7 @@ T.MenuItem {
         Rectangle{
             anchors.fill: parent
             anchors.margins: 3
-            radius: LingmoTheme.roundWindowRadius
+            radius: LingmoUnits.windowRadius
             color: {
                 if(control.highlighted){
                     return LingmoTheme.itemHoverColor

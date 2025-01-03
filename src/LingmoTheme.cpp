@@ -19,7 +19,6 @@ LingmoTheme::LingmoTheme(QObject* parent)
 {
     _accentColor = LingmoColor::getInstance()->Blue();
     _darkMode = LingmoThemeType::DarkMode::Light;
-    _roundWindowRadius = 10;
     _nativeText = false;
     _animationEnabled = true;
     _systemDark = systemDark();
@@ -29,9 +28,11 @@ LingmoTheme::LingmoTheme(QObject* parent)
     QGuiApplication::instance()->installEventFilter(this);
     refreshColors();
 
-    connect(this, &LingmoTheme::darkModeChanged, this, [=] { Q_EMIT darkChanged(); });
+    connect(this, &LingmoTheme::darkModeChanged, this,
+        [=] { Q_EMIT darkChanged(); });
     connect(this, &LingmoTheme::darkChanged, this, [=] { refreshColors(); });
-    connect(this, &LingmoTheme::accentColorChanged, this, [=] { refreshColors(); });
+    connect(this, &LingmoTheme::accentColorChanged, this,
+        [=] { refreshColors(); });
     connect(&_watcher, &QFileSystemWatcher::fileChanged, this,
         [=](const QString& path) { Q_EMIT desktopImagePathChanged(); });
     connect(this, &LingmoTheme::blurBehindWindowEnabledChanged, this,
@@ -45,11 +46,15 @@ void LingmoTheme::refreshColors()
     primaryColor(isDark ? _accentColor->lighter() : _accentColor->dark());
     backgroundColor(isDark ? QColor(0, 0, 0, 255) : QColor(255, 255, 255, 255));
     dividerColor(isDark ? QColor(80, 80, 80, 255) : QColor(210, 210, 210, 255));
-    windowBackgroundColor(isDark ? QColor(32, 32, 32, 255) : QColor(237, 237, 237, 255));
-    windowActiveBackgroundColor(isDark ? QColor(26, 26, 26, 255) : QColor(243, 243, 243, 255));
+    windowBackgroundColor(isDark ? QColor(32, 32, 32, 255)
+                                 : QColor(237, 237, 237, 255));
+    windowActiveBackgroundColor(isDark ? QColor(26, 26, 26, 255)
+                                       : QColor(243, 243, 243, 255));
     fontPrimaryColor(isDark ? QColor(248, 248, 248, 255) : QColor(7, 7, 7, 255));
-    fontSecondaryColor(isDark ? QColor(222, 222, 222, 255) : QColor(102, 102, 102, 255));
-    fontTertiaryColor(isDark ? QColor(200, 200, 200, 255) : QColor(153, 153, 153, 255));
+    fontSecondaryColor(isDark ? QColor(222, 222, 222, 255)
+                              : QColor(102, 102, 102, 255));
+    fontTertiaryColor(isDark ? QColor(200, 200, 200, 255)
+                             : QColor(153, 153, 153, 255));
     itemNormalColor(isDark ? QColor(255, 255, 255, 0) : QColor(0, 0, 0, 0));
     frameColor(isDark ? QColor(56, 56, 56, qRound(255 * 0.8))
                       : QColor(243, 243, 243, qRound(255 * 0.8)));
