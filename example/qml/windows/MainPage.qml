@@ -3,8 +3,6 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import LingmoUI
 
-import "./"
-
 LingmoWindow {
     id: window
     visible: true
