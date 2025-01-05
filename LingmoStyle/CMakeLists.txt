@@ -41,7 +41,7 @@ endforeach (filepath)
 # Set Qt6 QMl Plugins
 qt_add_qml_module(${MODULE_NAME}
     PLUGIN_TARGET ${MODULE_NAME}
-    OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/QtQuick/Controls/LingmoStyle
+    OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/temp/QtQuick/Controls/LingmoStyle
     VERSION ${MODULE_VERSION}
     URI "QtQuick.Controls.LingmoStyle"
     TYPEINFO "plugins.qmltypes"
@@ -50,5 +50,5 @@ qt_add_qml_module(${MODULE_NAME}
     RESOURCE_PREFIX "/style"
 )
 
-install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/QtQuick/Controls/LingmoStyle DESTINATION ${INSTALL_QMLDIR}/QtQuick/Controls)
+install(DIRECTORY ${CMAKE_BINARY_DIR}/temp/QtQuick/Controls/LingmoStyle DESTINATION ${INSTALL_QMLDIR}/QtQuick/Controls)
 install(TARGETS ${MODULE_NAME} DESTINATION ${INSTALL_QMLDIR}/QtQuick/Controls/${MODULE_NAME})

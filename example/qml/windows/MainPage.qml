@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import LingmoUI
+import QtQuick.Controls.LingmoStyle as QQCL
 
 LingmoWindow {
     id: window
@@ -84,6 +85,11 @@ LingmoWindow {
             onActivated: {
                 console.log("成功点击！")
             }
+        }
+
+        QQCL.ToolButton {
+            Layout.alignment: Qt.AlignHCenter
+            text: "I'm an Button"
         }
     }
 }
