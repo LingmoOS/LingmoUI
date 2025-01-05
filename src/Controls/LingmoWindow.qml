@@ -14,7 +14,7 @@ Window {
     property Component loadingItem: com_loading
     property bool fitsAppBarWindows: false
     property var tintOpacity: LingmoTheme.dark ? 0.80 : 0.75
-    property int blurRadius: 60
+    property int blurRadius: 80
     // Do not change this in other place!
     property var windowVisibility: window.visibility
     property alias effect: frameless.effect

@@ -208,9 +208,9 @@ Rectangle {
             padding: 0
             verticalPadding: 0
             horizontalPadding: 0
-            iconSource: LingmoIcons.ChromeMinimize
+            iconSource: LingmoIcons.ChevronDown
             Layout.alignment: Qt.AlignVCenter
-            iconSize: 11
+            iconSize: 16
             text: minimizeText
             radius: LingmoUnits.windowRadius
             visible: !isMac && showMinimize
@@ -231,7 +231,7 @@ Rectangle {
             padding: 0
             verticalPadding: 0
             horizontalPadding: 0
-            iconSource: d.isRestore ? LingmoIcons.ChromeRestore : LingmoIcons.ChromeMaximize
+            iconSource: d.isRestore ? LingmoIcons.BackToWindow : LingmoIcons.FullScreen
             color: {
                 if (down) {
                     return maximizePressColor
@@ -243,7 +243,7 @@ Rectangle {
             radius: LingmoUnits.windowRadius
             iconColor: control.textColor
             text: d.isRestore ? restoreText : maximizeText
-            iconSize: 11
+            iconSize: 12
             onClicked: maxClickListener()
         }
         LingmoIconButton {
