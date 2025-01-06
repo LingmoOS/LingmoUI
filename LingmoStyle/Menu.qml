@@ -3,7 +3,6 @@
 
 import QtQuick
 import QtQuick.Templates as T
-import QtQuick.Controls.Universal
 import QtQuick.Window
 
 T.Menu {

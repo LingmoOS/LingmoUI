@@ -70,7 +70,7 @@ T.ToolButton {
 
     icon.width: 20
     icon.height: 20
-    icon.color: Color.transparent(Universal.foreground, enabled ? 1.0 : 0.2)
+    icon.color: Color.transparent(control.textColor, enabled ? 1.0 : 0.2)
 
     property bool useSystemFocusVisuals: true
 
@@ -86,8 +86,8 @@ T.ToolButton {
     }
 
     background: LingmoControlBackground {
-        implicitWidth: 68
-        implicitHeight: 48
+        implicitWidth: 30
+        implicitHeight: 30
         radius: LingmoUnits.smallRadius
         color: {
             if (!enabled) {
