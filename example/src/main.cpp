@@ -4,6 +4,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlEngine>
 #include <qlogging.h>
+#include <QQuickWindow>
 #include <qqmlcontext.h>
 #include <qtenvironmentvariables.h>
 
@@ -38,6 +39,32 @@ int main(int argc, char* argv[])
         &aboutQtController);
 
     engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
+
+    QString graphicsApiUsed = "";
+    switch(QQuickWindow::graphicsApi()) {
+        case QSGRendererInterface::Unknown:
+            graphicsApiUsed = "Unknown";
+            break;
+        case QSGRendererInterface::Software:
+            graphicsApiUsed = "Software Rendering";
+            break;
+        case QSGRendererInterface::OpenGL:
+            graphicsApiUsed = "OpenGL Rendering";
+            break;
+        case QSGRendererInterface::Vulkan:
+            graphicsApiUsed = "Vulkan Rendering";
+            break;
+        case QSGRendererInterface::Direct3D11:
+            graphicsApiUsed = "Direct3D11 Rendering";
+            break;
+        case QSGRendererInterface::Direct3D12:
+            graphicsApiUsed = "Direct3D11 Rendering";
+            break;
+        default:
+            graphicsApiUsed = "Unknown";
+    }
+
+    qDebug() << "Using graphical API: " << graphicsApiUsed;
 
     return app.exec();
 }
