@@ -1,5 +1,5 @@
 import QtQuick
-import Qt5Compat.GraphicalEffects
+import LingmoUI.GraphicalEffects
 import LingmoUI
 
 Item {
