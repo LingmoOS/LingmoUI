@@ -204,6 +204,6 @@ Item {
         anchors.fill: parent
         blending: !rootItem.cached
 
-        fragmentShader: "qrc:/qt-project.org/imports/QtGraphicalEffects/shaders_ng/brightnesscontrast.frag.qsb"
+        fragmentShader: "qrc:/lingmoui/kit/GraphicalEffects/LingmoUI/GraphicalEffects/shaders_ng/brightnesscontrast.frag.qsb"
     }
 }

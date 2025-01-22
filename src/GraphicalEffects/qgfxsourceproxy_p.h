@@ -69,7 +69,7 @@ class QGfxSourceProxy : public QQuickItem
     Q_PROPERTY(Interpolation interpolation READ interpolation WRITE setInterpolation NOTIFY interpolationChanged)
 
     Q_ENUMS(Interpolation)
-    QML_NAMED_ELEMENT(QGfxSourceProxy)
+    QML_NAMED_ELEMENT(SourceProxy)
 
   public:
     enum Interpolation

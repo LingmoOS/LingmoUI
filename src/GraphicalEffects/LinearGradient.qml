@@ -320,13 +320,13 @@ Item {
         property real angle: Math.atan2(dx, dy)
         property variant matrixData: Qt.point(Math.sin(angle), Math.cos(angle))
 
-        vertexShader: "qrc:/qt-project.org/imports/QtGraphicalEffects/shaders_ng/lineargradient.vert.qsb"
+        vertexShader: "qrc:/lingmoui/kit/GraphicalEffects/LingmoUI/GraphicalEffects/shaders_ng/lineargradient.vert.qsb"
 
         fragmentShader: maskSource == undefined ? noMaskShader : maskShader
 
         onFragmentShaderChanged: lChanged()
 
-        property string maskShader: "qrc:/qt-project.org/imports/QtGraphicalEffects/shaders_ng/lineargradient_mask.frag.qsb"
-        property string noMaskShader: "qrc:/qt-project.org/imports/QtGraphicalEffects/shaders_ng/lineargradient_nomask.frag.qsb"
+        property string maskShader: "qrc:/lingmoui/kit/GraphicalEffects/LingmoUI/GraphicalEffects/shaders_ng/lineargradient_mask.frag.qsb"
+        property string noMaskShader: "qrc:/lingmoui/kit/GraphicalEffects/LingmoUI/GraphicalEffects/shaders_ng/lineargradient_nomask.frag.qsb"
     }
 }

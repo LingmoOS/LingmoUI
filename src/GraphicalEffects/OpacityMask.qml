@@ -166,6 +166,6 @@ Item {
 
         anchors.fill: parent
 
-        fragmentShader: invert ? "qrc:/qt-project.org/imports/QtGraphicalEffects/shaders_ng/opacitymask_invert.frag.qsb" : "qrc:/qt-project.org/imports/QtGraphicalEffects/shaders_ng/opacitymask.frag.qsb"
+        fragmentShader: invert ? "qrc:/lingmoui/kit/GraphicalEffects/LingmoUI/GraphicalEffects/shaders_ng/opacitymask_invert.frag.qsb" : "qrc:/lingmoui/kit/GraphicalEffects/LingmoUI/GraphicalEffects/shaders_ng/opacitymask.frag.qsb"
     }
 }

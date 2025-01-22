@@ -273,6 +273,6 @@ Item {
         property real spread: rootItem.spread / 2.0
         property real cornerRadius: clampedCornerRadius()
 
-        fragmentShader: "qrc:/qt-project.org/imports/QtGraphicalEffects/shaders_ng/rectangularglow.frag.qsb"
+        fragmentShader: "qrc:/lingmoui/kit/GraphicalEffects/LingmoUI/GraphicalEffects/shaders_ng/rectangularglow.frag.qsb"
     }
 }

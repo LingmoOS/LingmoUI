@@ -76,9 +76,9 @@ Item {
         hideSource: visible
     }
 
-    property string __internalBlurVertexShader: "qrc:/qt-project.org/imports/QtGraphicalEffects/shaders_ng/fastblur_internal.vert.qsb"
+    property string __internalBlurVertexShader: "qrc:/lingmoui/kit/GraphicalEffects/LingmoUI/GraphicalEffects/shaders_ng/fastblur_internal.vert.qsb"
 
-    property string __internalBlurFragmentShader: "qrc:/qt-project.org/imports/QtGraphicalEffects/shaders_ng/fastblur_internal.frag.qsb"
+    property string __internalBlurFragmentShader: "qrc:/lingmoui/kit/GraphicalEffects/LingmoUI/GraphicalEffects/shaders_ng/fastblur_internal.frag.qsb"
 
     ShaderEffect {
         id: level0
@@ -340,6 +340,6 @@ Item {
 
         onLodChanged: calculateWeights()
 
-        fragmentShader: "qrc:/qt-project.org/imports/QtGraphicalEffects/shaders_ng/fastglow.frag.qsb"
+        fragmentShader: "qrc:/lingmoui/kit/GraphicalEffects/LingmoUI/GraphicalEffects/shaders_ng/fastglow.frag.qsb"
     }
 }

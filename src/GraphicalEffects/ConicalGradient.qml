@@ -336,7 +336,7 @@ Gradient {
 
         onFragmentShaderChanged: startAngleChanged()
 
-        property string noMaskShader: "qrc:/qt-project.org/imports/QtGraphicalEffects/shaders_ng/conicalgradient_nomask.frag.qsb"
-        property string maskShader:   "qrc:/qt-project.org/imports/QtGraphicalEffects/shaders_ng/conicalgradient_mask.frag.qsb"
+        property string noMaskShader: "qrc:/lingmoui/kit/GraphicalEffects/LingmoUI/GraphicalEffects/shaders_ng/conicalgradient_nomask.frag.qsb"
+        property string maskShader:   "qrc:/lingmoui/kit/GraphicalEffects/LingmoUI/GraphicalEffects/shaders_ng/conicalgradient_mask.frag.qsb"
     }
 }

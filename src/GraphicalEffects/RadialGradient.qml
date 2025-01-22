@@ -407,13 +407,13 @@ Item {
 
         anchors.fill: parent
 
-        vertexShader: "qrc:/qt-project.org/imports/QtGraphicalEffects/shaders_ng/radialgradient.vert.qsb"
+        vertexShader: "qrc:/lingmoui/kit/GraphicalEffects/LingmoUI/GraphicalEffects/shaders_ng/radialgradient.vert.qsb"
 
         fragmentShader: maskSource == undefined ? noMaskShader : maskShader
 
         onFragmentShaderChanged: horizontalRatioChanged()
 
-        property string maskShader: "qrc:/qt-project.org/imports/QtGraphicalEffects/shaders_ng/radialgradient_mask.frag.qsb"
-        property string noMaskShader: "qrc:/qt-project.org/imports/QtGraphicalEffects/shaders_ng/radialgradient_nomask.frag.qsb"
+        property string maskShader: "qrc:/lingmoui/kit/GraphicalEffects/LingmoUI/GraphicalEffects/shaders_ng/radialgradient_mask.frag.qsb"
+        property string noMaskShader: "qrc:/lingmoui/kit/GraphicalEffects/LingmoUI/GraphicalEffects/shaders_ng/radialgradient_nomask.frag.qsb"
     }
 }
