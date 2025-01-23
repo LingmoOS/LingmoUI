@@ -39,7 +39,7 @@ import QtQuick.Window 2.4
 import QtQuick.Controls 2.4
 import QtQuick.Controls.impl 2.4
 import QtQuick.Templates 2.12 as T
-import Qt5Compat.GraphicalEffects
+import LingmoUI.GraphicalEffects
 import LingmoUI.CompatibleModule 3.0 as LingmoUI
 
 T.ComboBox {

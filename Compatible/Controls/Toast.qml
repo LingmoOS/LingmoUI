@@ -20,7 +20,7 @@
 import QtQuick 2.15
 import QtQuick.Controls
 import QtQuick.Layouts
-import Qt5Compat.GraphicalEffects
+import LingmoUI.GraphicalEffects
 import LingmoUI.CompatibleModule as LingmoUI
 
 Popup {

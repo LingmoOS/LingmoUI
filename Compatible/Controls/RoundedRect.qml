@@ -19,7 +19,7 @@
 
 import QtQuick 2.12
 import QtQuick.Controls 2.12
-import Qt5Compat.GraphicalEffects
+import LingmoUI.GraphicalEffects
 
 import LingmoUI.CompatibleModule as LingmoUI
 

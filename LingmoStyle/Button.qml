@@ -22,7 +22,7 @@ T.Button {
 
     icon.width: 20
     icon.height: 20
-    icon.color: Color.transparent(Universal.foreground, enabled ? 1.0 : 0.2)
+    icon.color: Color.transparent(control.textColor, enabled ? 1.0 : 0.2)
 
     Accessible.role: Accessible.Button
     Accessible.name: control.text
@@ -89,7 +89,7 @@ T.Button {
     background: LingmoControlBackground {
         implicitWidth: 30
         implicitHeight: 30
-        radius: LingmoTheme.roundWindowRadius
+        radius: LingmoTheme.smallRadius
         color: {
             if (!enabled) {
                 return disableColor
