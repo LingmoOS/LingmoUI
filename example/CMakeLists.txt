@@ -49,12 +49,23 @@ foreach (filepath ${RES_PATHS})
     list(APPEND resource_files ${filename})
 endforeach (filepath)
 
+#如果是Windows平台，则生成rc文件
+set(EXAMPLE_VERSION_RC_PATH "")
+if (WIN32)
+    set(EXAMPLE_VERSION_RC_PATH ${CMAKE_CURRENT_BINARY_DIR}/version_${PROJECT_NAME}.rc)
+    configure_file(
+            ${CMAKE_CURRENT_SOURCE_DIR}/version_exe.rc.in
+            ${EXAMPLE_VERSION_RC_PATH}
+    )
+endif ()
+
 message(STATUS "LINGMOUI_TEMP_IMPORT_PATH: ${LINGMOUI_TEMP_IMPORT_PATH}")
 add_compile_definitions(LINGMOUI_TEMP_IMPORT_PATH="${LINGMOUI_TEMP_IMPORT_PATH}")
 
 qt_add_executable(${PROJECT_NAME}
     MANUAL_FINALIZATION
     ${sources_files}
+    ${EXAMPLE_VERSION_RC_PATH}
 )
 
 qt_add_resources(${PROJECT_NAME} "resources"
