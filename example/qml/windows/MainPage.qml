@@ -91,5 +91,15 @@ LingmoWindow {
             Layout.alignment: Qt.AlignHCenter
             text: "I'm an Button"
         }
+
+        LingmoFilledIconButton {
+            id: iconBtn
+            Layout.alignment: Qt.AlignHCenter
+            iconSource: LingmoIcons.AddBold
+            iconSize: 32
+            implicitWidth: 64
+            implicitHeight: 64
+            radius: iconBtn.implicitWidth / 2
+        }
     }
 }
