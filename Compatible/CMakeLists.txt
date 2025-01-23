@@ -19,7 +19,7 @@ set(TARGET_SOURCES
 
 target_include_directories(${TARGET}CompatibleModule PRIVATE desktop)
 
-if (MSVC)
+if (CMAKE_HOST_SYSTEM_NAME MATCHES "Windows")
     list(APPEND TARGET_SOURCES
             platforms/windows/windowhelper.cpp platforms/windows/windowhelper.h
             platforms/windows/blurhelper/windowblur.cpp platforms/windows/blurhelper/windowblur.h

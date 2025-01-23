@@ -139,6 +139,8 @@ Window {
             }
         }
     }
+    // Image in Window Background
+    // Can enable Blur effect here
     Component {
         id: com_background
         Item {

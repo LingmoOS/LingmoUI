@@ -22,7 +22,7 @@ import QtQuick.Window
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Shapes
-import Qt5Compat.GraphicalEffects
+import LingmoUI.GraphicalEffects
 
 import LingmoUI.CompatibleModule 3.0 as LingmoUI
 

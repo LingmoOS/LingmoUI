@@ -3,9 +3,6 @@ qt_standard_project_setup()
 # Create Qt6 library target
 qt_add_library(${TARGET} SHARED)
 
-
-target_include_directories(${TARGET} PRIVATE desktop)
-
 target_link_libraries(${TARGET}
         PUBLIC
         Qt6::Core
@@ -32,7 +29,7 @@ set(qml_files "")
 set(resource_files "")
 
 #遍历所有Cpp文件
-file(GLOB_RECURSE CPP_FILES *.cpp *.h)
+file(GLOB CPP_FILES *.cpp *.h)
 foreach (filepath ${CPP_FILES})
     string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
     list(APPEND sources_files ${filename})
@@ -58,10 +55,18 @@ foreach (filepath ${QML_PATHS})
 endforeach (filepath)
 
 #遍历所有资源文件
-file(GLOB_RECURSE RES_PATHS *.png *.jpg *.svg *.ico *.ttf *.webp *.js *.qm)
-foreach (filepath ${RES_PATHS})
-    string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
-    list(APPEND resource_files ${filename})
+set(RES_SUFFIX "")
+set(RES_PATHS "")
+list(APPEND RES_SUFFIX *.png *.jpg *.svg *.ico *.ttf *.webp *.js *.qm *.qsb)
+list(APPEND RES_PATHS Controls Font Image)
+foreach (respath ${RES_PATHS})
+    foreach (filesuffix ${RES_SUFFIX})
+        file(GLOB_RECURSE RES_FOUND ${respath}/${filesuffix})
+        foreach (filepath ${RES_FOUND})
+            string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
+            list(APPEND resource_files ${filename})
+        endforeach()
+    endforeach ()
 endforeach (filepath)
 
 # Set Qt6 QMl Plugins
@@ -79,6 +84,8 @@ qt_add_qml_module(${TARGET}
 
 set_target_properties(${TARGET}
     PROPERTIES  VERSION ${MODULE_VERSION} SOVERSION ${MODULE_VERSION_MAJOR})
+
+add_subdirectory(GraphicalEffects)
 
 install(DIRECTORY ${CMAKE_BINARY_DIR}/temp/${PROJECT_NAME} DESTINATION ${INSTALL_QMLDIR})
 generate_export_header(${TARGET} BASE_NAME ${TARGET})
