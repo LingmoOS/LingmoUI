@@ -210,7 +210,7 @@ Rectangle {
             horizontalPadding: 0
             iconSource: LingmoIcons.ChevronDown
             Layout.alignment: Qt.AlignVCenter
-            iconSize: 16
+            iconSize: 14
             text: minimizeText
             radius: LingmoUnits.windowRadius
             visible: !isMac && showMinimize
@@ -243,7 +243,7 @@ Rectangle {
             radius: LingmoUnits.windowRadius
             iconColor: control.textColor
             text: d.isRestore ? restoreText : maximizeText
-            iconSize: 12
+            iconSize: 14
             onClicked: maxClickListener()
         }
         LingmoIconButton {
