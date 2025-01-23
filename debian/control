@@ -25,7 +25,6 @@ Package: lingmoui3
 Architecture: any
 Depends: qml6-module-qtquick-controls,
          qml6-module-qtquick,
-         qml6-module-qt5compat-graphicaleffects,
          ${misc:Depends},
          ${shlibs:Depends}
 Description: LingmoOS UIKit - Qt6 Version

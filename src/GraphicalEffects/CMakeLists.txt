@@ -59,7 +59,7 @@ foreach (respath ${RES_PATHS})
             list(APPEND resource_files ${filename})
         endforeach()
     endforeach ()
-endforeach (filepath)
+endforeach (respath)
 
 # Set Qt6 QMl Plugins
 qt_add_qml_module(${TARGET}.GraphicalEffects
