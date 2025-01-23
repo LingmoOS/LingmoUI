@@ -7,6 +7,7 @@ LingmoObject {
     id: root
     Component.onCompleted: {
         LingmoApp.init(root, Qt.locale("zh_CN"));
+        LingmoApp.windowIcon = "qrc:/image/logo.ico"
         LingmoTheme.animationEnabled = true;
         LingmoTheme.blurBehindWindowEnabled = true;
         LingmoTheme.darkMode = LingmoThemeType.Dark;
