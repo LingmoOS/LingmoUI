@@ -25,7 +25,7 @@ int main(int argc, char* argv[])
 {
     qDebug() << "LINGMOUI_TEMP_IMPORT_PATH: " << LINGMOUI_TEMP_IMPORT_PATH;
 
-    QQuickWindow::setGraphicsApi(QSGRendererInterface::Vulkan);
+    // QQuickWindow::setGraphicsApi(QSGRendererInterface::Vulkan);
 
     QApplication app(argc, argv);
 

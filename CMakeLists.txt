@@ -19,6 +19,7 @@ set(QML_IMPORT_PATH ${CMAKE_BINARY_DIR}/temp CACHE STRING "" FORCE)
 
 project(${PROJECT_NAME} VERSION ${MODULE_VERSION})
 
+option(BUILD_PYTHON "Build Python bindings" OFF)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_CXX_STANDARD 17)
@@ -51,6 +52,13 @@ else()
     ecm_query_qt(INSTALL_QMLDIR QT_INSTALL_QML)
 endif()
 
+# Handle Python build status
+if (${BUILD_PYTHON})
+    message(STATUS "Python bindings will be built")
+    set(INSTALL_QMLDIR ${CMAKE_INSTALL_PREFIX}/qml)
+    set(CMAKECONFIG_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/share/${TARGET}")
+endif ()
+
 if (INSTALL_QMLDIR)
     message(STATUS "QML directory:" "${INSTALL_QMLDIR}")
 else ()
@@ -58,18 +66,25 @@ else ()
 endif ()
 
 # Install
+# if (MSVC)
+#     # Install LingmoUI to vcpkg installed dir
+#     # for example.
+#     # _VCPKG_INSTALLED_DIR:PATH=C:/app/vcpkg/installed
+#     # VCPKG_TARGET_TRIPLET:STRING=x64-windows
+#     # The final installed dir is C:/app/vcpkg/installed/x64-windows/share/LingmoUI
+#     set(CMAKECONFIG_INSTALL_DIR "${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/share/${TARGET}")
+#     set(CMAKE_INSTALL_PREFIX "${_VCPKG_INSTALLED_DIR}")
+#     set(LINGMOUI_INSTALL_PREFIX "${_VCPKG_INSTALLED_DIR}")
+# else ()
+#     set(CMAKECONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/${TARGET}")
+# endif ()
 if (MSVC)
-    # Install LingmoUI to vcpkg installed dir
-    # for example.
-    # _VCPKG_INSTALLED_DIR:PATH=C:/app/vcpkg/installed
-    # VCPKG_TARGET_TRIPLET:STRING=x64-windows
-    # The final installed dir is C:/app/vcpkg/installed/x64-windows/share/LingmoUI
-    set(CMAKECONFIG_INSTALL_DIR "${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/share/${TARGET}")
-    set(CMAKE_INSTALL_PREFIX "${_VCPKG_INSTALLED_DIR}")
-else ()
     set(CMAKECONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/${TARGET}")
 endif ()
+
 message(STATUS "CMake Config install directory:" "${CMAKECONFIG_INSTALL_DIR}")
+
+message(STATUS "LingmoUI Install Prefix:" "${CMAKE_INSTALL_PREFIX}")
 
 # Set temp dir for import qml files in example app
 set(LINGMOUI_TEMP_IMPORT_PATH ${CMAKE_BINARY_DIR}/temp/)
@@ -116,7 +131,7 @@ install(
         COMPONENT
         Devel
 )
-install(FILES conf/version DESTINATION /etc/${TARGET}/ COMPONENT Runtime)
+install(FILES conf/version DESTINATION ${CMAKE_INSTALL_PREFIX}/etc/${TARGET}/ COMPONENT Runtime)
 
 install(EXPORT ${TARGET}Targets
         DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
