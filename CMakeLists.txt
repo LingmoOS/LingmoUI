@@ -66,19 +66,10 @@ else ()
 endif ()
 
 # Install
-# if (MSVC)
-#     # Install LingmoUI to vcpkg installed dir
-#     # for example.
-#     # _VCPKG_INSTALLED_DIR:PATH=C:/app/vcpkg/installed
-#     # VCPKG_TARGET_TRIPLET:STRING=x64-windows
-#     # The final installed dir is C:/app/vcpkg/installed/x64-windows/share/LingmoUI
-#     set(CMAKECONFIG_INSTALL_DIR "${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/share/${TARGET}")
-#     set(CMAKE_INSTALL_PREFIX "${_VCPKG_INSTALLED_DIR}")
-#     set(LINGMOUI_INSTALL_PREFIX "${_VCPKG_INSTALLED_DIR}")
-# else ()
-#     set(CMAKECONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/${TARGET}")
-# endif ()
-if (MSVC)
+if (${_VCPKG_INSTALLED_DIR})
+    set(CMAKECONFIG_INSTALL_DIR "${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/share/${TARGET}")
+    set(CMAKE_INSTALL_PREFIX "${_VCPKG_INSTALLED_DIR}")
+else () 
     set(CMAKECONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/${TARGET}")
 endif ()
 
