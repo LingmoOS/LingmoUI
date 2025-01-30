@@ -64,4 +64,10 @@ debian/lingmoui.debhelper.log
 debian/lingmoui.substvars
 debian/files
 
+# clangd cache
 /.cache/
+
+# Python files
+*.egg-info/
+/dist/
+__pycache__/

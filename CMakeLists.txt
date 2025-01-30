@@ -53,7 +53,7 @@ else()
 endif()
 
 # Handle Python build status
-if (${BUILD_PYTHON})
+if (BUILD_PYTHON)
     message(STATUS "Python bindings will be built")
     set(INSTALL_QMLDIR ${CMAKE_INSTALL_PREFIX}/qml)
     set(CMAKECONFIG_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/share/${TARGET}")
@@ -66,7 +66,7 @@ else ()
 endif ()
 
 # Install
-if (${_VCPKG_INSTALLED_DIR})
+if (_VCPKG_INSTALLED_DIR)
     set(CMAKECONFIG_INSTALL_DIR "${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/share/${TARGET}")
     set(CMAKE_INSTALL_PREFIX "${_VCPKG_INSTALLED_DIR}")
 else () 
