@@ -139,7 +139,7 @@ T.DelayButton {
     background: LingmoControlBackground {
         implicitWidth: 30
         implicitHeight: 30
-        radius: LingmoUnits.windowRadius
+        radius: LingmoUnits.smallRadius
         border.color: LingmoTheme.dark ? Qt.rgba(
                                           48 / 255, 48 / 255, 48 / 255,
                                           1) : Qt.rgba(188 / 255, 188 / 255, 188 / 255, 1)
@@ -157,7 +157,7 @@ T.DelayButton {
         }
         LingmoClip {
             anchors.fill: parent
-            radius: {return new Array(4).fill(LingmoUnits.windowRadius);}
+            radius: {return new Array(4).fill(LingmoUnits.smallRadius);}
             Rectangle {
                 id: rect_back
                 width: parent.width * control.progress
