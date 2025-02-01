@@ -185,16 +185,16 @@ LingmoObject {
                     iconSource: {
                         switch (_super.type) {
                         case mcontrol.const_success:
-                            return LingmoentIcons.CompletedSolid
+                            return LingmoIcons.CompletedSolid
                         case mcontrol.const_warning:
-                            return LingmoentIcons.InfoSolid
+                            return LingmoIcons.InfoSolid
                         case mcontrol.const_info:
-                            return LingmoentIcons.InfoSolid
+                            return LingmoIcons.InfoSolid
                         case mcontrol.const_error:
-                            return LingmoentIcons.StatusErrorFull
+                            return LingmoIcons.StatusErrorFull
                         }
-                        LingmoentIcons.StatusErrorFull
-                        return LingmoentIcons.FA_info_circle
+                        LingmoIcons.StatusErrorFull
+                        return LingmoIcons.FA_info_circle
                     }
                     iconSize: 20
                     iconColor: {
@@ -239,14 +239,14 @@ LingmoObject {
                         text: _super.moremsg
                         visible: _super.moremsg
                         wrapMode: Text.WordWrap
-                        textColor: LingmoColors.Grey120
+                        textColor: LingmoColor.Grey120
                         width: Math.min(implicitWidth, mcontrol.maxWidth)
                     }
                 }
 
                 LingmoIconButton {
                     id: btn_close
-                    iconSource: LingmoentIcons.ChromeClose
+                    iconSource: LingmoIcons.ChromeClose
                     iconSize: 10
                     verticalPadding: 0
                     horizontalPadding: 0

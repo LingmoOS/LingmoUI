@@ -26,6 +26,7 @@ foreach (filepath ${CPP_FILES})
 endforeach (filepath)
 
 #遍历所有qml文件
+set(SINGLETON_FILES "global/SidebarItems.qml")
 file(GLOB_RECURSE QML_PATHS qml/*.qml qmldir)
 foreach (filepath ${QML_PATHS})
     string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
