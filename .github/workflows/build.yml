@@ -92,6 +92,11 @@ jobs:
         cmake .. -DCMAKE_INSTALL_PREFIX:PATH=${{ github.workspace }}/.install_ecm/
         cmake --build . 
         cmake --install .
+    - name: Install Linux Depends
+      if: ${{ matrix.os == 'ubuntu-latest' }}
+      runs: |
+        sudo apt update
+        sudo apt install -y libxcb1-dev libxcb-shape0-dev libxcb-icccm4-dev,
         
     - name: Build Package
       env:
