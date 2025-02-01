@@ -48,6 +48,13 @@ class BuildExt(build_ext):
             "-DCMAKE_BUILD_TYPE:STRING=" + config,
             "-DCMAKE_INSTALL_PREFIX:PATH=" + str(extdir),
         ]
+        
+        # 如果是Windows，强制使用CL.exe 作为C_compiler
+        if platform.system() == "Windows":
+            cmake_args += [
+                "-DCMAKE_C_COMPILER=cl.exe",
+                "-DCMAKE_CXX_COMPILER=cl.exe",
+            ]
 
         build_args = [
             "--config", config,
