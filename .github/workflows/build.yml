@@ -96,7 +96,7 @@ jobs:
       if: matrix.os == 'ubuntu-latest'
       run: |
         sudo apt update
-        sudo apt install -y libxcb1-dev libxcb-shape0-dev libxcb-icccm4-dev,
+        sudo apt install -y libxcb1-dev libxcb-shape0-dev libxcb-icccm4-dev
         
     - name: Build Package
       env:
