@@ -37,6 +37,14 @@ jobs:
         python-version: ['3.11', '3.12', '3.13' ]
         os: [ubuntu-latest, windows-latest, macos-latest]
         qt-version: ["6.7.*"]
+        include:
+          - os: ubuntu-latest
+            qt-arch: 'linux_gcc_64'
+          - os: windows-latest
+            qt-arch: 'win64_msvc2019_64'
+          - os: macos-latest
+            qt-arch: 'clang_64'
+
     runs-on: ${{ matrix.os }}
     steps:
     - name: Checkout Source
@@ -52,6 +60,7 @@ jobs:
       with:
         version: ${{ matrix.qt-version }}
         target: 'desktop'
+        arch: ${{ matrix.qt-arch }}
         dir: '${{ github.workspace }}/.install_qt/'
         install-deps: 'true'
         cache: 'true'
