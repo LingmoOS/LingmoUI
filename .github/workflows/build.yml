@@ -76,8 +76,24 @@ jobs:
         set-env: 'true'
         tools-only: 'false'
 
-
+    # We need to clone https://invent.kde.org/frameworks/extra-cmake-modules.git
+    # Build it and install to some place
+    # The add the install path to CMAKE_PREFIX_PATH
+    # Export using Gitub Actions export
+    - name: Build and Install ECM
+      run: |
+        git clone https://invent.kde.org/frameworks/extra-cmake-modules.git
+        cd extra-cmake-modules
+        git checkout v6.10.0
+        mkdir build
+        cd build
+        cmake .. -DCMAKE_INSTALL_PREFIX:PATH=${{ github.workspace }}/.install_ecm/
+        make -j$(nproc)
+        make install
+        
     - name: Build Package
+      env:
+        CMAKE_PREFIX_PATH: ${{ github.workspace }}/.install_ecm/
       run: |
         python -m pip install --upgrade pip
         python -m pip install setuptools wheel
