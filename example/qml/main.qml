@@ -13,7 +13,7 @@ LingmoObject {
         LingmoTheme.darkMode = LingmoThemeType.Dark;
 
         LingmoRouter.routes = {
-            "/": "qrc:/qml/windows/MainPage.qml"
+            "/": "qrc:/qml/windows/MainWindow.qml"
         };
 
         LingmoRouter.navigate("/");
