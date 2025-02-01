@@ -25,7 +25,18 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(ECM REQUIRED NO_MODULE)
+find_package(ECM NO_MODULE)
+# If failed, using Fetch Content
+if (NOT ECM_FOUND)
+    include(FetchContent)
+    FetchContent_Declare(
+            ecm
+            GIT_REPOSITORY https://invent.kde.org/frameworks/extra-cmake-modules.git
+            GIT_TAG v6.10.0
+    )
+    FetchContent_MakeAvailable(ecm)
+endif ()
+
 list(APPEND CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 message(STATUS "ECM version: ${ECM_VERSION}")
 
