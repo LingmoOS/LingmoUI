@@ -41,7 +41,7 @@ elseif (APPLE)
     target_include_directories(${TARGET}CompatibleModule PRIVATE platforms/mac)
     target_include_directories(${TARGET}CompatibleModule PRIVATE platforms/mac/shadowhelper)
     target_include_directories(${TARGET}CompatibleModule PRIVATE platforms/mac/blurhelper)
-elseif ()
+else ()
     if (KF6WindowSystem_FOUND)
         list(APPEND TARGET_SOURCES
         platforms/linux/windowhelper.cpp platforms/linux/windowhelper.h
