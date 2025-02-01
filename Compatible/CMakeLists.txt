@@ -70,9 +70,10 @@ target_link_libraries(${TARGET}CompatibleModule
 
 if (UNIX)
     if (NOT APPLE)
-        if(KF6WindowSystem_FOUND)
-            target_link_libraries(${TARGET}CompatibleModule PRIVATE Qt6::Gui Qt6::GuiPrivate KF6::WindowSystem)
-        endif()
+        target_link_libraries(${TARGET}CompatibleModule PRIVATE Qt6::Gui Qt6::GuiPrivate)
+        if (KF6WindowSystem_FOUND)
+            target_link_libraries(${TARGET} PRIVATE KF6::WindowSystem)
+        endif ()
     endif ()
 endif ()
 
