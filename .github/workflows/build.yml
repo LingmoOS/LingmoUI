@@ -69,6 +69,7 @@ jobs:
         arch: ${{ matrix.qt-arch }}
         dir: '${{ github.workspace }}/.install_qt/'
         install-deps: 'true'
+        modules: 'qt5compat'
         cache: 'true'
         cache-key-prefix: 'install-qt-action'
         setup-python: 'false'
