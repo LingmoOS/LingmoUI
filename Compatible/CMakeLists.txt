@@ -41,7 +41,7 @@ elseif (APPLE)
     target_include_directories(${TARGET}CompatibleModule PRIVATE platforms/mac)
     target_include_directories(${TARGET}CompatibleModule PRIVATE platforms/mac/shadowhelper)
     target_include_directories(${TARGET}CompatibleModule PRIVATE platforms/mac/blurhelper)
-else ()
+elseif (KF6WindowSystem_FOUND)
     list(APPEND TARGET_SOURCES
             platforms/linux/windowhelper.cpp platforms/linux/windowhelper.h
             platforms/linux/blurhelper/windowblur.cpp platforms/linux/blurhelper/windowblur.h
@@ -70,7 +70,9 @@ target_link_libraries(${TARGET}CompatibleModule
 
 if (UNIX)
     if (NOT APPLE)
-        target_link_libraries(${TARGET}CompatibleModule PRIVATE Qt6::Gui Qt6::GuiPrivate KF6::WindowSystem)
+        if(KF6WindowSystem_FOUND)
+            target_link_libraries(${TARGET}CompatibleModule PRIVATE Qt6::Gui Qt6::GuiPrivate KF6::WindowSystem)
+        endif()
     endif ()
 endif ()
 

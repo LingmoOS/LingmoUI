@@ -35,7 +35,11 @@ find_package(Qt6 REQUIRED ${QT})
 if (UNIX)
     if (NOT APPLE)
         list(APPEND QT GuiPrivate)
-        find_package(KF6WindowSystem REQUIRED)
+        find_package(KF6WindowSystem)
+        # If not found, warn and continue
+        if (NOT KF6WindowSystem_FOUND)
+            message(WARNING "KF6WindowSystem not found. Some features may not work.")
+        endif ()
     endif ()
 endif ()
 
