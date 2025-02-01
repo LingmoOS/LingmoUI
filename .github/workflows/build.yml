@@ -76,11 +76,18 @@ jobs:
         set-env: 'true'
         tools-only: 'false'
 
+    - name: Install Dependencies for ${{ matrix.os }}
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        sudo apt-get install -y equivs curl git devscripts lintian build-essential automake autotools-dev cmake g++
+        sudo mk-build-deps -i -t "apt-get --yes" -r
+
     # We need to clone https://invent.kde.org/frameworks/extra-cmake-modules.git
     # Build it and install to some place
     # The add the install path to CMAKE_PREFIX_PATH
     # Export using Gitub Actions export
     - name: Build and Install ECM
+      if: matrix.os != 'ubuntu-latest'
       run: |
         git clone https://invent.kde.org/frameworks/extra-cmake-modules.git
         cd extra-cmake-modules
