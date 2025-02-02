@@ -33,7 +33,7 @@ Item {
             // 包围整个内容的矩形，用于为Blur创建圆角效果
             anchors.fill: parent
             radius: {
-                return new Array(4).fill(control.cornerRadius);
+                return new Array(4).fill(control.cornerRadius + 1);
             }
 
             FastBlur {
