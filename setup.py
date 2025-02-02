@@ -73,7 +73,7 @@ class BuildExt(build_ext):
 lingmoui = CMakeExtension("LingmoUI")
 
 setup(name="LingmoUIPy",
-      version="3.0",
+      version="3.0.0b1",
       description="This is LingmoUI for Python",
       ext_modules=[lingmoui],  # mymath 现在是 CMakeExtension 类的实例了
       packages=['LingmoUIPy'],
