@@ -79,6 +79,6 @@ setup(name="LingmoUIPy",
       packages=['LingmoUIPy'],
       cmdclass={"build_ext": BuildExt},  # 使用自定义的 build_ext 类
       install_requires=[
-          "pyside6>=6.7.3",
+          "pyside6==6.7.3",
       ],
       )
