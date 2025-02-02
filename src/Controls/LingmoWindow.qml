@@ -3,8 +3,10 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Window
 import LingmoUI
+import LingmoUI.GraphicalEffects
 
 Window {
+    id: window
     default property alias contentData: layout_content.data
     property string windowIcon: LingmoApp.windowIcon
     property int launchMode: LingmoWindowType.Standard
@@ -32,20 +34,18 @@ Window {
     }
     property color backgroundColor: {
         if (frameless.effective && active) {
-            var backcolor
+            var backcolor;
             if (frameless.effect === "dwm-blur") {
-                backcolor = LingmoTools.withOpacity(
-                            LingmoTheme.windowActiveBackgroundColor,
-                            window.tintOpacity)
+                backcolor = LingmoTools.withOpacity(LingmoTheme.windowActiveBackgroundColor, window.tintOpacity);
             } else {
-                backcolor = "transparent"
+                backcolor = "transparent";
             }
-            return backcolor
+            return backcolor;
         }
         if (active) {
-            return LingmoTheme.windowActiveBackgroundColor
+            return LingmoTheme.windowActiveBackgroundColor;
         }
-        return LingmoTheme.windowBackgroundColor
+        return LingmoTheme.windowBackgroundColor;
     }
     property bool stayTop: false
     property bool showDark: false
@@ -61,21 +61,17 @@ Window {
     property int __margins: 0
     property color resizeBorderColor: {
         if (window.active) {
-            return LingmoTheme.dark ? Qt.rgba(
-                                          51 / 255, 51 / 255, 51 / 255,
-                                          1) : Qt.rgba(110 / 255, 110 / 255, 110 / 255, 1)
+            return LingmoTheme.dark ? Qt.rgba(51 / 255, 51 / 255, 51 / 255, 1) : Qt.rgba(110 / 255, 110 / 255, 110 / 255, 1);
         }
-        return LingmoTheme.dark ? Qt.rgba(
-                                      61 / 255, 61 / 255, 61 / 255,
-                                      1) : Qt.rgba(167 / 255, 167 / 255, 167 / 255, 1)
+        return LingmoTheme.dark ? Qt.rgba(61 / 255, 61 / 255, 61 / 255, 1) : Qt.rgba(167 / 255, 167 / 255, 167 / 255, 1);
     }
     property int resizeBorderWidth: 1
     property var closeListener: function (event) {
         if (autoDestroy) {
-            LingmoRouter.removeWindow(window)
+            LingmoRouter.removeWindow(window);
         } else {
-            window.visibility = Window.Hidden
-            event.accepted = false
+            window.visibility = Window.Hidden;
+            event.accepted = false;
         }
     }
     signal initArgument(var argument)
@@ -83,28 +79,27 @@ Window {
     property var _windowRegister
     property string _route
     property bool _hideShadow: false
-    id: window
     color: LingmoTools.isSoftware() ? window.backgroundColor : "transparent"
     Component.onCompleted: {
-        LingmoRouter.addWindow(window)
-        useSystemAppBar = LingmoApp.useSystemAppBar
+        LingmoRouter.addWindow(window);
+        useSystemAppBar = LingmoApp.useSystemAppBar;
         if (!useSystemAppBar && autoCenter) {
-            moveWindowToDesktopCenter()
+            moveWindowToDesktopCenter();
         }
-        fixWindowSize()
-        initArgument(argument)
+        fixWindowSize();
+        initArgument(argument);
         if (window.autoVisible) {
             if (window.autoMaximize) {
-                window.visibility = Window.Maximized
+                window.visibility = Window.Maximized;
             } else {
-                window.show()
+                window.show();
             }
         }
     }
     onVisibleChanged: {
         if (visible && d.isLazyInit) {
-            window.lazyLoad()
-            d.isLazyInit = false
+            window.lazyLoad();
+            d.isLazyInit = false;
         }
     }
     QtObject {
@@ -114,7 +109,7 @@ Window {
     Connections {
         target: window
         function onClosing(event) {
-            closeListener(event)
+            closeListener(event);
         }
     }
     LingmoFrameless {
@@ -127,15 +122,15 @@ Window {
         isDarkMode: LingmoTheme.dark
         useSystemEffect: !LingmoTheme.blurBehindWindowEnabled
         Component.onCompleted: {
-            frameless.setHitTestVisible(appBar.layoutMacosButtons)
-            frameless.setHitTestVisible(appBar.layoutStandardbuttons)
+            frameless.setHitTestVisible(appBar.layoutMacosButtons);
+            frameless.setHitTestVisible(appBar.layoutStandardbuttons);
         }
         Component.onDestruction: {
-            frameless.onDestruction()
+            frameless.onDestruction();
         }
         onEffectiveChanged: {
             if (effective) {
-                LingmoTheme.blurBehindWindowEnabled = false
+                LingmoTheme.blurBehindWindowEnabled = false;
             }
         }
     }
@@ -145,6 +140,7 @@ Window {
         id: com_background
         Item {
             Rectangle {
+                id: outer_background_rect
                 anchors.fill: parent
                 radius: Window.window.visibility === Window.Maximized ? 0 : LingmoUnits.windowRadius
                 color: window.backgroundColor
@@ -156,34 +152,31 @@ Window {
                 fillMode: Image.PreserveAspectCrop
                 asynchronous: true
                 Component.onCompleted: {
-                    img_back.updateLayout()
-                    source = LingmoTools.getUrlByFilePath(
-                                LingmoTheme.desktopImagePath)
+                    img_back.updateLayout();
+                    source = LingmoTools.getUrlByFilePath(LingmoTheme.desktopImagePath);
                 }
                 Connections {
                     target: window
                     function onScreenChanged() {
-                        img_back.updateLayout()
+                        img_back.updateLayout();
                     }
                 }
                 function updateLayout() {
-                    var geometry = LingmoTools.desktopAvailableGeometry(window)
-                    img_back.width = geometry.width
-                    img_back.height = geometry.height
-                    img_back.sourceSize = Qt.size(img_back.width,
-                                                  img_back.height)
+                    var geometry = LingmoTools.desktopAvailableGeometry(window);
+                    img_back.width = geometry.width;
+                    img_back.height = geometry.height;
+                    img_back.sourceSize = Qt.size(img_back.width, img_back.height);
                 }
                 Connections {
                     target: LingmoTheme
                     function onDesktopImagePathChanged() {
-                        timer_update_image.restart()
+                        timer_update_image.restart();
                     }
                     function onBlurBehindWindowEnabledChanged() {
                         if (LingmoTheme.blurBehindWindowEnabled) {
-                            img_back.source = LingmoTools.getUrlByFilePath(
-                                        LingmoTheme.desktopImagePath)
+                            img_back.source = LingmoTools.getUrlByFilePath(LingmoTheme.desktopImagePath);
                         } else {
-                            img_back.source = ""
+                            img_back.source = "";
                         }
                     }
                 }
@@ -191,23 +184,21 @@ Window {
                     id: timer_update_image
                     interval: 150
                     onTriggered: {
-                        img_back.source = ""
-                        img_back.source = LingmoTools.getUrlByFilePath(
-                                    LingmoTheme.desktopImagePath)
+                        img_back.source = "";
+                        img_back.source = LingmoTools.getUrlByFilePath(LingmoTheme.desktopImagePath);
                     }
                 }
             }
             LingmoAcrylic {
+                id: bg_acrylic
                 anchors.fill: parent
                 target: img_back
                 tintOpacity: window.tintOpacity
+                cornerRadius: Window.window.visibility === Window.Maximized ? 0 : LingmoUnits.windowRadius
                 blurRadius: window.blurRadius
                 visible: window.active && LingmoTheme.blurBehindWindowEnabled
-                tintColor: LingmoTheme.dark ? Qt.rgba(0, 0, 0,
-                                                      1) : Qt.rgba(1, 1, 1, 1)
-                targetRect: Qt.rect(window.x - window.screen.virtualX,
-                                    window.y - window.screen.virtualY,
-                                    window.width, window.height)
+                tintColor: LingmoTheme.dark ? Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
+                targetRect: Qt.rect(window.x - window.screen.virtualX, window.y - window.screen.virtualY, window.width, window.height)
             }
         }
     }
@@ -217,8 +208,8 @@ Window {
             data: window.appBar
             Component.onCompleted: {
                 window.appBar.width = Qt.binding(function () {
-                    return this.parent.width
-                })
+                    return this.parent.width;
+                });
             }
         }
     }
@@ -232,14 +223,14 @@ Window {
             anchors.centerIn: Overlay.overlay
             closePolicy: {
                 if (cancel) {
-                    return Popup.CloseOnEscape | Popup.CloseOnPressOutside
+                    return Popup.CloseOnEscape | Popup.CloseOnPressOutside;
                 }
-                return Popup.NoAutoClose
+                return Popup.NoAutoClose;
             }
             Overlay.modal: Item {}
             onVisibleChanged: {
                 if (!visible) {
-                    loader_loading.sourceComponent = undefined
+                    loader_loading.sourceComponent = undefined;
                 }
             }
             padding: 0
@@ -256,7 +247,7 @@ Window {
                 }
             }
             Component.onCompleted: {
-                opacity = 1
+                opacity = 1;
             }
             background: Rectangle {
                 color: "#44000000"
@@ -266,7 +257,7 @@ Window {
                     anchors.fill: parent
                     onClicked: {
                         if (cancel) {
-                            popup_loading.visible = false
+                            popup_loading.visible = false;
                         }
                     }
                 }
@@ -315,9 +306,9 @@ Window {
             }
             height: {
                 if (window.useSystemAppBar) {
-                    return 0
+                    return 0;
                 }
-                return window.fitsAppBarWindows ? 0 : window.appBar.height
+                return window.fitsAppBarWindows ? 0 : window.appBar.height;
             }
             sourceComponent: window.useSystemAppBar ? undefined : com_app_bar
         }
@@ -332,9 +323,9 @@ Window {
             clip: true
         }
         LingmoLoader {
+            id: loader_loading
             property string loadingText
             property bool cancel: false
-            id: loader_loading
             anchors.fill: parent
         }
         LingmoInfoBar {
@@ -345,77 +336,72 @@ Window {
             id: loader_border
             anchors.fill: parent
             sourceComponent: {
-                if (window.useSystemAppBar || LingmoTools.isWin()
-                        || window.visibility === Window.Maximized
-                        || window.visibility === Window.FullScreen) {
-                    return undefined
+                if (window.useSystemAppBar || LingmoTools.isWin() || window.visibility === Window.Maximized || window.visibility === Window.FullScreen) {
+                    return undefined;
                 }
-                return com_border
+                return com_border;
             }
         }
     }
     function hideLoading() {
-        loader_loading.sourceComponent = undefined
+        loader_loading.sourceComponent = undefined;
     }
     function showSuccess(text, duration, moremsg) {
-        return info_bar.showSuccess(text, duration, moremsg)
+        return info_bar.showSuccess(text, duration, moremsg);
     }
     function showInfo(text, duration, moremsg) {
-        return info_bar.showInfo(text, duration, moremsg)
+        return info_bar.showInfo(text, duration, moremsg);
     }
     function showWarning(text, duration, moremsg) {
-        return info_bar.showWarning(text, duration, moremsg)
+        return info_bar.showWarning(text, duration, moremsg);
     }
     function showError(text, duration, moremsg) {
-        return info_bar.showError(text, duration, moremsg)
+        return info_bar.showError(text, duration, moremsg);
     }
     function clearAllInfo() {
-        return info_bar.clearAllInfo()
+        return info_bar.clearAllInfo();
     }
     function moveWindowToDesktopCenter() {
-        var availableGeometry = LingmoTools.desktopAvailableGeometry(window)
-        window.setGeometry(
-                    (availableGeometry.width - window.width) / 2 + Screen.virtualX,
-                    (availableGeometry.height - window.height) / 2 + Screen.virtualY,
-                    window.width, window.height)
+        var availableGeometry = LingmoTools.desktopAvailableGeometry(window);
+        window.setGeometry((availableGeometry.width - window.width) / 2 + Screen.virtualX, (availableGeometry.height - window.height) / 2 + Screen.virtualY, window.width, window.height);
     }
     function fixWindowSize() {
         if (fixSize) {
-            window.maximumWidth = window.width
-            window.maximumHeight = window.height
-            window.minimumWidth = window.width
-            window.minimumHeight = window.height
+            window.maximumWidth = window.width;
+            window.maximumHeight = window.height;
+            window.minimumWidth = window.width;
+            window.minimumHeight = window.height;
         }
     }
     function setResult(data) {
         if (_windowRegister) {
-            _windowRegister.setResult(data)
+            _windowRegister.setResult(data);
         }
     }
     function showMaximized() {
-        frameless.showMaximized()
+        frameless.showMaximized();
     }
     function showMinimized() {
-        frameless.showMinimized()
+        frameless.showMinimized();
     }
     function showNormal() {
-        frameless.showNormal()
+        frameless.showNormal();
     }
     function showLoading(text = "", cancel = true) {
         if (text === "") {
-            text = qsTr("Loading...")
+            text = qsTr("Loading...");
         }
-        loader_loading.loadingText = text
-        loader_loading.cancel = cancel
-        loader_loading.sourceComponent = com_loading
+        loader_loading.loadingText = text;
+        loader_loading.cancel = cancel;
+        loader_loading.sourceComponent = com_loading;
     }
     function setHitTestVisible(val) {
-        frameless.setHitTestVisible(val)
+        frameless.setHitTestVisible(val);
     }
     function deleteLater() {
-        LingmoTools.deleteLater(window)
+        LingmoTools.deleteLater(window);
     }
     function containerItem() {
-        return layout_container
+        return layout_container;
     }
 }

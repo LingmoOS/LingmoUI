@@ -376,6 +376,30 @@ QString LingmoTools::getWallpaperFilePath()
     }
     }
 
+    QString desktop_name = qgetenv("DESKTOP_SESSION");
+
+    switch (hash_(desktop_name.toStdString().c_str())) {
+    case hash_compile_time("plasma"): {
+        QDBusInterface plasmaShellInterface("org.kde.plasmashell", "/PlasmaShell", "org.kde.PlasmaShell");
+        // 检查接口是否有效
+        if (!plasmaShellInterface.isValid()) {
+            qDebug() << "Failed to create D-Bus interface.";
+            return {};
+        }
+        // 调用D-Bus方法获取属性
+        QDBusReply<QVariantMap> reply = plasmaShellInterface.call("wallpaper", static_cast<uint32_t>(0));
+        // 检查调用是否成功
+        if (!reply.isValid()) {
+            qDebug() << "Failed to call D-Bus method:" << reply.error().message();
+            return {};
+        }
+        // 获取属性值
+        QVariantMap properties = reply.value();
+        QString imagePath = properties["Image"].toString();
+        return imagePath;
+    }
+    }
+
 #elif defined(Q_OS_MACOS)
     QProcess process;
     QStringList args;
