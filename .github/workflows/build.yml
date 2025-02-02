@@ -114,8 +114,9 @@ jobs:
         rm dist/*.whl
         mv fix-dist/*.whl dist/
 
-
+      # 只在push的时候执行
     - name: Publish distribution 📦 to Test PyPI
+      if: github.event_name == 'push'
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.TEST_PYPI_API_TOKEN }}
