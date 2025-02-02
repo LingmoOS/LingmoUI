@@ -1,13 +1,24 @@
 #include "lingmoui.h"
 
+#ifdef _WIN32
+    #include "windowhelper.h"
+    #include "shadowhelper/windowshadow.h"
+#elif __APPLE__
+    #include "windowhelper.h"
+    #include "shadowhelper/windowshadow.h"
+#elif __linux__
+    #ifdef KF_WINDOWSYSTEM_FOUND
+        #include "windowhelper.h"
+        #include "shadowhelper/windowshadow.h"
+    #endif
+#endif
+
 #include "blurhelper/windowblur.h"
 #include "iconthemeprovider.h"
 #include "newiconitem.h"
 #include "qqmlsortfilterproxymodel.h"
-#include "shadowhelper/windowshadow.h"
 #include "thememanager.h"
 #include "wheelhandler.h"
-#include "windowhelper.h"
 
 #include "desktop/menupopupwindow.h"
 
@@ -45,9 +56,19 @@ void LingmoUI::registerTypes(const char* uri)
         return new ThemeManager;
     });
 
+#ifdef _WIN32
     qmlRegisterType<WindowShadow>(uri, 3, 0, "WindowShadow");
-    qmlRegisterType<WindowBlur>(uri, 3, 0, "WindowBlur");
     qmlRegisterType<WindowHelper>(uri, 3, 0, "WindowHelper");
+#elif __APPLE__
+    qmlRegisterType<WindowShadow>(uri, 3, 0, "WindowShadow");
+    qmlRegisterType<WindowHelper>(uri, 3, 0, "WindowHelper");
+#elif __linux__
+    #ifdef KF_WINDOWSYSTEM_FOUND
+        qmlRegisterType<WindowShadow>(uri, 3, 0, "WindowShadow");
+        qmlRegisterType<WindowHelper>(uri, 3, 0, "WindowHelper");
+    #endif
+#endif
+    qmlRegisterType<WindowBlur>(uri, 3, 0, "WindowBlur");
     qmlRegisterType<NewIconItem>(uri, 3, 0, "IconItem");
     qmlRegisterType<MenuPopupWindow>(uri, 3, 0, "MenuPopupWindow");
     qmlRegisterType<WheelHandler>(uri, 3, 0, "WheelHandler");

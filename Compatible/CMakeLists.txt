@@ -42,12 +42,16 @@ elseif (APPLE)
     target_include_directories(${TARGET}CompatibleModule PRIVATE platforms/mac/shadowhelper)
     target_include_directories(${TARGET}CompatibleModule PRIVATE platforms/mac/blurhelper)
 else ()
+    if (KF6WindowSystem_FOUND)
+        list(APPEND TARGET_SOURCES
+        platforms/linux/windowhelper.cpp platforms/linux/windowhelper.h
+        platforms/linux/shadowhelper/boxshadowrenderer.cpp platforms/linux/shadowhelper/boxshadowrenderer.h
+        platforms/linux/shadowhelper/tileset.cpp platforms/linux/shadowhelper/tileset.h
+        platforms/linux/shadowhelper/windowshadow.cpp platforms/linux/shadowhelper/windowshadow.h
+        )
+    endif()
     list(APPEND TARGET_SOURCES
-            platforms/linux/windowhelper.cpp platforms/linux/windowhelper.h
             platforms/linux/blurhelper/windowblur.cpp platforms/linux/blurhelper/windowblur.h
-            platforms/linux/shadowhelper/boxshadowrenderer.cpp platforms/linux/shadowhelper/boxshadowrenderer.h
-            platforms/linux/shadowhelper/tileset.cpp platforms/linux/shadowhelper/tileset.h
-            platforms/linux/shadowhelper/windowshadow.cpp platforms/linux/shadowhelper/windowshadow.h
             )
     target_include_directories(${TARGET}CompatibleModule PRIVATE platforms/linux)
     target_include_directories(${TARGET}CompatibleModule PRIVATE platforms/linux/shadowhelper)
@@ -70,7 +74,11 @@ target_link_libraries(${TARGET}CompatibleModule
 
 if (UNIX)
     if (NOT APPLE)
-        target_link_libraries(${TARGET}CompatibleModule PRIVATE Qt6::Gui Qt6::GuiPrivate KF6::WindowSystem)
+        target_link_libraries(${TARGET}CompatibleModule PRIVATE Qt6::Gui Qt6::GuiPrivate)
+        if (KF6WindowSystem_FOUND)
+            target_link_libraries(${TARGET}CompatibleModule PRIVATE KF6::WindowSystem)
+            add_compile_definitions(KF_WINDOWSYSTEM_FOUND)
+        endif ()
     endif ()
 endif ()
 

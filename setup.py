@@ -48,6 +48,13 @@ class BuildExt(build_ext):
             "-DCMAKE_BUILD_TYPE:STRING=" + config,
             "-DCMAKE_INSTALL_PREFIX:PATH=" + str(extdir),
         ]
+        
+        # 如果是Windows，强制使用CL.exe 作为C_compiler
+        if platform.system() == "Windows":
+            cmake_args += [
+                "-DCMAKE_C_COMPILER=cl.exe",
+                "-DCMAKE_CXX_COMPILER=cl.exe",
+            ]
 
         build_args = [
             "--config", config,
@@ -66,12 +73,12 @@ class BuildExt(build_ext):
 lingmoui = CMakeExtension("LingmoUI")
 
 setup(name="LingmoUIPy",
-      version="3.0",
+      version="3.0.0b1",
       description="This is LingmoUI for Python",
       ext_modules=[lingmoui],  # mymath 现在是 CMakeExtension 类的实例了
       packages=['LingmoUIPy'],
       cmdclass={"build_ext": BuildExt},  # 使用自定义的 build_ext 类
       install_requires=[
-          "pyside6>=6.7.3",
+          "pyside6==6.7.3",
       ],
       )

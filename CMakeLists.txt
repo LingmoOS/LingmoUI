@@ -26,6 +26,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(ECM REQUIRED NO_MODULE)
+
 list(APPEND CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 message(STATUS "ECM version: ${ECM_VERSION}")
 
@@ -34,7 +35,11 @@ find_package(Qt6 REQUIRED ${QT})
 if (UNIX)
     if (NOT APPLE)
         list(APPEND QT GuiPrivate)
-        find_package(KF6WindowSystem REQUIRED)
+        find_package(KF6WindowSystem )
+        # If not found, warn and continue
+        if (NOT KF6WindowSystem_FOUND)
+            message(WARNING "KF6WindowSystem not found. Some features may not work.")
+        endif ()
     endif ()
 endif ()
 
