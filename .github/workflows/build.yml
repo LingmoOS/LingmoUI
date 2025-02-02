@@ -96,7 +96,7 @@ jobs:
       if: matrix.os == 'ubuntu-latest'
       run: |
         sudo apt update
-        sudo apt install -y libxcb1-dev libxcb-shape0-dev libxcb-icccm4-dev
+        sudo apt install -y libxcb1-dev libxcb-shape0-dev libxcb-icccm4-dev patchelf
         
     - name: Build Package
       env:
@@ -110,7 +110,7 @@ jobs:
       if: matrix.os == 'ubuntu-latest'
       run: |
         python -m pip install auditwheel
-        auditwheel repair dist/*.whl -w fix-dist/
+        auditwheel repair --plat "manylinux_2_39_x86_64" dist/*.whl -w fix-dist/
         rm dist/*.whl
         mv fix-dist/*.whl dist/
 
