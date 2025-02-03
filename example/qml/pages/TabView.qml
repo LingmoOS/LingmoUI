@@ -84,6 +84,12 @@ LingmoScrollablePage {
                     }
                 }
             }
+            LingmoButton{
+                text: "Change Color"
+                onClicked: {
+                    tab_view.currentItem.argument=colors[Math.floor(Math.random() * 8)];
+                }
+            }
         }
     }
 
