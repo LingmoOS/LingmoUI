@@ -303,6 +303,7 @@ Item {
     /**
     * Close a tab by the index. if the index is not given, it defaultly closes the last tab.
     * @param {int} index - the index of the tab to be closed. 
+    * @since 3.0.0
     */
     function closeTab(index=tab_nav.count-1){
         tab_model.remove(index)
@@ -310,6 +311,7 @@ Item {
     /**
     * Set the icon of the current tab.
     * @param {QUrl} value - the url of the icon.
+    * @since 3.0.0
     */
     function setCurrentTabIcon(value){
         currentItem.tab_icon=value
@@ -317,6 +319,7 @@ Item {
     /**
     * Set the text of the current tab.
     * @param {string} value - the content of the text.
+    * @since 3.0.0
     */
     function setCurrentText(value){
         currentItem.text=value
@@ -324,6 +327,7 @@ Item {
     /**
     * Set the arugument of the current tab.
     * @param {object} value - the new value of arugment of current ListElement.
+    * @since 3.0.0
     */
     function setCurrentArgument(value){
         currentItem.argument=value
