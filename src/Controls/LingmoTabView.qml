@@ -8,6 +8,10 @@ Item {
     property int closeButtonVisibility : LingmoTabViewType.Always
     property int itemWidth: 146
     property bool addButtonVisibility: true
+    property alias currentIndex: tab_nav.currentIndex
+    property var currentItem: {
+        return tab_model.get(currentIndex)
+    }
     signal newPressed
     id:control
     implicitHeight: height
