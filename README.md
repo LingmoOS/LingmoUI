@@ -73,6 +73,12 @@ Start packing
 $ dpkg-buildpackage -b -uc -us -tc
 ```
 
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for more information.
+
+For maintainers, use `conventional-changelog -p angular -i CHANGELOG.md -w` to generate the changelog.
+
 ## License
 
 LingmoUI is licensed under GPLv3.
