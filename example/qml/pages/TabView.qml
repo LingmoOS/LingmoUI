@@ -85,9 +85,10 @@ LingmoScrollablePage {
                 }
             }
             LingmoButton{
-                text: "Change Color"
+                text: "Change Color and Text"
                 onClicked: {
-                    tab_view.currentItem.argument=colors[Math.floor(Math.random() * 8)];
+                    tab_view.setCurrentArgument(colors[Math.floor(Math.random() * 8)]);
+                    tab_view.setCurrentText("Document "+Math.random());
                 }
             }
         }

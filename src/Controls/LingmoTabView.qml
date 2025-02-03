@@ -207,7 +207,7 @@ Item {
                         spacing: 0
                         height: parent.height
                         Image{
-                            source:model.icon
+                            source:model.image
                             Layout.leftMargin: 10
                             Layout.preferredWidth: 14
                             Layout.preferredHeight: 14
@@ -287,11 +287,11 @@ Item {
             }
         }
     }
-    function createTab(icon,text,page,argument={}){
-        return {icon:icon,text:text,page:page,argument:argument}
+    function createTab(image,text,page,argument={}){
+        return {image:image,text:text,page:page,argument:argument} //icon->image: avoid to be same as WebEngineView's.
     }
-    function appendTab(icon,text,page,argument){
-        tab_model.append(createTab(icon,text,page,argument))
+    function appendTab(image,text,page,argument){
+        tab_model.append(createTab(image,text,page,argument))
     }
     function setTabList(list){
         tab_model.clear()
@@ -299,5 +299,17 @@ Item {
     }
     function count(){
         return tab_nav.count
+    }
+    function closeTab(index=tab_nav.count){
+        tab_model.remove(index)
+    }
+    function setCurrentImage(value){
+        currentItem.image=value
+    }
+    function setCurrentText(value){
+        currentItem.text=value
+    }
+    function setCurrentArgument(value){
+        currentItem.argument=value
     }
 }
