@@ -290,8 +290,11 @@ Item {
     function createTab(tab_icon,text,page,argument={}){
         return {tab_icon:tab_icon,text:text,page:page,argument:argument} //icon->tab_icon: avoid to be same as WebEngineView's.
     }
-    function appendTab(tab_icon,text,page,argument){
+    function appendTab(tab_icon,text,page,argument,autoSwitch){
         tab_model.append(createTab(tab_icon,text,page,argument))
+        if(autoSwitch){
+            switchToTab()
+        }
     }
     function setTabList(list){
         tab_model.clear()
@@ -307,6 +310,14 @@ Item {
     */
     function closeTab(index=tab_nav.count-1){
         tab_model.remove(index)
+    }
+    /**
+    * Switch to a tab by the index. if the index is not given, it defaultly switches to the last tab.
+    * @param {int} index - the index of the tab to be switched to. 
+    * @since 3.0.0
+    */
+    function switchToTab(index=tab_nav.count-1){
+        tab_nav.currentIndex = index
     }
     /**
     * Set the icon of the current tab.

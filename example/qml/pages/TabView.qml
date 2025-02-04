@@ -18,7 +18,7 @@ LingmoScrollablePage {
     }
 
     function newTab() {
-        tab_view.appendTab("qrc:/image/logo.svg", qsTr("Document ") + tab_view.count(), com_page, colors[Math.floor(Math.random() * 8)]);
+        tab_view.appendTab("qrc:/image/logo.svg", qsTr("Document ") + tab_view.count(), com_page, colors[Math.floor(Math.random() * 8)],true);
     }
 
     Component.onCompleted: {
