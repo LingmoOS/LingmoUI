@@ -83,7 +83,7 @@ formatted_time = strftime('%Y%m%d%H%M%S', utc_time)
 
 
 setup(name="LingmoUIPy",
-      version="3.0.0b4" + formatted_time,
+      version="3.0.0b" + formatted_time,
       description="This is LingmoUI for Python",
       ext_modules=[lingmoui],  # mymath 现在是 CMakeExtension 类的实例了
       packages=['LingmoUIPy'],
