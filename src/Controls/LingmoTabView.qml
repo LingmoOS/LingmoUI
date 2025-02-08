@@ -207,7 +207,7 @@ Item {
                         spacing: 0
                         height: parent.height
                         Image{
-                            source:model.icon
+                            source:model.tab_icon
                             Layout.leftMargin: 10
                             Layout.preferredWidth: 14
                             Layout.preferredHeight: 14
@@ -287,11 +287,14 @@ Item {
             }
         }
     }
-    function createTab(icon,text,page,argument={}){
-        return {icon:icon,text:text,page:page,argument:argument}
+    function createTab(tab_icon,text,page,argument={}){
+        return {tab_icon:tab_icon,text:text,page:page,argument:argument} //icon->tab_icon: avoid to be same as WebEngineView's.
     }
-    function appendTab(icon,text,page,argument){
-        tab_model.append(createTab(icon,text,page,argument))
+    function appendTab(tab_icon,text,page,argument,autoSwitch){
+        tab_model.append(createTab(tab_icon,text,page,argument))
+        if(autoSwitch){
+            switchToTab()
+        }
     }
     function setTabList(list){
         tab_model.clear()
@@ -299,5 +302,45 @@ Item {
     }
     function count(){
         return tab_nav.count
+    }
+    /**
+    * Close a tab by the index. if the index is not given, it defaultly closes the last tab.
+    * @param {int} index - the index of the tab to be closed. 
+    * @since 3.0.0
+    */
+    function closeTab(index=tab_nav.count-1){
+        tab_model.remove(index)
+    }
+    /**
+    * Switch to a tab by the index. if the index is not given, it defaultly switches to the last tab.
+    * @param {int} index - the index of the tab to be switched to. 
+    * @since 3.0.0
+    */
+    function switchToTab(index=tab_nav.count-1){
+        tab_nav.currentIndex = index
+    }
+    /**
+    * Set the icon of the current tab.
+    * @param {QUrl} value - the url of the icon.
+    * @since 3.0.0
+    */
+    function setCurrentTabIcon(value){
+        currentItem.tab_icon=value
+    }
+    /**
+    * Set the text of the current tab.
+    * @param {string} value - the content of the text.
+    * @since 3.0.0
+    */
+    function setCurrentText(value){
+        currentItem.text=value
+    }
+    /**
+    * Set the arugument of the current tab.
+    * @param {object} value - the new value of arugment of current ListElement.
+    * @since 3.0.0
+    */
+    function setCurrentArgument(value){
+        currentItem.argument=value
     }
 }

@@ -18,7 +18,7 @@ LingmoScrollablePage {
     }
 
     function newTab() {
-        tab_view.appendTab("qrc:/image/logo.svg", qsTr("Document ") + tab_view.count(), com_page, colors[Math.floor(Math.random() * 8)]);
+        tab_view.appendTab("qrc:/image/logo.svg", qsTr("Document ") + tab_view.count(), com_page, colors[Math.floor(Math.random() * 8)],true);
     }
 
     Component.onCompleted: {
@@ -85,9 +85,10 @@ LingmoScrollablePage {
                 }
             }
             LingmoButton{
-                text: "Change Color"
+                text: "Change Color and Text"
                 onClicked: {
-                    tab_view.currentItem.argument=colors[Math.floor(Math.random() * 8)];
+                    tab_view.setCurrentArgument(colors[Math.floor(Math.random() * 8)]);
+                    tab_view.setCurrentText("Document "+Math.random());
                 }
             }
         }
