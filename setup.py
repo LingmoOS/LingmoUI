@@ -78,11 +78,10 @@ def check_qt_version():
     # Configure the CMake command
     cwd = pathlib.Path().absolute()
 
-    build_temp = f"{pathlib.Path(self.build_temp)}/qt_version_checker"
+    build_temp = f"{pathlib.Path(cwd)}" + "/build/qt_version_checker"
     os.makedirs(build_temp, exist_ok=True)
 
-    debug = int(os.environ.get("DEBUG", 0)
-                ) if self.debug is None else self.debug
+    debug = None
     config = "Debug" if debug else "Release"
 
     cmake_args = [
@@ -92,7 +91,6 @@ def check_qt_version():
         "-DCMAKE_CXX_FLAGS_INIT:STRING=",
         "-DCMAKE_GENERATOR:STRING=Ninja",
         "-DCMAKE_BUILD_TYPE:STRING=" + config,
-        "-DCMAKE_INSTALL_PREFIX:PATH=" + str(extdir),
     ]
     
     # 如果是Windows，强制使用CL.exe 作为C_compiler
