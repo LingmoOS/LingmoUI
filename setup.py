@@ -68,9 +68,68 @@ class BuildExt(build_ext):
                             ] + build_args, check=True, env=env)
             subprocess.run(
                 ["cmake", "--install", str(build_temp)], check=True, env=env)
+            
+def check_qt_version():
+    # using subprocess to get the version of qt using CMake
+    # result = subprocess.run(["cmake", "--find-package", "-DNAME=Qt", "-DCOMPILER_ID=GNU", "-DLANGUAGE=CXX", "-DMODE=VERSION"], capture_output=True, text=True)
+    # using files in $(cwd)/.cmake/CheckForQtVersion.cmake
+    # it will output a file to ${CMAKE_BINARY_DIR}/qt_version.txt "${QT_VERSION}"
 
+    # Configure the CMake command
+    cwd = pathlib.Path().absolute()
+
+    build_temp = f"{pathlib.Path(self.build_temp)}/qt_version_checker"
+    os.makedirs(build_temp, exist_ok=True)
+
+    debug = int(os.environ.get("DEBUG", 0)
+                ) if self.debug is None else self.debug
+    config = "Debug" if debug else "Release"
+
+    cmake_args = [
+        "-S", str(cwd),
+        "-B", str(build_temp),
+        "-DBUILD_PYTHON=ON",
+        "-DCMAKE_CXX_FLAGS_INIT:STRING=",
+        "-DCMAKE_GENERATOR:STRING=Ninja",
+        "-DCMAKE_BUILD_TYPE:STRING=" + config,
+        "-DCMAKE_INSTALL_PREFIX:PATH=" + str(extdir),
+    ]
+    
+    # 如果是Windows，强制使用CL.exe 作为C_compiler
+    if platform.system() == "Windows":
+        cmake_args += [
+            "-DCMAKE_C_COMPILER=cl.exe",
+            "-DCMAKE_CXX_COMPILER=cl.exe",
+        ]
+
+    build_args = [
+        "--config", config,
+        "--", "-j8"
+    ]
+
+    env = os.environ.copy()  # 获取当前环境变量副本
+    subprocess.run(["cmake"] + cmake_args, check=True, env=env)
+
+
+    try:
+        with open(str(build_temp) + "/qt_version.txt", 'r') as file:
+            qt_version = file.read().strip()
+            print(f"Qt Version: {qt_version}")
+            return qt_version
+    except FileNotFoundError:
+        print(f"Error: File '{str(build_temp) + "/qt_version.txt"}' not found.")
+        return None
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return None
 
 lingmoui = CMakeExtension("LingmoUI")
+
+qt_version = check_qt_version()
+
+if qt_version is None:
+    print("Warning: Qt version not found, please install Qt and try again.")
+    qt_version = "6.7.3"
 
 # Get time in YYYMMDDHHMMSS format using time module
 from time import time, gmtime, strftime
@@ -89,6 +148,6 @@ setup(name="LingmoUIPy",
       packages=['LingmoUIPy'],
       cmdclass={"build_ext": BuildExt},  # 使用自定义的 build_ext 类
       install_requires=[
-          "pyside6==6.7.3",
+          "pyside6=={qt_version}",
       ],
       )
