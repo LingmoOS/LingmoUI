@@ -115,7 +115,7 @@ def check_qt_version():
             print(f"Qt Version: {qt_version}")
             return qt_version
     except FileNotFoundError:
-        print(f"Error: File '{str(build_temp) + "/qt_version.txt"}' not found.")
+        print(f"Error: File {str(build_temp)}/qt_version.txt not found.")
         return None
     except Exception as e:
         print(f"Unexpected error: {e}")
