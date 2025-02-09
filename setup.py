@@ -85,7 +85,7 @@ def check_qt_version():
     config = "Debug" if debug else "Release"
 
     cmake_args = [
-        "-S", str(cwd),
+        "-S", str(cwd) + "/.cmake/CheckForQtVersion",
         "-B", str(build_temp),
         "-DBUILD_PYTHON=ON",
         "-DCMAKE_CXX_FLAGS_INIT:STRING=",
@@ -146,6 +146,6 @@ setup(name="LingmoUIPy",
       packages=['LingmoUIPy'],
       cmdclass={"build_ext": BuildExt},  # 使用自定义的 build_ext 类
       install_requires=[
-          "pyside6=={qt_version}",
+          f"pyside6=={qt_version}",
       ],
       )
