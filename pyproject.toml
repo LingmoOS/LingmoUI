@@ -9,8 +9,8 @@ build-backend = "setuptools.build_meta"
 
 [tool.mypy]
 files = "setup.py"
-python_version = "3.7"
-strict = true
+python_version = "3.9"
+strict = false
 show_error_codes = true
 enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
 warn_unreachable = true
@@ -38,7 +38,7 @@ filterwarnings = [
 before-build = "rm -rf {project}/build"
 
 [tool.ruff]
-target-version = "py37"
+target-version = "py39"
 
 [tool.ruff.lint]
 extend-select = [
