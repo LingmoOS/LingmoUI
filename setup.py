@@ -1,3 +1,4 @@
+from time import time, gmtime, strftime
 import os
 import pathlib
 import platform
@@ -48,7 +49,7 @@ class BuildExt(build_ext):
             "-DCMAKE_BUILD_TYPE:STRING=" + config,
             "-DCMAKE_INSTALL_PREFIX:PATH=" + str(extdir),
         ]
-        
+
         # 如果是Windows，强制使用CL.exe 作为C_compiler
         if platform.system() == "Windows":
             cmake_args += [
@@ -68,7 +69,8 @@ class BuildExt(build_ext):
                             ] + build_args, check=True, env=env)
             subprocess.run(
                 ["cmake", "--install", str(build_temp)], check=True, env=env)
-            
+
+
 def check_qt_version():
     # using subprocess to get the version of qt using CMake
     # result = subprocess.run(["cmake", "--find-package", "-DNAME=Qt", "-DCOMPILER_ID=GNU", "-DLANGUAGE=CXX", "-DMODE=VERSION"], capture_output=True, text=True)
@@ -92,7 +94,7 @@ def check_qt_version():
         "-DCMAKE_GENERATOR:STRING=Ninja",
         "-DCMAKE_BUILD_TYPE:STRING=" + config,
     ]
-    
+
     # 如果是Windows，强制使用CL.exe 作为C_compiler
     if platform.system() == "Windows":
         cmake_args += [
@@ -108,7 +110,6 @@ def check_qt_version():
     env = os.environ.copy()  # 获取当前环境变量副本
     subprocess.run(["cmake"] + cmake_args, check=True, env=env)
 
-
     try:
         with open(str(build_temp) + "/qt_version.txt", 'r') as file:
             qt_version = file.read().strip()
@@ -121,6 +122,7 @@ def check_qt_version():
         print(f"Unexpected error: {e}")
         return None
 
+
 lingmoui = CMakeExtension("LingmoUI")
 
 qt_version = check_qt_version()
@@ -130,7 +132,6 @@ if qt_version is None:
     qt_version = "6.7.3"
 
 # Get time in YYYMMDDHHMMSS format using time module
-from time import time, gmtime, strftime
 # 获取当前时间的时间戳
 current_time = time()
 # 将时间戳转换为UTC时间
@@ -142,10 +143,38 @@ formatted_time = strftime('%Y%m%d%H', utc_time)
 setup(name="LingmoUIPy",
       version="3.0.0b" + formatted_time,
       description="This is LingmoUI for Python",
-      ext_modules=[lingmoui],  
+      ext_modules=[lingmoui],
       packages=['LingmoUIPy'],
       cmdclass={"build_ext": BuildExt},  # 使用自定义的 build_ext 类
       install_requires=[
           f"pyside6=={qt_version}",
       ],
+      classifiers=[
+          "Environment :: Console",
+          "Environment :: MacOS X",
+          "Environment :: X11 Applications :: Qt",
+          "Environment :: Win32 (MS Windows)",
+          "Intended Audience :: Developers",
+          "License :: Other/Proprietary License",
+          "Operating System :: MacOS :: MacOS X",
+          "Operating System :: POSIX",
+          "Operating System :: POSIX :: Linux",
+          "Operating System :: Microsoft",
+          "Operating System :: Microsoft :: Windows",
+          "Programming Language :: C++",
+          "Programming Language :: Python",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3.9",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: 3.12",
+          "Programming Language :: Python :: 3.13",
+          "Topic :: Database",
+          "Topic :: Software Development",
+          "Topic :: Software Development :: Code Generators",
+          "Topic :: Software Development :: Libraries :: Application Frameworks",
+          "Topic :: Software Development :: User Interfaces",
+          "Topic :: Software Development :: Widget Sets",
+      ],
+      python_requires=">=3.9"
       )
