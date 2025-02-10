@@ -14,6 +14,8 @@ jobs:
     steps:
     - name: Checkout Source
       uses: actions/checkout@v4
+      with:
+        submodules: true
     
     - name: Add Debian experiment repository
       run: echo "deb http://deb.debian.org/debian experimental main contrib non-free non-free-firmware" > /etc/apt/sources.list.d/experimental.list
@@ -49,6 +51,8 @@ jobs:
     steps:
     - name: Checkout Source
       uses: actions/checkout@v4
+      with:
+        submodules: true
 
     - uses: ilammy/msvc-dev-cmd@v1
     
