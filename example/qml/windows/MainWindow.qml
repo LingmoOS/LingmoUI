@@ -63,7 +63,7 @@ LingmoWindow {
 
                 Component.onCompleted: {
                     sidebar_items.navigationView = nav_view
-                    sidebar_items.paneItemMenu = nav_item_right_menu
+                    sidebar_items.panelItemMenu = nav_item_right_menu
                     window.setHitTestVisible(nav_view.buttonMenu)
                     window.setHitTestVisible(nav_view.buttonBack)
                     window.setHitTestVisible(nav_view.imageLogo)

@@ -4,6 +4,7 @@ import QtQuick.Controls
 import LingmoUI
 
 QtObject {
+    // List of childrens in this Object
     default property list<QtObject> children
     id:control
 }
