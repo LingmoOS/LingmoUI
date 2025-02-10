@@ -14,7 +14,6 @@ authors = [
 ]
 description = "LingmoUi Python Binding"
 readme = "README.md"
-dynamic = ["version"]
 requires-python = ">=3.9, <3.14"
 keywords = ["Qt", "Lingmo"]
 license = {text = "GPL"}
