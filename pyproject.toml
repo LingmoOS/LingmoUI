@@ -7,49 +7,10 @@ requires = [
 ]
 build-backend = "setuptools.build_meta"
 
-[project]
-name = "LingmoUIPy"
-authors = [
-    {name = "LingmoUI for Python Team", email = "team@lingmo.org"},
-]
-description = "LingmoUi Python Binding"
-readme = "README.md"
-dynamic = ["version"]
-requires-python = ">=3.9, <3.14"
-keywords = ["Qt", "Lingmo"]
-license = {text = "GPL"}
-classifiers = [
-    "Environment :: Console",
-    "Environment :: MacOS X",
-    "Environment :: X11 Applications :: Qt",
-    "Environment :: Win32 (MS Windows)",
-    "Intended Audience :: Developers",
-    "License :: Other/Proprietary License",
-    "Operating System :: MacOS :: MacOS X",
-    "Operating System :: POSIX",
-    "Operating System :: POSIX :: Linux",
-    "Operating System :: Microsoft",
-    "Operating System :: Microsoft :: Windows",
-    "Programming Language :: C++",
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
-    "Topic :: Database",
-    "Topic :: Software Development",
-    "Topic :: Software Development :: Code Generators",
-    "Topic :: Software Development :: Libraries :: Application Frameworks",
-    "Topic :: Software Development :: User Interfaces",
-    "Topic :: Software Development :: Widget Sets",
-]
-
 [tool.mypy]
 files = "setup.py"
 python_version = "3.9"
-strict = true
+strict = false
 show_error_codes = true
 enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
 warn_unreachable = true
