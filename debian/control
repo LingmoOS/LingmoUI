@@ -14,6 +14,7 @@ Build-Depends: cmake,
                qt6-base-private-dev,
                qt6-5compat-dev,
                libqt6quickcontrols2-6,
+               qt6-svg-plugins,
                qt6-declarative-dev,
                qt6-declarative-private-dev,
                qt6-tools-dev,
@@ -25,6 +26,7 @@ Package: lingmoui3
 Architecture: any
 Depends: qml6-module-qtquick-controls,
          qml6-module-qtquick,
+         qt6-svg-plugins,
          ${misc:Depends},
          ${shlibs:Depends}
 Description: LingmoOS UIKit - Qt6 Version

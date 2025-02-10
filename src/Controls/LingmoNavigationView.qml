@@ -46,7 +46,6 @@ Item {
             var _idx = 0;
             var data = [];
             var comEmpty = Qt.createComponent("LingmoPanelItemEmpty.qml");
-            console.log("Total menu items", items.children.length);
             if (control.items) {
                 for (var i = 0; i < items.children.length; i++) {
                     var item = items.children[i];
