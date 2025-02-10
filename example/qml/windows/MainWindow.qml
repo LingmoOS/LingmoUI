@@ -72,5 +72,7 @@ LingmoWindow {
             }
         }
     }
-
+    onKeyPressed: function(key){
+        print("Pressed Key",key);
+    }
 }

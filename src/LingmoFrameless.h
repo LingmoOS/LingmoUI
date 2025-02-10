@@ -177,4 +177,8 @@ private:
     bool _isWindows11OrGreater = false;
     QList<QPointer<QQuickItem>> _hitTestList;
     QString _currentEffect;
+
+signals:
+    void keyPressed(int key);
+
 };

@@ -7,6 +7,7 @@ import LingmoUI.GraphicalEffects
 
 Window {
     id: window
+    signal keyPressed(int key)
     default property alias contentData: layout_content.data
     property string windowIcon: LingmoApp.windowIcon
     property int launchMode: LingmoWindowType.Standard
@@ -132,6 +133,9 @@ Window {
             if (effective) {
                 LingmoTheme.blurBehindWindowEnabled = false;
             }
+        }
+        onKeyPressed: function(key){
+            window.keyPressed(key)
         }
     }
     // Image in Window Background

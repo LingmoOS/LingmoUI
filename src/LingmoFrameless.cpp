@@ -951,7 +951,12 @@ bool LingmoFrameless::eventFilter(QObject* obj, QEvent* ev)
         _updateCursor(_edges);
         break;
     }
-    default:
+    case QEvent::KeyPress: {
+        QKeyEvent* event = static_cast<QKeyEvent*>(ev);
+        Q_EMIT keyPressed(event->key());
+        break;
+    }
+    default: 
         break;
     }
 #endif
