@@ -135,14 +135,14 @@ from time import time, gmtime, strftime
 current_time = time()
 # 将时间戳转换为UTC时间
 utc_time = gmtime(current_time)
-# 格式化为 YYYYMMDDHHMMSS
-formatted_time = strftime('%Y%m%d%H%M%S', utc_time)
+# 格式化为 YYYYMMDDHH
+formatted_time = strftime('%Y%m%d%H', utc_time)
 
 
 setup(name="LingmoUIPy",
       version="3.0.0b" + formatted_time,
       description="This is LingmoUI for Python",
-      ext_modules=[lingmoui],  # mymath 现在是 CMakeExtension 类的实例了
+      ext_modules=[lingmoui],  
       packages=['LingmoUIPy'],
       cmdclass={"build_ext": BuildExt},  # 使用自定义的 build_ext 类
       install_requires=[
