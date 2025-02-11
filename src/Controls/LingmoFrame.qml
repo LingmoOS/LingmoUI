@@ -1,9 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2024 Elysia <elysia@lingmo.org>
- *
- * SPDX-License-Identifier: GPL-3.0
- */
-
 import QtQuick
 import QtQuick.Controls.impl
 import QtQuick.Templates as T

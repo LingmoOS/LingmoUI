@@ -10,12 +10,15 @@ LingmoScrollablePage {
         text: qsTr("Here are some examples for various buttons!")
     }
 
-    Item {
+    LingmoFrame {
         Layout.fillWidth: true
         Layout.preferredHeight: 68
         Layout.topMargin: 10
 
+        leftPadding: 10
+
         LingmoTextButton {
+            
             text: qsTr("Text Button")
             onClicked: {
                 showInfo("点击Text Button")
@@ -27,10 +30,12 @@ LingmoScrollablePage {
         }
     }
 
-    Item {
+    LingmoFrame {
         Layout.fillWidth: true
         Layout.preferredHeight: 68
         Layout.topMargin: 10
+
+        leftPadding: 10
 
         LingmoButton {
             text: qsTr("Button")
@@ -44,10 +49,12 @@ LingmoScrollablePage {
         }
     }
 
-    Item {
+    LingmoFrame {
         Layout.fillWidth: true
         Layout.preferredHeight: 68
         Layout.topMargin: 10
+
+        leftPadding: 10
 
         LingmoProgressButton {
             id: btn_progress
@@ -76,10 +83,12 @@ LingmoScrollablePage {
         }
     }
 
-    Item {
+    LingmoFrame {
         Layout.fillWidth: true
         Layout.preferredHeight: 68
         Layout.topMargin: 10
+
+        leftPadding: 10
 
         LingmoDelayButton {
             text: qsTr("Delay Button")
@@ -94,10 +103,12 @@ LingmoScrollablePage {
         }
     }
 
-    Item {
+    LingmoFrame {
         Layout.fillWidth: true
         Layout.preferredHeight: 68
         Layout.topMargin: 10
+
+        leftPadding: 10
 
         LingmoLoadingButton {
             id: btn_loading
