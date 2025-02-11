@@ -7,9 +7,10 @@ import LingmoUI
 LingmoScrollablePage {
     title: qsTr("Hotkey Picker")
 
-    Item {
+    LingmoFrame {
         Layout.fillWidth: true
         Layout.preferredHeight: childrenRect.height
+        leftPadding: 10
         ColumnLayout{
             anchors.verticalCenter: parent.verticalCenter
             Item{

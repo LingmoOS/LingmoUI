@@ -27,9 +27,11 @@ LingmoScrollablePage {
         newTab()
     }
 
-    Item{
+    LingmoFrame{
         Layout.fillWidth: true
         Layout.preferredHeight: 50
+        topPadding: 10
+        leftPadding: 10
         RowLayout{
             spacing: 14
             LingmoDropDownBox{
@@ -94,7 +96,7 @@ LingmoScrollablePage {
         }
     }
 
-    Item{
+    LingmoFrame{
         Layout.fillWidth: true
         Layout.topMargin: 15
         Layout.preferredHeight: 400
