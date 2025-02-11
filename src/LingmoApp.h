@@ -22,6 +22,9 @@ class LingmoApp : public QObject {
 
     Q_PROPERTY_AUTO(QString, windowIcon)
     Q_PROPERTY_AUTO(QLocale, locale)
+    /**
+     * @brief launcher points to the object by which LingmoApp is initialized.
+     */
     Q_PROPERTY_AUTO_P(QObject*, launcher)
     Q_PROPERTY_AUTO(bool, useSystemAppBar)
 

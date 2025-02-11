@@ -5,6 +5,10 @@ import LingmoUI
 
 LingmoObject {
     id: root
+
+    // Store the hotkeys object for use in the application
+    property alias hotkeys: hotkey_object_list
+
     Component.onCompleted: {
         LingmoApp.init(root, Qt.locale("zh_CN"));
         LingmoApp.windowIcon = "qrc:/image/logo.svg"
@@ -17,5 +21,23 @@ LingmoObject {
         };
 
         LingmoRouter.navigate("/");
+    }
+
+    LingmoObject {
+        id: hotkey_object_list
+         LingmoHotkey{
+            name: qsTr("Quit")
+            sequence: "Ctrl+Alt+Q"
+            onActivated: {
+                LingmoRouter.exit()
+            }
+        }
+        LingmoHotkey{
+            name: qsTr("Test1")
+            sequence: "Alt+A"
+            onActivated: {
+                LingmoRouter.navigate("/hotkey",{sequence:sequence})
+            }
+        }
     }
 }

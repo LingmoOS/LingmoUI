@@ -25,6 +25,8 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(QT_DEFAULT_MAJOR_VERSION 6)
+
 find_package(ECM REQUIRED NO_MODULE)
 
 list(APPEND CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
@@ -42,6 +44,11 @@ if (UNIX)
         endif ()
     endif ()
 endif ()
+
+# QHotkey
+set(QHOTKEY_INSTALL OFF)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/QHotkey)
+set(QHOTKEY_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/QHotkey/QHotkey)
 
 include(GenerateExportHeader)
 include(GNUInstallDirs)

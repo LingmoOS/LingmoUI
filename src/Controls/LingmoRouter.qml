@@ -20,6 +20,11 @@ QtObject {
             }
         }
     }
+    /**
+     * @brief Exit app and close all windows
+     * @param retCode: exit code
+     * @since 3.0.0
+     */
     function exit(retCode){
         for(var i =0 ;i< windows.length; i++){
             var win = windows[i]
