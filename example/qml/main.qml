@@ -17,7 +17,8 @@ LingmoObject {
         LingmoTheme.darkMode = LingmoThemeType.Dark;
 
         LingmoRouter.routes = {
-            "/": "qrc:/qml/windows/MainWindow.qml"
+            "/": "qrc:/qml/windows/MainWindow.qml",
+            "/hotkey": "qrc:/qml/windows/ShortcutWindow.qml"
         };
 
         LingmoRouter.navigate("/");
