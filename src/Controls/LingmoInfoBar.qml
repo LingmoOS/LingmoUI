@@ -145,9 +145,9 @@ LingmoObject {
                 }
             }
             LingmoShadow {
-                radius: 4
+                radius:  LingmoUnits.smallRadius
             }
-            radius: 4
+            radius: LingmoUnits.smallRadius
             border.width: 1
             border.color: {
                 if (LingmoTheme.dark) {
