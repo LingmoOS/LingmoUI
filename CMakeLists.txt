@@ -46,7 +46,7 @@ if (UNIX)
 endif ()
 
 # QHotkey
-set(QHOTKEY_INSTALL OFF)
+option(QHOTKEY_INSTALL OFF)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/QHotkey)
 set(QHOTKEY_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/QHotkey/QHotkey)
 
