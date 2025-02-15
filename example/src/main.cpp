@@ -4,6 +4,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlEngine>
 #include <QQuickWindow>
+#include <QVulkanInstance>
 #include <qlogging.h>
 #include <qqmlcontext.h>
 #include <qtenvironmentvariables.h>
@@ -25,9 +26,17 @@ int main(int argc, char* argv[])
 {
     qDebug() << "LINGMOUI_TEMP_IMPORT_PATH: " << LINGMOUI_TEMP_IMPORT_PATH;
 
-    // QQuickWindow::setGraphicsApi(QSGRendererInterface::Vulkan);
-
     QApplication app(argc, argv);
+
+    QVulkanInstance inst;
+    if (!inst.create()) {
+        qWarning("Vulkan is not available");
+    } else {
+        // Vulkan is available, you can proceed with Vulkan initialization
+        inst.destroy();
+        qDebug("Vulkan is available");
+        QQuickWindow::setGraphicsApi(QSGRendererInterface::Vulkan);
+    }
 
     QQmlApplicationEngine engine;
 
