@@ -71,3 +71,8 @@ debian/files
 *.egg-info/
 /dist/
 __pycache__/
+
+# nodejs
+/node_modules/
+/package-lock.json
+/package.json
