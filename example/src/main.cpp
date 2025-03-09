@@ -28,15 +28,15 @@ int main(int argc, char* argv[])
 
     QApplication app(argc, argv);
 
-    QVulkanInstance inst;
-    if (!inst.create()) {
-        qWarning("Vulkan is not available");
-    } else {
-        // Vulkan is available, you can proceed with Vulkan initialization
-        inst.destroy();
-        qDebug("Vulkan is available");
-        QQuickWindow::setGraphicsApi(QSGRendererInterface::Vulkan);
-    }
+    // QVulkanInstance inst;
+    // if (!inst.create()) {
+    //     qWarning("Vulkan is not available");
+    // } else {
+    //     // Vulkan is available, you can proceed with Vulkan initialization
+    //     inst.destroy();
+    //     qDebug("Vulkan is available");
+    //     QQuickWindow::setGraphicsApi(QSGRendererInterface::Vulkan);
+    // }
 
     QQmlApplicationEngine engine;
 
