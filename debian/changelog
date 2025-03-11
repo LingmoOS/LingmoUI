@@ -1,4 +1,4 @@
- lingmoui (3.1.1) UNRELEASED; urgency=high
+lingmoui (3.1.1) UNRELEASED; urgency=high
 
   * Update QHotkey, now use KGlobalAccel under Wayland.
 
