@@ -1,3 +1,10 @@
+lingmoui (3.1.1) UNRELEASED; urgency=high
+
+  * Update QHotkey, now use KGlobalAccel under Wayland.
+
+ -- Elysia <elysia@lingmo.org>  Thu, 11 Mar 2025 22:06:13 +0800
+
+
 lingmoui (3.1.0) UNRELEASED; urgency=high
 
   * Add Qt6 SVG plugin dependency, optimize setup.py, remove redundant logs, upgrade Python version to 3.9 ([#41](https://github.com/LingmoOS/LingmoUI/issues/41)) ([ba37c02](https://github.com/LingmoOS/LingmoUI/commit/ba37c026c2d29fbe4f5bd596356deb321414f61b))

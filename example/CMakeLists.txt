@@ -82,4 +82,4 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
         ${TARGET}
 )
 
-qt_finalize_executable(${PROJECT_NAME})
+# qt_finalize_executable(${PROJECT_NAME})

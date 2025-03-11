@@ -141,7 +141,7 @@ formatted_time = strftime('%Y%m%d%H', utc_time)
 
 
 setup(name="LingmoUIPy",
-      version="3.1.0b" + formatted_time,
+      version="3.1.1b" + formatted_time,
       description="This is LingmoUI for Python",
       ext_modules=[lingmoui],
       packages=['LingmoUIPy'],
