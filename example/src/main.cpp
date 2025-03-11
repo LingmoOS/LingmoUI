@@ -4,10 +4,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlEngine>
 #include <QQuickWindow>
-#include <QVulkanInstance>
-#include <qlogging.h>
-#include <qqmlcontext.h>
-#include <qtenvironmentvariables.h>
+#include <QQmlContext>
 
 class AboutQtController : public QObject {
     Q_OBJECT
