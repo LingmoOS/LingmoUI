@@ -107,6 +107,7 @@ jobs:
       if: matrix.os == 'ubuntu-24.04'
       run: |
         echo "deb [trusted=yes] http://ftp.debian.org/debian trixie main contrib non-free non-free-firmware" | sudo tee /etc/apt/sources.list.d/trixie.list
+        sudo apt-mark hold base-files
         sudo apt update
         sudo apt install -y libxcb1-dev libxcb-shape0-dev libxcb-icccm4-dev patchelf
         sudo apt install -y devscripts equivs
