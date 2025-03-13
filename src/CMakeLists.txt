@@ -34,8 +34,15 @@ set(qml_files "")
 set(resource_files "")
 
 #遍历所有Cpp文件
-file(GLOB CPP_FILES *.cpp *.h)
+file(GLOB CPP_FILES *.cpp)
 foreach (filepath ${CPP_FILES})
+    string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
+    list(APPEND sources_files ${filename})
+endforeach (filepath)
+
+#遍历所有h文件
+file(GLOB H_FILES *.h)
+foreach (filepath ${H_FILES})
     string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
     list(APPEND sources_files ${filename})
 endforeach (filepath)
@@ -96,3 +103,6 @@ install(DIRECTORY ${CMAKE_BINARY_DIR}/temp/${PROJECT_NAME} DESTINATION ${INSTALL
 generate_export_header(${TARGET} BASE_NAME ${TARGET})
 
 install(TARGETS ${TARGET} EXPORT ${TARGET}Targets DESTINATION ${INSTALL_QMLDIR}/${PROJECT_NAME})
+
+# Install Header
+install(FILES ${H_FILES} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${TARGET})
