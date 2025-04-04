@@ -15,7 +15,7 @@ LingmoScrollablePage {
             anchors.fill: parent
             color: argument.normal
             LingmoText{
-                text: qsTr("the current index is: ")+now_index
+                text: qsTr("the current index is: ")+now_index()
             }
         }
     }
