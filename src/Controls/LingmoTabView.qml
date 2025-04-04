@@ -281,6 +281,7 @@ Item {
             model:tab_model
             LingmoLoader{
                 property var argument: model.argument
+                property var now_index: index
                 anchors.fill: parent
                 sourceComponent: model.page
                 visible: tab_nav.currentIndex === index
