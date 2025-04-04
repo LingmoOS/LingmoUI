@@ -348,4 +348,12 @@ Item {
     function setCurrentArgument(value){
         currentItem.argument=value
     }
+    /*
+    * Get the element data by index from the tab model.
+    * @param {int} index - the index.
+    * @since 3.1.2
+    */
+    function get(index){
+        return tab_model.get(index)
+    }
 }
