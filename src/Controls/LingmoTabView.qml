@@ -281,10 +281,10 @@ Item {
             model:tab_model
             LingmoLoader{
                 property var argument: model.argument
-                property var now_index: index
+                property var now_index: index //Enable external access (such as in Component) to its index in LingmoTabView
                 anchors.fill: parent
                 sourceComponent: model.page
-                visible: tab_nav.currentIndex === index
+                visible: tab_nav.currentIndex === index 
             }
         }
     }
