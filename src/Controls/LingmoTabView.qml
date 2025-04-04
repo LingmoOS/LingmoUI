@@ -281,9 +281,14 @@ Item {
             model:tab_model
             LingmoLoader{
                 property var argument: model.argument
+                /**
+                * Return the index of the current page of this LingmoTabView.
+                * @since 3.1.0
+                */
+                function now_index(){ return index;}
                 anchors.fill: parent
                 sourceComponent: model.page
-                visible: tab_nav.currentIndex === index
+                visible: tab_nav.currentIndex === index 
             }
         }
     }
