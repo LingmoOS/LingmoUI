@@ -46,6 +46,11 @@ if (UNIX)
     endif ()
 endif ()
 
+# Set Qt Policy
+if(QT_KNOWN_POLICY_QTP0004)
+    qt_policy(SET QTP0004 NEW)
+endif()
+
 # QHotkey
 option(QHOTKEY_INSTALL OFF)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/QHotkey)
