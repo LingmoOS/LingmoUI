@@ -44,7 +44,7 @@ jobs:
       matrix:
         python-version: ['3.9', '3.10', '3.11', '3.12']
         os: [ubuntu-24.04, windows-latest, macos-latest]
-        qt-version: ["6.7.*"]
+        qt-version: ["6.8.*"]
         include:
           - os: ubuntu-24.04
             qt-arch: 'linux_gcc_64'
