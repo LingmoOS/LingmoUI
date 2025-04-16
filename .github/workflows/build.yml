@@ -142,6 +142,9 @@ jobs:
     name: Publish
     needs: python-package
     runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/LingmoUIPy
     permissions:
       id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
     steps:
