@@ -49,7 +49,7 @@ jobs:
           - os: ubuntu-24.04
             qt-arch: 'linux_gcc_64'
           - os: windows-latest
-            qt-arch: 'win64_msvc2019_64'
+            qt-arch: 'win64_msvc2022_64'
           - os: macos-latest
             qt-arch: 'clang_64'
 
