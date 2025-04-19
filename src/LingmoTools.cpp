@@ -376,10 +376,10 @@ QString LingmoTools::getWallpaperFilePath()
     }
     }
 
-    QString desktop_name = qgetenv("DESKTOP_SESSION");
+    QString desktop_name = qgetenv("XDG_CURRENT_DESKTOP");
 
     switch (hash_(desktop_name.toStdString().c_str())) {
-    case hash_compile_time("plasma"): {
+    case hash_compile_time("KDE"): {
         QDBusInterface plasmaShellInterface("org.kde.plasmashell", "/PlasmaShell", "org.kde.PlasmaShell");
         // 检查接口是否有效
         if (!plasmaShellInterface.isValid()) {
