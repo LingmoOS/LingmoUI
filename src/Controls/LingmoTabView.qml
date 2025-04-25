@@ -285,7 +285,7 @@ Item {
                 * Return the index of the current page of this LingmoTabView.
                 * @since 3.1.0
                 */
-                function now_index(){ return index;}
+                property int nowIndex: index
                 anchors.fill: parent
                 sourceComponent: model.page
                 visible: tab_nav.currentIndex === index 
