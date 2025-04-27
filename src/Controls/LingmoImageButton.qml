@@ -1,8 +1,9 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Templates as T
 import LingmoUI
 
-Button {
+T.Button {
     id: control
     property string normalImage: ""
     property string hoveredImage: ""
