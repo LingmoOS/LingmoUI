@@ -143,19 +143,20 @@ formatted_time = strftime('%Y%m%d%H', utc_time)
 setup(name="LingmoUIPy",
       version="3.1.3b" + formatted_time,
       description="This is LingmoUI for Python",
+      long_description="LingmoUI is designed to provide a modern, consistent user interface toolkit for desktop applications. It extends the standard Qt Quick Controls with custom styling, additional components, and integrated window management features. The library enables developers to create visually appealing applications with minimal effort, handling common UI requirements like theming, window decorations, and responsive layouts.",
       ext_modules=[lingmoui],
       packages=['LingmoUIPy'],
       cmdclass={"build_ext": BuildExt},  # 使用自定义的 build_ext 类
       install_requires=[
           f"pyside6=={qt_version}",
       ],
+      license = "GPL-3.0-or-later",
       classifiers=[
           "Environment :: Console",
           "Environment :: MacOS X",
           "Environment :: X11 Applications :: Qt",
           "Environment :: Win32 (MS Windows)",
           "Intended Audience :: Developers",
-          "License :: Other/Proprietary License",
           "Operating System :: MacOS :: MacOS X",
           "Operating System :: POSIX",
           "Operating System :: POSIX :: Linux",
