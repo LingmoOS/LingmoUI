@@ -144,7 +144,6 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/LingmoUIPy
     permissions:
       id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
     steps:
@@ -154,14 +153,23 @@ jobs:
         path: dist/
         merge-multiple: true
 
+    - name: Prepare packages
+      run: |
+        cp -r dist test_dist
+        cp -r dist release_dist
+
     - name: Publish distribution 📦 to Test PyPI
       if: github.event_name == 'push'
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
+        packages-dir: test_dist/
         repository-url: https://test.pypi.org/legacy/
 
     - name: Publish distribution 📦 to PyPI
       if: startsWith(github.ref, 'refs/tags')
       uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        packages-dir: release_dist/
+        repository-url: https://upload.pypi.org/legacy/
     
 
