@@ -23,6 +23,12 @@ LingmoUI is a GUI library based on QQC (Qt Quick Controls) and Qt 6, every Lingm
   - `GraphicalEffects`: This folder stores the graphical effects implementation of LingmoUI.
 - `example`: This folder stores the example app using LingmoUI.
 
+## Documentation
+
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/LingmoOS/LingmoUI) (Auto generated docs, thanks for DeepWiki!)
+
+API documentation: [Click here](https://lingmoos.github.io/LingmoUI/)
+
 ## Dependencies
 
 ### Debian
