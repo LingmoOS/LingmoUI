@@ -25,7 +25,7 @@ LingmoUI is a GUI library based on QQC (Qt Quick Controls) and Qt 6, every Lingm
 
 ## Documentation
 
-Auto generated ( Thanks for DeepWiki): [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/LingmoOS/LingmoUI)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/LingmoOS/LingmoUI) (Auto generated docs, thanks for DeepWiki!)
 
 API documentation: [Click here](https://lingmoos.github.io/LingmoUI/)
 
