@@ -1,4 +1,4 @@
-# Lingmo UI
+![image](https://github.com/user-attachments/assets/bfdee2cd-16fc-423b-9d62-b0020b9b70a4)# Lingmo UI
 
 LingmoUI is a GUI library based on QQC (Qt Quick Controls) and Qt 6, every Lingmo application uses it.
 
@@ -22,6 +22,12 @@ LingmoUI is a GUI library based on QQC (Qt Quick Controls) and Qt 6, every Lingm
   - `Font`: This folder stores the fonts of LingmoUI.
   - `GraphicalEffects`: This folder stores the graphical effects implementation of LingmoUI.
 - `example`: This folder stores the example app using LingmoUI.
+
+## Documentation
+
+Auto generated ( Thanks for DeepWiki): [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/LingmoOS/LingmoUI)
+
+API documentation: [Click here](https://lingmoos.github.io/LingmoUI/)
 
 ## Dependencies
 
