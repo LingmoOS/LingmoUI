@@ -5,6 +5,7 @@
 #include <QQmlEngine>
 #include <QQuickWindow>
 #include <QQmlContext>
+#include <QSurfaceFormat>
 
 class AboutQtController : public QObject {
     Q_OBJECT

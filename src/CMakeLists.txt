@@ -15,9 +15,11 @@ target_link_libraries(${TARGET}
         Qt6::QuickControls2
         Qt6::GuiPrivate
         Qt6::Core5Compat
+        Qt6::OpenGL
         QHotkey::QHotkey
         )
 target_include_directories(${TARGET} PRIVATE ${QHOTKEY_INCLUDE_DIR})
+target_include_directories(${TARGET} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/LiquidGlass)
 
 if (UNIX)
     if (NOT APPLE)
@@ -46,6 +48,19 @@ foreach (filepath ${H_FILES})
     string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
     list(APPEND sources_files ${filename})
 endforeach (filepath)
+
+# Add LiquidGlass sources
+# TODO: make here neater by using file(GLOB_RECURSE) and excluding some files
+list(APPEND sources_files
+    LiquidGlass/GLBlurPass.cpp
+    LiquidGlass/GLBlurPass.h
+    LiquidGlass/LiquidGlassController.cpp
+    LiquidGlass/LiquidGlassController.h
+    LiquidGlass/LiquidGlassView.cpp
+    LiquidGlass/LiquidGlassView.h
+    LiquidGlass/LiquidGlassRenderer.cpp
+    LiquidGlass/LiquidGlassRenderer.h
+)
 
 set(SINGLETON_FILES "Controls/LingmoRouter.qml" "Controls/LingmoUnits.qml")
 

@@ -64,4 +64,22 @@ LingmoObject {
             navigationView.push(url);
         }
     }
+
+    LingmoPanelItem {
+        id: liquid_glass
+        count: 0
+        title: qsTr("Liquid Glass")
+        menuDelegate: panelItemMenu
+        infoBadge: LingmoBadge {
+            count: liquid_glass.count
+        }
+        icon: LingmoIcons.View
+        url: "qrc:/qml/pages/LiquidGlass.qml"
+        onTap: {
+            if (navigationView.getCurrentUrl()) {
+                liquid_glass.count = 0;
+            }
+            navigationView.push(url);
+        }
+    }
 }
