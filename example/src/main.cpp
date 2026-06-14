@@ -6,6 +6,7 @@
 #include <QQuickWindow>
 #include <QQmlContext>
 #include <QSurfaceFormat>
+#include <qquickwindow.h>
 
 class AboutQtController : public QObject {
     Q_OBJECT
@@ -35,6 +36,12 @@ int main(int argc, char* argv[])
     //     qDebug("Vulkan is available");
     //     QQuickWindow::setGraphicsApi(QSGRendererInterface::Vulkan);
     // }
+    // Set to use OpenGL, liquid glass need it.
+    QSurfaceFormat format;
+    format.setVersion(3, 3);
+    QSurfaceFormat::setDefaultFormat(format);
+    QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
+
 
     QQmlApplicationEngine engine;
 
