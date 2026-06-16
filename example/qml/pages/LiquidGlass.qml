@@ -6,61 +6,177 @@ import LingmoUI
 LingmoScrollablePage {
     title: qsTr("Liquid Glass")
 
+    readonly property var galleryImages: [
+        "qrc:/image/liquid-bkg-_0000_Comp-33.webp",
+        "qrc:/image/liquid-bkg-_0001_Comp-183.webp",
+        "qrc:/image/liquid-bkg-_0002_Comp-163.webp",
+        "qrc:/image/liquid-bkg-_0003_Comp-151.webp",
+        "qrc:/image/liquid-bkg-_0004_Comp-13.webp"
+    ]
+
+    property real sharedRefraction: refractionSlider.value
+    property real sharedBevelDepth: bevelDepthSlider.value
+    property real sharedBevelWidth: bevelWidthSlider.value
+    property real sharedFrost: frostSlider.value
+    property real sharedMagnify: magnifySlider.value
+    property bool sharedSpecular: specularToggle.checked
+    property bool sharedShadow: shadowToggle.checked
+    property bool sharedTilt: tiltToggle.checked
+    property bool sharedReveal: revealToggle.checked
+    property real sharedTiltFactor: tiltFactorSlider.value
+
     LingmoText {
-        text: qsTr("A glass morphism lens effect with superellipse shape, refraction, blur, noise, and glow.")
-    }
-
-    // ═══════════════════════════════════════════════════════════
-    // Preview — desktop wallpaper loaded directly by C++ renderer
-    // ═══════════════════════════════════════════════════════════
-    LingmoFrame {
+        text: qsTr("A liquidGL-style glass demo. These panes all sample a shared backdrop item so the center stays transparent while the edges refract and distort the reference background.")
+        wrapMode: Text.Wrap
         Layout.fillWidth: true
-        Layout.preferredHeight: 320
-        Layout.topMargin: 10
-
-        // Glass lens — renderer loads the wallpaper file directly via QImage(path)
-        LingmoLiquidGlass {
-            id: glassPreview
-            anchors.fill: parent
-            backgroundSource: LingmoTheme.desktopImagePath
-            glassWidth: widthSlider.value
-            glassHeight: heightSlider.value
-            powerFactor: powerSlider.value
-            blurRadius: blurSlider.value
-            noiseStrength: noiseSlider.value
-            glowWeight: glowSlider.value
-            glowBias: glowBiasSlider.value
-            glowEdge0: glowEdge0Slider.value
-            glowEdge1: glowEdge1Slider.value
-            refractionA: aSlider.value
-            refractionB: bSlider.value
-            refractionC: cSlider.value
-            refractionD: dSlider.value
-            refractionPower: fPowerSlider.value
-            mouseControl: mouseToggle.checked
-            glassPosition: mouseToggle.checked
-                ? Qt.point(mouseArea.mouseX / width, mouseArea.mouseY / height)
-                : Qt.point(centerXSlider.value, centerYSlider.value)
-        }
-
-        MouseArea {
-            id: mouseArea
-            anchors.fill: parent
-            enabled: mouseToggle.checked
-            hoverEnabled: true
-        }
     }
 
-    // ═══════════════════════════════════════════════════════════
-    // Controls
-    // ═══════════════════════════════════════════════════════════
+    LingmoText {
+        visible: !LingmoTools.isOpenGL()
+        text: qsTr("LiquidGlass requires the OpenGL graphics backend. The examples fall back to displaying the source image when running on Vulkan or Direct3D.")
+        color: "#d68c28"
+        wrapMode: Text.Wrap
+        Layout.fillWidth: true
+    }
+
+    Item {
+        id: heroArea
+        Layout.fillWidth: true
+        Layout.topMargin: 10
+        Layout.preferredHeight: 360
+        clip: true
+
+        Item {
+            id: heroBackdrop
+            anchors.fill: parent
+
+            Row {
+                anchors.fill: parent
+                spacing: 0
+
+                Repeater {
+                    model: 3
+                    delegate: Image {
+                        width: heroArea.width / 3
+                        height: heroArea.height
+                        source: galleryImages[index % galleryImages.length]
+                        fillMode: Image.PreserveAspectCrop
+                        smooth: true
+                    }
+                }
+            }
+        }
+
+        LingmoGlassNavibar {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: 22
+            width: Math.min(parent.width - 56, 600)
+            height: 62
+            backgroundTarget: heroBackdrop
+            refraction: sharedRefraction
+            bevelDepth: sharedBevelDepth
+            bevelWidth: sharedBevelWidth
+            frost: sharedFrost
+            magnify: sharedMagnify
+            specular: sharedSpecular
+            tilt: false
+            reveal: sharedReveal
+            shadow: sharedShadow
+
+            RowLayout {
+                anchors.fill: parent
+                anchors.leftMargin: 18
+                anchors.rightMargin: 18
+                spacing: 14
+
+                LingmoText {
+                    text: "LingmoUI"
+                    font.pixelSize: 16
+                    font.bold: true
+                    color: "#ffffff"
+                    opacity: 0.92
+                }
+
+                Item { Layout.fillWidth: true }
+
+                Repeater {
+                    model: [qsTr("Home"), qsTr("Products"), qsTr("About"), qsTr("Contact")]
+                    delegate: LingmoText {
+                        text: modelData
+                        font.pixelSize: 13
+                        color: "#ffffff"
+                        opacity: 0.85
+                    }
+                }
+            }
+        }
+
+        LingmoGlassCard {
+            anchors.centerIn: parent
+            width: 340
+            height: 200
+            backgroundTarget: heroBackdrop
+            refraction: sharedRefraction
+            bevelDepth: Math.max(sharedBevelDepth, 0.1)
+            bevelWidth: Math.max(sharedBevelWidth, 0.17)
+            frost: sharedFrost
+            magnify: sharedMagnify
+            specular: sharedSpecular
+            tilt: sharedTilt
+            tiltFactor: sharedTiltFactor
+            reveal: sharedReveal
+            shadow: sharedShadow
+
+            ColumnLayout {
+                anchors.fill: parent
+                anchors.margins: 20
+                spacing: 8
+
+                RowLayout {
+                    Layout.fillWidth: true
+
+                    Image {
+                        source: "qrc:/image/card-chip.svg"
+                        sourceSize.width: 40
+                        sourceSize.height: 28
+                        fillMode: Image.PreserveAspectFit
+                    }
+
+                    Item { Layout.fillWidth: true }
+
+                    Image {
+                        source: "qrc:/image/visa.png"
+                        sourceSize.width: 54
+                        sourceSize.height: 18
+                        fillMode: Image.PreserveAspectFit
+                    }
+                }
+
+                Item { Layout.fillHeight: true }
+
+                LingmoText {
+                    text: "****  ****  ****  5482"
+                    font.pixelSize: 22
+                    font.bold: true
+                    color: "#ffffff"
+                }
+
+                RowLayout {
+                    Layout.fillWidth: true
+                    spacing: 24
+                    LingmoText { text: qsTr("CARD HOLDER\nNaughtyDuk LTD"); color: "#ffffff"; opacity: 0.72; font.pixelSize: 10 }
+                    LingmoText { text: qsTr("EXPIRES\n12/28"); color: "#ffffff"; opacity: 0.72; font.pixelSize: 10 }
+                }
+            }
+        }
+    }
 
     LingmoText {
         Layout.topMargin: 20
         text: qsTr("Parameters")
     }
 
-    // -- Shape --
     LingmoFrame {
         Layout.fillWidth: true
         Layout.topMargin: 10
@@ -71,211 +187,197 @@ LingmoScrollablePage {
             spacing: 4
 
             RowLayout {
-                LingmoText { text: qsTr("Power Factor"); Layout.preferredWidth: 120 }
-                Slider {
-                    id: powerSlider
-                    Layout.fillWidth: true
-                    from: 1.01; to: 6.0; value: 3.0
-                }
-                LingmoText { text: Number(powerSlider.value).toFixed(2); Layout.preferredWidth: 40 }
+                LingmoText { text: qsTr("Refraction"); Layout.preferredWidth: 130 }
+                Slider { id: refractionSlider; Layout.fillWidth: true; from: 0.0; to: 0.12; value: 0.0 }
+                LingmoText { text: Number(refractionSlider.value).toFixed(3); Layout.preferredWidth: 45 }
             }
-
             RowLayout {
-                LingmoText { text: qsTr("Glass Width"); Layout.preferredWidth: 120 }
-                Slider {
-                    id: widthSlider
-                    Layout.fillWidth: true
-                    from: 0.5; to: 10.0; value: 3.5
-                }
-                LingmoText { text: Number(widthSlider.value).toFixed(1); Layout.preferredWidth: 40 }
+                LingmoText { text: qsTr("Bevel Depth"); Layout.preferredWidth: 130 }
+                Slider { id: bevelDepthSlider; Layout.fillWidth: true; from: 0.0; to: 0.4; value: 0.052 }
+                LingmoText { text: Number(bevelDepthSlider.value).toFixed(3); Layout.preferredWidth: 45 }
             }
-
             RowLayout {
-                LingmoText { text: qsTr("Glass Height"); Layout.preferredWidth: 120 }
-                Slider {
-                    id: heightSlider
-                    Layout.fillWidth: true
-                    from: 0.5; to: 10.0; value: 3.5
-                }
-                LingmoText { text: Number(heightSlider.value).toFixed(1); Layout.preferredWidth: 40 }
+                LingmoText { text: qsTr("Bevel Width"); Layout.preferredWidth: 130 }
+                Slider { id: bevelWidthSlider; Layout.fillWidth: true; from: 0.02; to: 0.6; value: 0.211 }
+                LingmoText { text: Number(bevelWidthSlider.value).toFixed(3); Layout.preferredWidth: 45 }
+            }
+            RowLayout {
+                LingmoText { text: qsTr("Frost"); Layout.preferredWidth: 130 }
+                Slider { id: frostSlider; Layout.fillWidth: true; from: 0.0; to: 10.0; value: 2.0 }
+                LingmoText { text: Number(frostSlider.value).toFixed(1); Layout.preferredWidth: 45 }
+            }
+            RowLayout {
+                LingmoText { text: qsTr("Magnify"); Layout.preferredWidth: 130 }
+                Slider { id: magnifySlider; Layout.fillWidth: true; from: 0.7; to: 1.5; value: 1.0 }
+                LingmoText { text: Number(magnifySlider.value).toFixed(2); Layout.preferredWidth: 45 }
+            }
+            RowLayout {
+                LingmoText { text: qsTr("Tilt Factor"); Layout.preferredWidth: 130 }
+                Slider { id: tiltFactorSlider; Layout.fillWidth: true; from: 0.0; to: 25.0; value: 25.0 }
+                LingmoText { text: Number(tiltFactorSlider.value).toFixed(1); Layout.preferredWidth: 45 }
             }
         }
     }
 
-    // -- Blur, Noise & Glow --
     LingmoFrame {
         Layout.fillWidth: true
         Layout.topMargin: 10
         leftPadding: 10; rightPadding: 10; topPadding: 6; bottomPadding: 6
 
-        ColumnLayout {
+        RowLayout {
             anchors.fill: parent
-            spacing: 4
+            spacing: 16
 
-            RowLayout {
-                LingmoText { text: qsTr("Blur Radius"); Layout.preferredWidth: 120 }
-                Slider {
-                    id: blurSlider
-                    Layout.fillWidth: true
-                    from: 0.1; to: 8.0; value: 2.0
-                }
-                LingmoText { text: Number(blurSlider.value).toFixed(1); Layout.preferredWidth: 40 }
-            }
+            LingmoCheckBox { id: specularToggle; checked: true }
+            LingmoText { text: qsTr("Specular") }
+            LingmoCheckBox { id: shadowToggle; checked: true }
+            LingmoText { text: qsTr("Shadow") }
+            LingmoCheckBox { id: tiltToggle; checked: true }
+            LingmoText { text: qsTr("Tilt") }
+            LingmoCheckBox { id: revealToggle; checked: false }
+            LingmoText { text: qsTr("Reveal") }
+        }
+    }
 
-            RowLayout {
-                LingmoText { text: qsTr("Noise Strength"); Layout.preferredWidth: 120 }
-                Slider {
-                    id: noiseSlider
-                    Layout.fillWidth: true
-                    from: 0.0; to: 0.3; value: 0.06
-                }
-                LingmoText { text: Number(noiseSlider.value).toFixed(2); Layout.preferredWidth: 40 }
-            }
+    LingmoText {
+        Layout.topMargin: 24
+        text: qsTr("Card gallery")
+    }
 
-            RowLayout {
-                LingmoText { text: qsTr("Glow Weight"); Layout.preferredWidth: 120 }
-                Slider {
-                    id: glowSlider
-                    Layout.fillWidth: true
-                    from: -1.0; to: 1.0; value: 0.25
-                }
-                LingmoText { text: Number(glowSlider.value).toFixed(2); Layout.preferredWidth: 40 }
-            }
+    RowLayout {
+        Layout.topMargin: 10
+        Layout.fillWidth: true
+        spacing: 16
 
-            RowLayout {
-                LingmoText { text: qsTr("Glow Bias"); Layout.preferredWidth: 120 }
-                Slider {
-                    id: glowBiasSlider
-                    Layout.fillWidth: true
-                    from: -1.0; to: 1.0; value: 0.0
-                }
-                LingmoText { text: Number(glowBiasSlider.value).toFixed(2); Layout.preferredWidth: 40 }
-            }
+        Repeater {
+            model: 2
+            delegate: Item {
+                width: 300
+                height: 180
 
-            RowLayout {
-                LingmoText { text: qsTr("Glow Edge 0"); Layout.preferredWidth: 120 }
-                Slider {
-                    id: glowEdge0Slider
-                    Layout.fillWidth: true
-                    from: -1.0; to: 1.0; value: 0.5
-                }
-                LingmoText { text: Number(glowEdge0Slider.value).toFixed(2); Layout.preferredWidth: 40 }
-            }
+                Item {
+                    id: cardBackdrop
+                    anchors.fill: parent
 
-            RowLayout {
-                LingmoText { text: qsTr("Glow Edge 1"); Layout.preferredWidth: 120 }
-                Slider {
-                    id: glowEdge1Slider
-                    Layout.fillWidth: true
-                    from: -1.0; to: 1.0; value: -0.5
+                    Image {
+                        anchors.fill: parent
+                        source: galleryImages[(index + 2) % galleryImages.length]
+                        fillMode: Image.PreserveAspectCrop
+                        smooth: true
+                    }
                 }
-                LingmoText { text: Number(glowEdge1Slider.value).toFixed(2); Layout.preferredWidth: 40 }
+
+                LingmoGlassCard {
+                    anchors.fill: parent
+                    backgroundTarget: cardBackdrop
+                    refraction: sharedRefraction
+                    bevelDepth: index === 0 ? Math.max(sharedBevelDepth, 0.1) : sharedBevelDepth
+                    bevelWidth: index === 0 ? Math.max(sharedBevelWidth, 0.17) : sharedBevelWidth
+                    frost: sharedFrost
+                    magnify: sharedMagnify
+                    specular: sharedSpecular
+                    tilt: sharedTilt
+                    tiltFactor: sharedTiltFactor
+                    reveal: sharedReveal
+                    shadow: sharedShadow
+
+                    ColumnLayout {
+                        anchors.fill: parent
+                        anchors.margins: 18
+                        spacing: 6
+
+                        RowLayout {
+                            Layout.fillWidth: true
+                            visible: index === 0
+                            Image { source: "qrc:/image/card-chip.svg"; sourceSize.width: 34; sourceSize.height: 24; fillMode: Image.PreserveAspectFit }
+                            Item { Layout.fillWidth: true }
+                            Image { source: "qrc:/image/visa.png"; sourceSize.width: 48; sourceSize.height: 16; fillMode: Image.PreserveAspectFit }
+                        }
+
+                        LingmoText { text: index === 0 ? qsTr("VISA PREMIUM") : qsTr("PRO PLAN"); font.pixelSize: 14; color: "#ffffff"; opacity: 0.78 }
+                        Item { Layout.fillHeight: true }
+                        LingmoText { text: index === 0 ? "****  ****  ****  8421" : qsTr("$29/mo"); font.pixelSize: index === 0 ? 18 : 28; color: "#ffffff"; font.bold: true }
+                        LingmoText { text: index === 0 ? qsTr("VALID THRU 12/28") : qsTr("Unlimited projects, priority support"); font.pixelSize: 10; color: "#ffffff"; opacity: 0.68 }
+                    }
+                }
             }
         }
     }
 
-    // -- Interaction --
-    LingmoFrame {
-        Layout.fillWidth: true
-        Layout.topMargin: 10
-        leftPadding: 10; rightPadding: 10; topPadding: 6; bottomPadding: 6
-
-        ColumnLayout {
-            anchors.fill: parent
-            spacing: 4
-
-            RowLayout {
-                LingmoText { text: qsTr("Mouse Control"); Layout.preferredWidth: 120 }
-                LingmoCheckBox {
-                    id: mouseToggle
-                    checked: false
-                }
-            }
-
-            RowLayout {
-                LingmoText { text: qsTr("Center X"); Layout.preferredWidth: 120 }
-                Slider {
-                    id: centerXSlider
-                    Layout.fillWidth: true
-                    from: 0.0; to: 1.0; value: 0.5
-                    enabled: !mouseToggle.checked
-                }
-                LingmoText { text: Number(centerXSlider.value).toFixed(2); Layout.preferredWidth: 40 }
-            }
-
-            RowLayout {
-                LingmoText { text: qsTr("Center Y"); Layout.preferredWidth: 120 }
-                Slider {
-                    id: centerYSlider
-                    Layout.fillWidth: true
-                    from: 0.0; to: 1.0; value: 0.5
-                    enabled: !mouseToggle.checked
-                }
-                LingmoText { text: Number(centerYSlider.value).toFixed(2); Layout.preferredWidth: 40 }
-            }
-        }
+    LingmoText {
+        Layout.topMargin: 24
+        text: qsTr("Shared backdrop navbar")
     }
 
-    // -- Refraction --
-    LingmoFrame {
+    Item {
+        id: navPreviewArea
+        width: parent.width
         Layout.fillWidth: true
         Layout.topMargin: 10
-        leftPadding: 10; rightPadding: 10; topPadding: 6; bottomPadding: 6
+        Layout.preferredHeight: 88
 
-        ColumnLayout {
+        Item {
+            id: navBackdrop
             anchors.fill: parent
-            spacing: 4
 
-            LingmoText { text: qsTr("Refraction Curve: f(x) = 1 - b·(c·e)^(-d·x - a)") }
+            Row {
+                anchors.fill: parent
+                spacing: 0
 
-            RowLayout {
-                LingmoText { text: "a"; Layout.preferredWidth: 120 }
-                Slider {
-                    id: aSlider
-                    Layout.fillWidth: true
-                    from: 0.0; to: 5.0; value: 0.7
+                Repeater {
+                    model: 4
+                    delegate: Image {
+                        width: navPreviewArea.width / 4
+                        height: navPreviewArea.height
+                        source: galleryImages[(index + 1) % galleryImages.length]
+                        fillMode: Image.PreserveAspectCrop
+                        smooth: true
+                    }
                 }
-                LingmoText { text: Number(aSlider.value).toFixed(2); Layout.preferredWidth: 40 }
             }
+        }
 
-            RowLayout {
-                LingmoText { text: "b"; Layout.preferredWidth: 120 }
-                Slider {
-                    id: bSlider
-                    Layout.fillWidth: true
-                    from: 0.0; to: 6.0; value: 2.3
-                }
-                LingmoText { text: Number(bSlider.value).toFixed(2); Layout.preferredWidth: 40 }
+        LingmoGlassNavibar {
+            anchors {
+                left: parent.left; right: parent.right
+                margins: 12
+                verticalCenter: parent.verticalCenter
             }
+            backgroundTarget: navBackdrop
+            refraction: sharedRefraction
+            bevelDepth: sharedBevelDepth
+            bevelWidth: sharedBevelWidth
+            frost: sharedFrost
+            magnify: sharedMagnify
+            specular: sharedSpecular
+            tilt: false
+            reveal: sharedReveal
+            shadow: sharedShadow
 
             RowLayout {
-                LingmoText { text: "c"; Layout.preferredWidth: 120 }
-                Slider {
-                    id: cSlider
-                    Layout.fillWidth: true
-                    from: 0.0; to: 6.0; value: 5.2
-                }
-                LingmoText { text: Number(cSlider.value).toFixed(2); Layout.preferredWidth: 40 }
-            }
+                anchors.fill: parent
+                anchors.leftMargin: 16
+                anchors.rightMargin: 16
 
-            RowLayout {
-                LingmoText { text: "d"; Layout.preferredWidth: 120 }
-                Slider {
-                    id: dSlider
-                    Layout.fillWidth: true
-                    from: 0.0; to: 10.0; value: 6.9
+                LingmoText {
+                    text: "LingmoUI"
+                    font.pixelSize: 16
+                    font.bold: true
+                    color: "#ffffff"
+                    opacity: 0.92
                 }
-                LingmoText { text: Number(dSlider.value).toFixed(2); Layout.preferredWidth: 40 }
-            }
 
-            RowLayout {
-                LingmoText { text: qsTr("Refraction Power"); Layout.preferredWidth: 120 }
-                Slider {
-                    id: fPowerSlider
-                    Layout.fillWidth: true
-                    from: -1.5; to: 6.0; value: 1.0
+                Item { Layout.fillWidth: true }
+
+                Repeater {
+                    model: [qsTr("Home"), qsTr("Products"), qsTr("About"), qsTr("Contact")]
+                    delegate: LingmoText {
+                        text: modelData
+                        font.pixelSize: 13
+                        color: "#ffffff"
+                        opacity: 0.85
+                    }
                 }
-                LingmoText { text: Number(fPowerSlider.value).toFixed(2); Layout.preferredWidth: 40 }
             }
         }
     }

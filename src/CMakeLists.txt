@@ -19,7 +19,6 @@ target_link_libraries(${TARGET}
         QHotkey::QHotkey
         )
 target_include_directories(${TARGET} PRIVATE ${QHOTKEY_INCLUDE_DIR})
-target_include_directories(${TARGET} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/LiquidGlass)
 
 if (UNIX)
     if (NOT APPLE)
@@ -49,19 +48,6 @@ foreach (filepath ${H_FILES})
     list(APPEND sources_files ${filename})
 endforeach (filepath)
 
-# Add LiquidGlass sources
-# TODO: make here neater by using file(GLOB_RECURSE) and excluding some files
-list(APPEND sources_files
-    LiquidGlass/GLBlurPass.cpp
-    LiquidGlass/GLBlurPass.h
-    LiquidGlass/LiquidGlassController.cpp
-    LiquidGlass/LiquidGlassController.h
-    LiquidGlass/LiquidGlassView.cpp
-    LiquidGlass/LiquidGlassView.h
-    LiquidGlass/LiquidGlassRenderer.cpp
-    LiquidGlass/LiquidGlassRenderer.h
-)
-
 set(SINGLETON_FILES "Controls/LingmoRouter.qml" "Controls/LingmoUnits.qml")
 
 #遍历所有qml文件
@@ -85,7 +71,7 @@ endforeach (filepath)
 set(RES_SUFFIX "")
 set(RES_PATHS "")
 list(APPEND RES_SUFFIX *.png *.jpg *.svg *.ico *.ttf *.webp *.js *.qm *.qsb)
-list(APPEND RES_PATHS Controls Font Image)
+list(APPEND RES_PATHS Controls Font Image Shaders)
 foreach (respath ${RES_PATHS})
     foreach (filesuffix ${RES_SUFFIX})
         file(GLOB_RECURSE RES_FOUND ${respath}/${filesuffix})

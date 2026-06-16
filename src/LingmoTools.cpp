@@ -224,6 +224,11 @@ bool LingmoTools::isSoftware()
     return QQuickWindow::sceneGraphBackend() == "software";
 }
 
+bool LingmoTools::isOpenGL()
+{
+    return QQuickWindow::graphicsApi() == QSGRendererInterface::OpenGL;
+}
+
 QPoint LingmoTools::cursorPos() { return QCursor::pos(); }
 
 qint64 LingmoTools::currentTimestamp()
