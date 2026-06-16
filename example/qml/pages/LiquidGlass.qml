@@ -188,32 +188,32 @@ LingmoScrollablePage {
 
             RowLayout {
                 LingmoText { text: qsTr("Refraction"); Layout.preferredWidth: 130 }
-                Slider { id: refractionSlider; Layout.fillWidth: true; from: 0.0; to: 0.12; value: 0.0 }
+                LingmoSlider { id: refractionSlider; Layout.fillWidth: true; from: 0.0; to: 0.12; value: 0.0 }
                 LingmoText { text: Number(refractionSlider.value).toFixed(3); Layout.preferredWidth: 45 }
             }
             RowLayout {
                 LingmoText { text: qsTr("Bevel Depth"); Layout.preferredWidth: 130 }
-                Slider { id: bevelDepthSlider; Layout.fillWidth: true; from: 0.0; to: 0.4; value: 0.052 }
+                LingmoSlider { id: bevelDepthSlider; Layout.fillWidth: true; from: 0.0; to: 0.4; value: 0.052 }
                 LingmoText { text: Number(bevelDepthSlider.value).toFixed(3); Layout.preferredWidth: 45 }
             }
             RowLayout {
                 LingmoText { text: qsTr("Bevel Width"); Layout.preferredWidth: 130 }
-                Slider { id: bevelWidthSlider; Layout.fillWidth: true; from: 0.02; to: 0.6; value: 0.211 }
+                LingmoSlider { id: bevelWidthSlider; Layout.fillWidth: true; from: 0.02; to: 0.6; value: 0.211 }
                 LingmoText { text: Number(bevelWidthSlider.value).toFixed(3); Layout.preferredWidth: 45 }
             }
             RowLayout {
                 LingmoText { text: qsTr("Frost"); Layout.preferredWidth: 130 }
-                Slider { id: frostSlider; Layout.fillWidth: true; from: 0.0; to: 10.0; value: 2.0 }
+                LingmoSlider { id: frostSlider; Layout.fillWidth: true; from: 0.0; to: 10.0; value: 2.0 }
                 LingmoText { text: Number(frostSlider.value).toFixed(1); Layout.preferredWidth: 45 }
             }
             RowLayout {
                 LingmoText { text: qsTr("Magnify"); Layout.preferredWidth: 130 }
-                Slider { id: magnifySlider; Layout.fillWidth: true; from: 0.7; to: 1.5; value: 1.0 }
+                LingmoSlider { id: magnifySlider; Layout.fillWidth: true; from: 0.7; to: 1.5; value: 1.0 }
                 LingmoText { text: Number(magnifySlider.value).toFixed(2); Layout.preferredWidth: 45 }
             }
             RowLayout {
                 LingmoText { text: qsTr("Tilt Factor"); Layout.preferredWidth: 130 }
-                Slider { id: tiltFactorSlider; Layout.fillWidth: true; from: 0.0; to: 25.0; value: 25.0 }
+                LingmoSlider { id: tiltFactorSlider; Layout.fillWidth: true; from: 0.0; to: 25.0; value: 25.0 }
                 LingmoText { text: Number(tiltFactorSlider.value).toFixed(1); Layout.preferredWidth: 45 }
             }
         }
