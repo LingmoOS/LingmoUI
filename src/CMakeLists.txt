@@ -15,7 +15,6 @@ target_link_libraries(${TARGET}
         Qt6::QuickControls2
         Qt6::GuiPrivate
         Qt6::Core5Compat
-        Qt6::OpenGL
         QHotkey::QHotkey
         )
 target_include_directories(${TARGET} PRIVATE ${QHOTKEY_INCLUDE_DIR})

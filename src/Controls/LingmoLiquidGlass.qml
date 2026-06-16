@@ -28,12 +28,14 @@ Item {
     property bool reveal: false
     property real revealProgress: 1.0
 
+    function _getBackgroundTargetPos(tg) {
+        var pos = mapToItem(tg, 0, 0);
+        return Qt.rect(pos.x, pos.y, width, height);
+    }
+
     readonly property rect _lensRectInTarget: backgroundTarget
-        ? Qt.rect(mapToItem(backgroundTarget, 0, 0).x,
-                  mapToItem(backgroundTarget, 0, 0).y,
-                  width,
-                  height)
-        : Qt.rect(0, 0, width, height)
+    ? _getBackgroundTargetPos(backgroundTarget)
+    : Qt.rect(0, 0, width, height)
 
     readonly property rect _captureRect: backgroundTarget
         ? Qt.rect(0, 0, backgroundTarget.width, backgroundTarget.height)
