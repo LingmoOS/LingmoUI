@@ -96,6 +96,8 @@ public:
 
     Q_INVOKABLE bool isSoftware(); // Checkfor software rendering
 
+    Q_INVOKABLE bool isOpenGL();
+
     Q_INVOKABLE qint64 currentTimestamp();
 
     Q_INVOKABLE QPoint cursorPos();

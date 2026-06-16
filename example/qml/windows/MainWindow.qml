@@ -67,7 +67,7 @@ LingmoWindow {
                     window.setHitTestVisible(nav_view.buttonMenu)
                     window.setHitTestVisible(nav_view.buttonBack)
                     window.setHitTestVisible(nav_view.imageLogo)
-                    setCurrentIndex(0)
+                    setCurrentIndex(3)
                 }
             }
         }
