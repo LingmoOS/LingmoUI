@@ -25,6 +25,20 @@ import LingmoUI.CompatibleModule as LingmoUI
 
     The selected pill slides between segments. Set fillWidth: true to stretch
     the segments over the whole width.
+
+    currentIndex can be bound to your state: a click never breaks the binding.
+    The click shows the new segment, emits activated(index) so you can update
+    the state, then hands currentIndex back to your binding (which now reads the
+    new value, or the old one if you refused the change). Without a binding the
+    control keeps the clicked index by itself.
+
+    \qml
+    LingmoUI.SegmentedControl {
+        model: [qsTr("Day"), qsTr("Week"), qsTr("Month")]
+        currentIndex: settings.range                      // stays bound
+        onActivated: (index) => settings.range = index
+    }
+    \endqml
 */
 Rectangle {
     id: control
@@ -36,7 +50,33 @@ Rectangle {
     property bool fillWidth: false
     readonly property int count: repeater.count
 
+    // A segment was clicked (index differs from currentIndex)
     signal activated(int index)
+
+    // Selects index as if it was clicked (emits activated)
+    function activate(index) {
+        if (index < 0 || index >= count || index === currentIndex)
+            return
+        // Two-way: override currentIndex only while activated() runs, then give
+        // it back to the owner's binding (RestoreBinding keeps the new value
+        // when there is no binding to restore)
+        internal.pendingIndex = index
+        control.activated(index)
+        internal.pendingIndex = -1
+    }
+
+    QtObject {
+        id: internal
+        property int pendingIndex: -1
+    }
+
+    Binding {
+        target: control
+        property: "currentIndex"
+        value: internal.pendingIndex
+        when: internal.pendingIndex >= 0
+        restoreMode: Binding.RestoreBinding
+    }
 
     implicitHeight: Math.round(LingmoUI.Units.fontMetrics.height + LingmoUI.Units.largeSpacing * 1.3)
     implicitWidth: row.implicitWidth + 6
@@ -133,12 +173,7 @@ Rectangle {
                     anchors.fill: parent
                     hoverEnabled: true
                     cursorShape: Qt.PointingHandCursor
-                    onClicked: {
-                        if (control.currentIndex !== segment.index) {
-                            control.currentIndex = segment.index
-                            control.activated(segment.index)
-                        }
-                    }
+                    onClicked: control.activate(segment.index)
                 }
             }
         }

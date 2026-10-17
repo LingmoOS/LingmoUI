@@ -134,4 +134,41 @@
         <translation>Carregando...</translation>
     </message>
 </context>
+<context>
+    <name>Banner</name>
+    <message>
+        <location filename="../Compatible/Controls/Banner.qml" line="146"/>
+        <source>Close</source>
+        <translation>Fechar</translation>
+    </message>
+</context>
+<context>
+    <name>PageHeader</name>
+    <message>
+        <location filename="../Compatible/Controls/PageHeader.qml" line="51"/>
+        <source>Back</source>
+        <translation>Voltar</translation>
+    </message>
+</context>
+<context>
+    <name>PillTabBar</name>
+    <message>
+        <location filename="../Compatible/Controls/PillTabBar.qml" line="51"/>
+        <source>New Tab</source>
+        <translation>Nova aba</translation>
+    </message>
+    <message>
+        <location filename="../Compatible/Controls/PillTabBar.qml" line="52"/>
+        <source>Close Tab</source>
+        <translation>Fechar aba</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsSideBar</name>
+    <message>
+        <location filename="../Compatible/Controls/SettingsSideBar.qml" line="224"/>
+        <source>Search</source>
+        <translation>Pesquisar</translation>
+    </message>
+</context>
 </TS>

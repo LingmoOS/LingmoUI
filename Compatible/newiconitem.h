@@ -30,6 +30,9 @@ class IconItemSource;
 class NewIconItem : public QQuickPaintedItem {
     Q_OBJECT
     Q_PROPERTY(QVariant source READ source WRITE setSource NOTIFY sourceChanged)
+    // Tint for monochrome (symbolic) icons: every opaque pixel takes this
+    // colour, keeping its alpha. Unset or transparent: drawn as is.
+    Q_PROPERTY(QColor color READ color WRITE setColor RESET resetColor NOTIFY colorChanged)
     QML_NAMED_ELEMENT(IconItem)
 
 public:
@@ -38,12 +41,17 @@ public:
     void setSource(const QVariant& source);
     QVariant source() const;
 
+    QColor color() const;
+    void setColor(const QColor& color);
+    void resetColor();
+
     void paint(QPainter* painter) override;
 
     Q_INVOKABLE void updateIcon();
 
 signals:
     void sourceChanged();
+    void colorChanged();
 
 protected:
     void loadPixmap();
@@ -58,6 +66,7 @@ private:
 
     QString m_iconName;
     QPixmap m_iconPixmap;
+    QColor m_color;
 };
 
 #endif // NEWICONITEM_H

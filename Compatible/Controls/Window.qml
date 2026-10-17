@@ -261,36 +261,30 @@ QtQuick.Window {
             property int buttonSize: 31
             property int spacing: (_header.height - _header.buttonSize) / 2
 
+            // The strip itself takes no input: only the window buttons and the
+            // headerItem's own controls do. Dragging and double clicks are
+            // handled by _headerDragArea, below the content, so content placed
+            // under the strip (contentTopMargin: 0) gets its clicks.
             Rectangle {
                 id: _headerBackground
                 anchors.fill: parent
                 color: "transparent"
             }
 
-            TapHandler {
-                enabled: !control.isFullScreen
-                onTapped: if (tapCount === 2) toggleMaximized()
-                gesturePolicy: TapHandler.DragThreshold
-            }
-
-            DragHandler {
-                target: null
-                acceptedDevices: PointerDevice.AllDevices
-                grabPermissions: PointerHandler.CanTakeOverFromItems | PointerHandler.CanTakeOverFromHandlersOfDifferentType | PointerHandler.ApprovesTakeOverByAnything
-                onActiveChanged: if (active) { windowHelper.startSystemMove(control) }
-            }
-
             RowLayout {
                 anchors.fill: parent
                 spacing: 0
 
-                // Lingmo window controls on the left: close, minimize, zoom
+                // Lingmo window controls on the left: close, minimize, zoom,
+                // 12 px from the edge like the KWin decoration (each button is a
+                // 24 px cell around a 16 px circle)
                 Item {
-                    Layout.preferredWidth: 12
+                    Layout.preferredWidth: 8
                 }
 
                 WindowControls {
                     Layout.alignment: Qt.AlignVCenter
+                    Layout.fillHeight: true
                     windowActive: control.active
                     maximized: control.isMaximized
                     minimizeVisible: control.minimizeButtonVisible
@@ -307,6 +301,31 @@ QtQuick.Window {
                     Layout.fillWidth: true
                     Layout.leftMargin: 12
                 }
+            }
+        }
+
+        // Drag / double-click area of the header strip. It sits below the
+        // content, so it only gets the presses nothing above it takes.
+        Item {
+            id: _headerDragArea
+            anchors.left: _header.left
+            anchors.right: _header.right
+            anchors.top: _header.top
+            height: _header.height
+            visible: _header.visible
+            enabled: _header.enabled
+
+            TapHandler {
+                enabled: !control.isFullScreen
+                onTapped: if (tapCount === 2) toggleMaximized()
+                gesturePolicy: TapHandler.DragThreshold
+            }
+
+            DragHandler {
+                target: null
+                acceptedDevices: PointerDevice.AllDevices
+                grabPermissions: PointerHandler.CanTakeOverFromItems | PointerHandler.CanTakeOverFromHandlersOfDifferentType | PointerHandler.ApprovesTakeOverByAnything
+                onActiveChanged: if (active) { windowHelper.startSystemMove(control) }
             }
         }
 

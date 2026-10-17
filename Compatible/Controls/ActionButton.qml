@@ -19,6 +19,8 @@ import LingmoUI.CompatibleModule as LingmoUI
     LingmoUI.ActionButton { text: qsTr("Remove"); destructive: true; subtle: true } // red text on a red tint
     LingmoUI.ActionButton { text: qsTr("Refresh"); iconName: "view-refresh" }
     LingmoUI.ActionButton { text: qsTr("Saving…"); primary: true; busy: true } // spinner, clicks ignored
+    LingmoUI.ActionButton { text: qsTr("Skip"); flat: true }                   // no resting background (quiet)
+    LingmoUI.ActionButton { text: qsTr("Get"); light: true }                   // white with dark text, on banners/artwork
     \endqml
 */
 T.Button {
@@ -28,14 +30,25 @@ T.Button {
     property bool destructive: false
     // destructive only: red text on a light red tint instead of a filled red button
     property bool subtle: false
+    // flat (Button's own property): no background until hovered/pressed, for
+    // low-key actions ("Skip", "Later"). Works with primary/destructive too
+    // (accent/red text). quiet is the same.
+    property alias quiet: control.flat
+    // White button with dark text in both themes, for coloured banners and
+    // artwork (Theme.lightBackgroundColor / lightTextColor)
+    property bool light: false
     // Theme icon name (or url) shown before the text
     property string iconName: ""
     // Shows a spinner instead of the icon and ignores clicks
     property bool busy: false
     property string tipText: ""
 
-    readonly property bool filled: primary || (destructive && !subtle)
+    readonly property bool filled: !flat && !light && (primary || (destructive && !subtle))
     readonly property color baseColor: {
+        if (flat)
+            return "transparent"
+        if (light)
+            return LingmoUI.Theme.lightBackgroundColor
         if (destructive && subtle)
             return Qt.rgba(LingmoUI.Theme.redColor.r, LingmoUI.Theme.redColor.g, LingmoUI.Theme.redColor.b,
                            LingmoUI.Theme.darkMode ? 0.22 : 0.12)
@@ -45,8 +58,10 @@ T.Button {
             return LingmoUI.Theme.highlightColor
         return LingmoUI.Theme.alternateBackgroundColor
     }
-    readonly property color foregroundColor: filled ? LingmoUI.Theme.highlightedTextColor
+    readonly property color foregroundColor: light ? LingmoUI.Theme.lightTextColor
+                                           : filled ? LingmoUI.Theme.highlightedTextColor
                                            : destructive ? LingmoUI.Theme.redColor
+                                           : flat && primary ? LingmoUI.Theme.highlightColor
                                            : LingmoUI.Theme.textColor
 
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
@@ -63,7 +78,7 @@ T.Button {
     opacity: enabled ? 1.0 : 0.5
     font.family: LingmoUI.Theme.fontFamily
     font.pointSize: LingmoUI.Units.fontBody
-    font.weight: primary ? Font.DemiBold : Font.Normal
+    font.weight: primary || light ? Font.DemiBold : Font.Normal
 
     Accessible.role: Accessible.Button
     Accessible.name: text
@@ -123,6 +138,11 @@ T.Button {
             const base = control.baseColor
             if (control.busy)
                 return base
+            if (control.flat)
+                return control.down ? LingmoUI.Theme.pressedColor
+                     : control.hovered ? LingmoUI.Theme.hoverColor : base
+            if (control.light)
+                return control.down ? Qt.darker(base, 1.12) : control.hovered ? Qt.darker(base, 1.05) : base
             if (control.down)
                 return Qt.darker(base, 1.15)
             if (control.hovered)
@@ -130,7 +150,7 @@ T.Button {
                                       : Qt.darker(base, LingmoUI.Theme.darkMode ? 0.85 : 1.05)
             return base
         }
-        border.width: control.filled ? 0 : 1
+        border.width: control.filled || control.flat || control.light ? 0 : 1
         border.color: LingmoUI.Theme.dividerColor
 
         Behavior on color { ColorAnimation { duration: LingmoUI.Units.veryShortDuration } }

@@ -25,6 +25,9 @@ import LingmoUI.CompatibleModule as LingmoUI
 
     // Detail page
     LingmoUI.PageHeader { title: app.name; backVisible: true; onBack: stack.pop() }
+
+    // Icon in a coloured tile, like the SettingsSideBar row that opened the page
+    LingmoUI.PageHeader { title: qsTr("Network"); iconSource: "qrc:/images/wlan.svg"; iconColor: "#0A84FF" }
     \endqml
 
     Its minimum height is Units.windowHeaderHeight so it lines up with the
@@ -37,6 +40,12 @@ Item {
     property string subtitle: ""
     // Theme icon name (or url) before the title
     property string iconName: ""
+    // Image url before the title (white glyph svgs for tiles); wins over iconName
+    property url iconSource: ""
+    // Colour of a rounded tile behind the icon, as in SettingsSideBar
+    // (transparent = plain icon, no tile)
+    property color iconColor: "transparent"
+    readonly property bool hasIcon: iconName.length > 0 || iconSource.toString().length > 0
     property int iconSize: subtitle.length > 0 ? LingmoUI.Units.iconSizes.medium : LingmoUI.Units.iconSizes.smallMedium
     property bool backVisible: false
     property string backTipText: qsTr("Back")
@@ -84,12 +93,38 @@ Item {
             }
         }
 
+        // Plain icon
         LingmoUI.IconItem {
-            visible: control.iconName.length > 0
-            source: control.iconName
+            visible: control.hasIcon && control.iconColor.a === 0
+            source: control.iconSource.toString().length > 0 ? control.iconSource : control.iconName
             Layout.preferredWidth: control.iconSize
             Layout.preferredHeight: control.iconSize
             Layout.alignment: Qt.AlignVCenter
+        }
+
+        // Icon in a tile of iconColor (same look as SideBarItem's tiles)
+        Rectangle {
+            id: tile
+            visible: control.hasIcon && control.iconColor.a > 0
+            Layout.preferredWidth: control.iconSize + 6
+            Layout.preferredHeight: control.iconSize + 6
+            Layout.alignment: Qt.AlignVCenter
+            radius: LingmoUI.Units.iconTileRadius + (control.iconSize + 6 - LingmoUI.Units.iconTileSize) / 4
+            readonly property color base: LingmoUI.Theme.darkMode ? Qt.lighter(control.iconColor, 1.12)
+                                                                  : Qt.darker(control.iconColor, 1.04)
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: Qt.lighter(tile.base, LingmoUI.Theme.darkMode ? 1.18 : 1.12) }
+                GradientStop { position: 1.0; color: tile.base }
+            }
+            border.width: 1
+            border.color: LingmoUI.Theme.borderColor
+
+            LingmoUI.IconItem {
+                anchors.centerIn: parent
+                width: Math.round(control.iconSize * 0.7)
+                height: width
+                source: control.iconSource.toString().length > 0 ? control.iconSource : control.iconName
+            }
         }
 
         ColumnLayout {

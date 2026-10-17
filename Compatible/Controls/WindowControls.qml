@@ -1,51 +1,60 @@
 import QtQuick
 import LingmoUI.CompatibleModule 3.0 as LingmoUI
 
-// Lingmo window controls: one soft capsule holding close / minimize / zoom as
-// coloured buttons with always-visible white glyphs (zoom follows the accent colour).
-Rectangle {
+// Lingmo window controls: close, minimize and zoom drawn like the KWin
+// decoration (lingmo-kwin-plugins): 16 px coloured circles in 24 px cells,
+// grey while the window is inactive, symbols shown while the pointer is over
+// the group.
+Item {
     id: control
 
     property bool windowActive: true
     property bool maximized: false
     property bool minimizeVisible: true
     property bool zoomVisible: true
+    // The pointer is over one of the buttons
+    readonly property bool hovered: _close.lit || _minimize.lit || _zoom.lit
 
     signal closeClicked()
     signal minimizeClicked()
     signal zoomClicked()
 
-    implicitWidth: _row.implicitWidth + 6
-    implicitHeight: 22
-    radius: height / 2
-    color: LingmoUI.Theme.darkMode ? Qt.rgba(1, 1, 1, 0.07) : Qt.rgba(0, 0, 0, 0.045)
-    border.width: 0.5
-    border.color: LingmoUI.Theme.darkMode ? Qt.rgba(1, 1, 1, 0.08) : Qt.rgba(0, 0, 0, 0.06)
+    implicitWidth: _row.implicitWidth
+    implicitHeight: 24
 
     Row {
         id: _row
-        anchors.centerIn: parent
-        spacing: 2
+        height: parent.height
+        spacing: 0
 
         WindowControlButton {
+            id: _close
             kind: "close"
             accent: "#F2555A"
+            height: parent.height
             windowActive: control.windowActive
+            groupHovered: control.hovered
             onClicked: control.closeClicked()
         }
 
         WindowControlButton {
+            id: _minimize
             kind: "minimize"
             accent: "#F5A524"
+            height: parent.height
             windowActive: control.windowActive
+            groupHovered: control.hovered
             visible: control.minimizeVisible
             onClicked: control.minimizeClicked()
         }
 
         WindowControlButton {
+            id: _zoom
             kind: control.maximized ? "restore" : "zoom"
-            accent: LingmoUI.Theme.highlightColor
+            accent: "#2F7CF6"
+            height: parent.height
             windowActive: control.windowActive
+            groupHovered: control.hovered
             visible: control.zoomVisible
             onClicked: control.zoomClicked()
         }

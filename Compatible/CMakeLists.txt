@@ -130,6 +130,16 @@ qt_add_qml_module(${TARGET}CompatibleModule
 set_target_properties(${TARGET}CompatibleModule
     PROPERTIES  VERSION ${MODULE_VERSION} SOVERSION ${MODULE_VERSION_MAJOR})
 
+# Translations of the shared components, loaded by the plugin
+# (:/lingmoui/kit/compatible_module/i18n/lingmoui_<locale>.qm)
+file(GLOB COMPATIBLE_TS_FILES ${CMAKE_CURRENT_SOURCE_DIR}/../translations/lingmoui_*.ts)
+qt_add_translation(COMPATIBLE_QM_FILES ${COMPATIBLE_TS_FILES})
+qt_add_resources(${TARGET}CompatibleModule "compatible_i18n"
+    PREFIX "/lingmoui/kit/compatible_module/i18n"
+    BASE ${CMAKE_CURRENT_BINARY_DIR}
+    FILES ${COMPATIBLE_QM_FILES}
+)
+
 install(DIRECTORY ${CMAKE_BINARY_DIR}/temp/${PROJECT_NAME}/CompatibleModule DESTINATION ${INSTALL_QMLDIR}/${PROJECT_NAME})
 generate_export_header(${TARGET}CompatibleModule BASE_NAME ${TARGET}CompatibleModule)
 

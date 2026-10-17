@@ -22,10 +22,13 @@
 
 #include "desktop/menupopupwindow.h"
 
+#include <QCoreApplication>
 #include <QDebug>
 #include <QFontDatabase>
+#include <QLocale>
 #include <QQmlEngine>
 #include <QQuickStyle>
+#include <QTranslator>
 
 QUrl componentUrl(const QString& fileName)
 {
@@ -42,6 +45,17 @@ void LingmoUI::initializeEngine(QQmlEngine* engine, const char* uri)
 
     // Set base URL to the plugin URL
     engine->setBaseUrl(baseUrl());
+
+    // Strings of the shared components (qsTr in Controls/*.qml), once per
+    // process: apps of the CompatibleModule don't go through LingmoApp::init()
+    static QTranslator* translator = nullptr;
+    if (!translator && QCoreApplication::instance()) {
+        translator = new QTranslator(QCoreApplication::instance());
+        if (translator->load(QLocale(), QStringLiteral("lingmoui"), QStringLiteral("_"),
+                QStringLiteral(":/lingmoui/kit/compatible_module/i18n"))) {
+            QCoreApplication::installTranslator(translator);
+        }
+    }
 
     engine->addImageProvider(QStringLiteral("icontheme"), new IconThemeProvider());
 }

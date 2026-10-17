@@ -53,6 +53,10 @@ WindowHelper::WindowHelper(QObject* parent)
     , m_moveResizeAtom(0)
     , m_compositing(false)
 {
+    // Wayland, offscreen...: no X connection, QWindow does the move/resize
+    if (!QX11Info::isPlatformX11())
+        return;
+
     // create move-resize atom
     // ref:
     // https://github.com/qt/qtbase/blob/9db7cc79a26ced4997277b5c206ca15949133240/src/plugins/platforms/xcb/qxcbwindow.cpp
@@ -83,11 +87,23 @@ void WindowHelper::startSystemResize(QWindow* w, Qt::Edges edges)
 
 void WindowHelper::minimizeWindow(QWindow* w)
 {
+    if (!QX11Info::isPlatformX11()) {
+        w->showMinimized();
+        return;
+    }
     KX11Extras::minimizeWindow(w->winId());
 }
 
 void WindowHelper::doStartSystemMoveResize(QWindow* w, int edges)
 {
+    if (!QX11Info::isPlatformX11()) {
+        if (edges == 16)
+            w->startSystemMove();
+        else
+            w->startSystemResize(Qt::Edges(edges));
+        return;
+    }
+
     const qreal dpiRatio = qApp->devicePixelRatio();
 
     xcb_connection_t* connection(QX11Info::connection());

@@ -101,6 +101,23 @@ QtObject {
 
     property real tinyRadius: 4.0
 
+    // Always-light tokens: the same in both themes.
+    // Light surfaces that stay light in dark mode (white buttons on coloured
+    // banners and artwork)
+    readonly property color lightBackgroundColor: "#FFFFFF"
+    readonly property color lightAlternateBackgroundColor: "#F2F4F5"
+    readonly property color lightTextColor: "#1D1D22"
+    readonly property color lightSecondaryTextColor: "#55555F"
+    // Over photos and video (viewer chrome, captions, controls on a picture):
+    // white text on a dark translucent backdrop
+    readonly property color overlayTextColor: "#FFFFFF"
+    readonly property color overlaySecondaryTextColor: Qt.rgba(1, 1, 1, 0.78)
+    readonly property color overlayBackgroundColor: Qt.rgba(0, 0, 0, 0.55)
+    readonly property color overlayScrimColor: Qt.rgba(0, 0, 0, 0.35)
+    readonly property color overlayHoverColor: Qt.rgba(1, 1, 1, 0.14)
+    readonly property color overlayPressedColor: Qt.rgba(1, 1, 1, 0.24)
+    readonly property color overlayBorderColor: Qt.rgba(1, 1, 1, 0.18)
+
     // Elevation presets for Elevation / Card (index = level).
     //   0 flat, 1 card, 2 popup/menu, 3 window/dialog
     // blur and yOffset in px, opacity of the black shadow.

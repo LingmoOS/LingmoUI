@@ -16,6 +16,14 @@ import LingmoUI.CompatibleModule as LingmoUI
     LingmoUI.SideBarItem { title: qsTr("Network"); iconSource: "qrc:/images/wlan.svg"; tileColor: "#0A84FF" }
     LingmoUI.SideBarItem { title: qsTr("Inbox"); iconName: "mail-folder-inbox"; badge: 4; isCurrent: true }
     LingmoUI.SideBarItem { title: qsTr("Work"); iconName: "folder"; indent: 16; trailing: "12" }
+
+    // Leading slot: anything before the icon (tree arrow, emoji, avatar...)
+    LingmoUI.SideBarItem {
+        title: page.name
+        leading: LingmoUI.IconItem { width: 12; height: 12; source: "pan-end-symbolic"; color: LingmoUI.Theme.secondaryTextColor }
+        // Children go to the right (trailing actions)
+        LingmoUI.IconButton { iconName: "list-add"; size: 22; iconSize: 12; visible: parent.hovered }
+    }
     \endqml
 
     Used by SettingsSideBar; can also be used in your own ListView delegate.
@@ -45,6 +53,8 @@ Item {
     readonly property alias hovered: mouseArea.containsMouse
     readonly property bool hasTile: tileColor.a > 0 || tileText.length > 0
     default property alias extra: extraRow.data
+    // Items placed before the icon/tile (tree expanders, emoji, avatars...)
+    property alias leading: leadingRow.data
 
     signal clicked()
     signal rightClicked()
@@ -86,6 +96,13 @@ Item {
         anchors.rightMargin: LingmoUI.Units.smallSpacing * 1.5
         spacing: LingmoUI.Units.smallSpacing * 1.5
 
+        RowLayout {
+            id: leadingRow
+            spacing: LingmoUI.Units.smallSpacing
+            visible: children.length > 0
+            Layout.alignment: Qt.AlignVCenter
+        }
+
         // Rounded tile in the item's colour, as in Settings
         Rectangle {
             id: tile
@@ -111,7 +128,8 @@ Item {
                 width: LingmoUI.Units.iconSizes.small
                 height: width
                 source: control.iconSource
-                sourceSize: Qt.size(width * 2, height * 2)
+                // Constant: a size derived from width loops through implicitWidth
+                sourceSize: Qt.size(LingmoUI.Units.iconSizes.small * 2, LingmoUI.Units.iconSizes.small * 2)
                 smooth: true
                 antialiasing: true
             }
@@ -143,7 +161,11 @@ Item {
             Layout.preferredWidth: LingmoUI.Units.iconSizes.small
             Layout.preferredHeight: LingmoUI.Units.iconSizes.small
             Layout.alignment: Qt.AlignVCenter
-            sourceSize: Qt.size(width * 2, height * 2)
+            // Constant: width comes from the layout, which reads implicitWidth,
+            // which follows sourceSize (binding loop while hidden)
+            sourceSize: Qt.size(LingmoUI.Units.iconSizes.small * 2, LingmoUI.Units.iconSizes.small * 2)
+            fillMode: Image.PreserveAspectFit
+            smooth: true
         }
 
         LingmoUI.IconItem {

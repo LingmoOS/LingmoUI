@@ -23,6 +23,8 @@ import LingmoUI.CompatibleModule as LingmoUI
     \endqml
 
     Set busy: true to show a spinner instead of the icon (first load).
+    iconOpacity (0.6 light / 0.7 dark by default) and iconColor adjust the icon:
+    iconOpacity: 1 for full-colour illustrations, iconColor to tint a symbolic one.
 */
 Item {
     id: control
@@ -35,6 +37,10 @@ Item {
     property bool actionPrimary: true
     property bool busy: false
     property int iconSize: LingmoUI.Units.iconSizes.huge
+    // Opacity of the icon (dimmed by default so the title leads)
+    property real iconOpacity: LingmoUI.Theme.darkMode ? 0.7 : 0.6
+    // Tint for monochrome (symbolic) icons; transparent = drawn as is
+    property color iconColor: "transparent"
 
     signal actionTriggered()
 
@@ -60,7 +66,8 @@ Item {
         LingmoUI.IconItem {
             visible: !control.busy && control.iconName.length > 0
             source: control.iconName
-            opacity: LingmoUI.Theme.darkMode ? 0.7 : 0.6
+            color: control.iconColor
+            opacity: control.iconOpacity
             Layout.preferredWidth: control.iconSize
             Layout.preferredHeight: control.iconSize
             Layout.alignment: Qt.AlignHCenter

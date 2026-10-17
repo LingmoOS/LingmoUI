@@ -120,6 +120,12 @@ add_subdirectory(Compatible)
 
 add_subdirectory(example)
 
+option(BUILD_TESTING "Build the tests" OFF)
+if (BUILD_TESTING)
+    enable_testing()
+    add_subdirectory(tests)
+endif ()
+
 configure_package_config_file(
         "${CMAKE_CURRENT_SOURCE_DIR}/LingmoUIConfig.cmake.in"
         "${CMAKE_CURRENT_BINARY_DIR}/${TARGET}Config.cmake"

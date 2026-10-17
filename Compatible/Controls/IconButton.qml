@@ -33,6 +33,8 @@ T.AbstractButton {
     property bool round: false
     // Draw a neutral background even when idle (toolbar buttons on a card)
     property bool flat: true
+    // Tint for monochrome (symbolic) icons; transparent = drawn as is
+    property color iconColor: "transparent"
 
     implicitWidth: size
     implicitHeight: size
@@ -74,6 +76,7 @@ T.AbstractButton {
             width: control.iconSize
             height: control.iconSize
             source: control.iconName
+            color: control.iconColor
             smooth: true
             scale: control.down ? 0.88 : 1.0
 

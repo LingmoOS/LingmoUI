@@ -1,94 +1,108 @@
 import QtQuick
 import LingmoUI.CompatibleModule 3.0 as LingmoUI
 
-// A single button of WindowControls; glyphs are drawn with rectangles so they
-// stay crisp at any scale factor
+// A single button of WindowControls, drawn like the Lingmo KWin decoration
+// (lingmo-kwin-plugins/plugins/decoration/button.cpp): a 16 px coloured circle
+// with a hairline ring, grey on an inactive window, and a dark symbol that shows
+// while the pointer is over the button group.
 Item {
     id: control
 
     property string kind: "close"      // close | minimize | zoom | restore
     property color accent
     property bool windowActive: true
+    // Set by WindowControls: the pointer is over any button of the group
+    property bool groupHovered: lit
     readonly property bool lit: _mouse.containsMouse
+    readonly property bool pressed: _mouse.pressed
+    // Diameter of the circle; the button itself is a 24 px wide cell
+    property real diameter: 16
     signal clicked()
 
-    width: 16
-    height: 16
+    implicitWidth: 24
+    implicitHeight: 24
 
-    // Always coloured with a white glyph; grey when the window is inactive
-    readonly property color fill: !windowActive && !lit
-                                  ? (LingmoUI.Theme.darkMode ? "#4A4B57" : "#CFD0D6")
-                                  : _mouse.pressed ? Qt.darker(accent, 1.2)
-                                  : lit ? Qt.lighter(accent, 1.1) : accent
-    readonly property color ink: !windowActive && !lit
-                                 ? (LingmoUI.Theme.darkMode ? Qt.rgba(1, 1, 1, 0.45) : Qt.rgba(1, 1, 1, 0.9))
-                                 : "white"
+    readonly property bool coloured: windowActive || groupHovered
+    readonly property color fill: !coloured ? (LingmoUI.Theme.darkMode ? "#4A4B57" : "#D4D5DA")
+                                  : pressed ? Qt.darker(accent, 1.25)
+                                  : accent
+    readonly property color ring: LingmoUI.Theme.darkMode ? Qt.lighter(fill, 1.15) : Qt.darker(fill, 1.12)
+    readonly property bool symbolVisible: groupHovered
 
-    Rectangle {
-        anchors.fill: parent
-        radius: width / 2
-        color: control.fill
-        scale: control.lit ? 1.08 : 1.0
+    Accessible.role: Accessible.Button
+    Accessible.name: kind
 
-        Behavior on color { ColorAnimation { duration: 140 } }
-        Behavior on scale { NumberAnimation { duration: 160; easing.type: Easing.OutBack } }
-    }
-
-    Item {
+    Canvas {
+        id: _canvas
         anchors.centerIn: parent
-        width: 8
-        height: 8
+        width: control.diameter + 2
+        height: width
+        antialiasing: true
+        renderStrategy: Canvas.Cooperative
 
-        // close: ×
-        Repeater {
-            model: control.kind === "close" ? [45, -45] : []
-            Rectangle {
-                anchors.centerIn: parent
-                width: 9; height: 1.5; radius: 0.75
-                rotation: modelData
-                color: control.ink
-                antialiasing: true
-            }
-        }
+        onPaint: {
+            const ctx = getContext("2d")
+            ctx.reset()
+            const c = width / 2
+            const r = control.diameter / 2
 
-        // minimize: −
-        Rectangle {
-            visible: control.kind === "minimize"
-            anchors.centerIn: parent
-            width: 8; height: 1.5; radius: 0.75
-            color: control.ink
-        }
+            // Circle with a hairline ring a shade darker (lighter in dark mode)
+            ctx.beginPath()
+            ctx.arc(c, c, r - 0.4, 0, Math.PI * 2)
+            ctx.fillStyle = control.fill
+            ctx.fill()
+            ctx.lineWidth = 0.8
+            ctx.strokeStyle = control.ring
+            ctx.stroke()
 
-        // zoom: rounded square outline
-        Rectangle {
-            visible: control.kind === "zoom"
-            anchors.centerIn: parent
-            width: 7.5; height: 7.5; radius: 2
-            color: "transparent"
-            border.width: 1.4
-            border.color: control.ink
-        }
+            if (!control.symbolVisible)
+                return
 
-        // restore: two overlapping rounded squares
-        Item {
-            visible: control.kind === "restore"
-            anchors.fill: parent
-            Rectangle {
-                x: 2; y: 0; width: 6; height: 6; radius: 1.5
-                color: "transparent"; border.width: 1.3; border.color: control.ink
-            }
-            Rectangle {
-                x: 0; y: 2; width: 6; height: 6; radius: 1.5
-                color: control.fill
-                border.width: 1.3; border.color: control.ink
+            // Symbols: dark ink on the colour
+            const ink = Qt.rgba(0, 0, 0, (control.pressed ? 170 : 140) / 255)
+            const h = 3.4
+            ctx.strokeStyle = ink
+            ctx.fillStyle = ink
+            ctx.lineWidth = 1.4
+            ctx.lineCap = "round"
+            ctx.lineJoin = "round"
+            ctx.beginPath()
+
+            if (control.kind === "close") {
+                ctx.moveTo(c - h, c - h); ctx.lineTo(c + h, c + h)
+                ctx.moveTo(c + h, c - h); ctx.lineTo(c - h, c + h)
+                ctx.stroke()
+            } else if (control.kind === "minimize") {
+                ctx.moveTo(c - h - 0.5, c); ctx.lineTo(c + h + 0.5, c)
+                ctx.stroke()
+            } else {
+                // zoom: two triangles pointing out; restore: pointing in
+                const a = 3.8
+                if (control.kind === "restore") {
+                    const g = 0.6
+                    ctx.moveTo(c + g, c - g); ctx.lineTo(c + g + a, c - g); ctx.lineTo(c + g, c - g - a)
+                    ctx.closePath()
+                    ctx.moveTo(c - g, c + g); ctx.lineTo(c - g - a, c + g); ctx.lineTo(c - g, c + g + a)
+                    ctx.closePath()
+                } else {
+                    const e = a + 1.1
+                    ctx.moveTo(c + e - a, c - e); ctx.lineTo(c + e, c - e); ctx.lineTo(c + e, c - e + a)
+                    ctx.closePath()
+                    ctx.moveTo(c - e + a, c + e); ctx.lineTo(c - e, c + e); ctx.lineTo(c - e, c + e - a)
+                    ctx.closePath()
+                }
+                ctx.fill()
             }
         }
     }
+
+    // Repaint on every state that changes the drawing
+    readonly property var _paintState: [fill, ring, symbolVisible, pressed, kind, diameter]
+    on_PaintStateChanged: _canvas.requestPaint()
 
     MouseArea {
         id: _mouse
         anchors.fill: parent
-        anchors.margins: -2
         hoverEnabled: true
         onClicked: control.clicked()
     }

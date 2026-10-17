@@ -11,10 +11,11 @@ import LingmoUI.CompatibleModule as LingmoUI
     secondBackgroundColor, mediumRadius, hairline border, animated colour.
 
     \qml
+    // implicitHeight follows the content: implicitHeight of each child plus
+    // its anchors' top and bottom margins
     LingmoUI.Card {
         Layout.fillWidth: true
-        implicitHeight: content.implicitHeight + LingmoUI.Units.largeSpacing * 2
-        ColumnLayout { id: content; anchors.fill: parent; anchors.margins: LingmoUI.Units.largeSpacing * 1.5 }
+        ColumnLayout { anchors.fill: parent; anchors.margins: LingmoUI.Units.largeSpacing * 1.5 }
     }
 
     // A list row: hover tint, clickable, lifted on hover
@@ -22,7 +23,11 @@ import LingmoUI.CompatibleModule as LingmoUI
     \endqml
 
     Children are placed by you (anchors/Layout), like RoundedRect; use
-    anchors.margins: card.padding for the standard inner margin.
+    anchors.margins: card.padding for the standard inner margin. The card's
+    implicitHeight is computed from them (the tallest visible child's
+    implicitHeight + anchors.topMargin + anchors.bottomMargin), so you don't need
+    to write implicitHeight: content.implicitHeight + ...; set implicitHeight or
+    height yourself to override it.
 */
 LingmoUI.RoundedRect {
     id: card
@@ -40,12 +45,27 @@ LingmoUI.RoundedRect {
     // Draw with the accent tint (selected card)
     property bool highlighted: false
 
+    // implicitHeight computed from the children (see above)
+    readonly property real contentImplicitHeight: {
+        let h = 0
+        const items = card.children
+        for (let i = 0; i < items.length; ++i) {
+            const child = items[i]
+            // Skip the card's own background/border/shadow items
+            if (!child.visible || child.objectName.startsWith("__"))
+                continue
+            h = Math.max(h, child.anchors.topMargin + child.implicitHeight + child.anchors.bottomMargin)
+        }
+        return h
+    }
+
     readonly property bool hovered: hoverHandler.hovered
     readonly property bool pressed: tapHandler.pressed
 
     signal clicked()
     signal doubleClicked()
 
+    implicitHeight: contentImplicitHeight
     radius: LingmoUI.Theme.mediumRadius
     color: {
         if (highlighted)
@@ -61,6 +81,7 @@ LingmoUI.RoundedRect {
     Accessible.role: clickable ? Accessible.Button : Accessible.Grouping
 
     LingmoUI.Elevation {
+        objectName: "__cardElevation"
         z: -1
         anchors.fill: parent
         radius: card.radius
