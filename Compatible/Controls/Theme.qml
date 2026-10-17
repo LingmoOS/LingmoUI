@@ -77,6 +77,41 @@ QtObject {
         return font
     }
 
+    // ------------------------------------------------------------------
+    // Design tokens (added in 3.1; see docs/ui-guidelines.md)
+    // ------------------------------------------------------------------
+
+    // Secondary text (subtitles, hints, captions). Unlike disabledTextColor it
+    // passes WCAG AA (>= 4.5:1) on backgroundColor, secondBackgroundColor and
+    // alternateBackgroundColor in both themes.
+    property color secondaryTextColor: darkMode ? "#AEAEB2" : "#55555F"
+
+    // Neutral surfaces
+    property color sideBarColor: darkMode ? Qt.rgba(0.11, 0.11, 0.15, 0.55) : "#EDEEF2"
+    property color borderColor: darkMode ? Qt.rgba(1, 1, 1, 0.10) : Qt.rgba(0, 0, 0, 0.10)
+    property color dividerColor: darkMode ? Qt.rgba(1, 1, 1, 0.08) : Qt.rgba(0, 0, 0, 0.08)
+    property color hoverColor: Qt.rgba(textColor.r, textColor.g, textColor.b, 0.08)
+    property color pressedColor: Qt.rgba(textColor.r, textColor.g, textColor.b, 0.15)
+
+    // Semantic colours
+    property color infoColor: highlightColor
+    property color successColor: greenColor
+    property color warningColor: orangeColor
+    property color errorColor: redColor
+
+    property real tinyRadius: 4.0
+
+    // Elevation presets for Elevation / Card (index = level).
+    //   0 flat, 1 card, 2 popup/menu, 3 window/dialog
+    // blur and yOffset in px, opacity of the black shadow.
+    property color shadowColor: "#000000"
+    readonly property var elevations: [
+        { blur: 0, yOffset: 0, opacity: 0.0 },
+        { blur: 8, yOffset: 1, opacity: darkMode ? 0.30 : 0.07 },
+        { blur: 18, yOffset: 4, opacity: darkMode ? 0.45 : 0.14 },
+        { blur: 32, yOffset: 8, opacity: darkMode ? 0.55 : 0.20 }
+    ]
+
     property list<QtObject> children: [
         TextMetrics {
             id: fontMetrics

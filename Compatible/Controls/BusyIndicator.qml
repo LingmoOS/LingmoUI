@@ -26,18 +26,19 @@ Image {
     id: control
     width: 22
     height: width
-    source: "qrc:/lingmoui/kit/images/refresh.svg"
+    // Relative to this file: qrc:/lingmoui/kit/compatible_module/LingmoUI/CompatibleModule/images/
+    // (the old "qrc:/lingmoui/kit/images/refresh.svg" no longer exists in Qt 6 builds)
+    source: Qt.resolvedUrl("../images/refresh.svg")
     sourceSize: Qt.size(width, height)
     visible: true
 
     property alias running: rotationAnimator.running
 
-    ColorOverlay {
-        anchors.fill: control
-        source: control
+    // Recolour the glyph to the text colour. (A ColorOverlay child using its own
+    // parent as source rendered nothing on Qt 6.)
+    layer.enabled: true
+    layer.effect: ColorOverlay {
         color: LingmoUI.Theme.textColor
-        opacity: 1
-        visible: true
     }
 
     RotationAnimator {

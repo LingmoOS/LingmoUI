@@ -2,6 +2,7 @@ pragma Singleton
 
 import QtQuick 2.4
 import QtQuick.Window 2.2
+import LingmoUI.CompatibleModule as LingmoUI
 
 QtObject {
     id: units
@@ -89,4 +90,43 @@ QtObject {
             }
         }
     }
+
+    // ------------------------------------------------------------------
+    // Design tokens (added in 3.1; see docs/ui-guidelines.md)
+    // ------------------------------------------------------------------
+
+    /**
+     * Type scale, in points. Everything follows the user's font size
+     * (Theme.fontSize, 9pt by default), so "Large"/"Huge" in Settings scale
+     * the whole scale. Body text is one point above the system size, which
+     * reads better than the old 9pt default.
+     */
+    readonly property real fontCaption: Math.max(8, LingmoUI.Theme.fontSize)          // 9   hints, counters, section headers
+    readonly property real fontBody: LingmoUI.Theme.fontSize + 1                       // 10  regular text, buttons, list rows
+    readonly property real fontSubheading: LingmoUI.Theme.fontSize + 3                 // 12  card titles, page titles in a detail pane
+    readonly property real fontHeading: Math.round((LingmoUI.Theme.fontSize + 1) * 1.4) // 14 section headings, dialog titles
+    readonly property real fontTitle: Math.round((LingmoUI.Theme.fontSize + 1) * 1.7)   // 17 app title in the sidebar, page headers
+    readonly property real fontDisplay: Math.round((LingmoUI.Theme.fontSize + 1) * 2.6) // 26 big numbers, hero text
+
+    /**
+     * Motion durations in milliseconds. Hover/press feedback uses
+     * veryShortDuration, most state changes shortDuration, page and panel
+     * transitions longDuration.
+     */
+    readonly property int veryShortDuration: 100
+    readonly property int shortDuration: 150
+    readonly property int longDuration: 250
+    readonly property int veryLongDuration: 400
+    readonly property int easing: Easing.OutCubic
+
+    /**
+     * Fixed control sizes shared by the components.
+     */
+    readonly property int controlHeight: 34            // ActionButton, TextField rows
+    readonly property int smallControlHeight: 28       // IconButton, compact buttons
+    readonly property int windowHeaderHeight: 40       // header.height used by Lingmo apps
+    readonly property int windowControlsInset: 84      // width taken by close/min/zoom at the top-left
+    readonly property int sideBarWidth: 230
+    readonly property int iconTileSize: 26             // coloured tile in sidebars
+    readonly property int iconTileRadius: 7
 }
