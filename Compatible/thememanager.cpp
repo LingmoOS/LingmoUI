@@ -36,7 +36,7 @@ ThemeManager::ThemeManager(QObject* parent)
     , m_accentColorIndex(-1)
     , m_accentColor(m_blueColor) // The default is blue
     , m_fontSize(9.0)
-    , m_fontFamily("Noto Sans")
+    , m_fontFamily("Inter")
 {
     QDBusServiceWatcher* serviceWatcher = new QDBusServiceWatcher(Service, QDBusConnection::sessionBus(),
         QDBusServiceWatcher::WatchForRegistration);
