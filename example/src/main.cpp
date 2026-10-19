@@ -5,6 +5,7 @@
 #include <QQmlEngine>
 #include <QQuickWindow>
 #include <QQmlContext>
+#include <QSurfaceFormat>
 
 class AboutQtController : public QObject {
     Q_OBJECT
@@ -23,6 +24,10 @@ int main(int argc, char* argv[])
 {
     qDebug() << "LINGMOUI_TEMP_IMPORT_PATH: " << LINGMOUI_TEMP_IMPORT_PATH;
 
+    QSurfaceFormat format;
+    format.setVersion(3, 3);
+    QSurfaceFormat::setDefaultFormat(format);
+
     QApplication app(argc, argv);
 
     // QVulkanInstance inst;
@@ -34,6 +39,9 @@ int main(int argc, char* argv[])
     //     qDebug("Vulkan is available");
     //     QQuickWindow::setGraphicsApi(QSGRendererInterface::Vulkan);
     // }
+    // Set to use OpenGL, liquid glass need it.=
+    QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
+
 
     QQmlApplicationEngine engine;
 

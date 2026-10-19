@@ -8,7 +8,6 @@ T.Slider {
     property string text: String(control.value)
     id: control
     to:100
-    stepSize:1
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitHandleWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
