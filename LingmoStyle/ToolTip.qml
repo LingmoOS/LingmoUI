@@ -24,14 +24,15 @@ T.ToolTip {
         text: control.text
         font: control.font
         wrapMode: Text.Wrap
-        color: LUI.Theme.darkMode ? "#F2F2F7" : "white"
+        color: LUI.Theme.textColor
     }
 
-    background: Rectangle {
-        radius: 6
-        color: LUI.Theme.darkMode ? "#3A3C4E" : "#2B2C33"
-        border.width: LUI.Theme.darkMode ? 1 : 0
-        border.color: Qt.rgba(1, 1, 1, 0.08)
+    // Glass like menus and popups (LUI.GlassSurface)
+    background: LUI.GlassSurface {
+        radius: LUI.Theme.smallRadius
+        elevated: true
+        sheenEnabled: false
+        highlightVisible: false
     }
 
     enter: Transition { NumberAnimation { property: "opacity"; from: 0; to: 1; duration: 120 } }

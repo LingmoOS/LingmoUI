@@ -25,6 +25,12 @@
 #include <QDBusInterface>
 #include <QDBusServiceWatcher>
 #include <QDebug>
+#include <QSettings>
+
+#if defined(KF_WINDOWSYSTEM_FOUND)
+#include <KWindowSystem>
+#include <KX11Extras>
+#endif
 
 static const QString Service = "com.lingmo.Settings";
 static const QString ObjectPath = "/Theme";
@@ -45,8 +51,55 @@ ThemeManager::ThemeManager(QObject* parent)
         initDBusSignals();
     });
 
+    // Before D-Bus: apps started without the settings daemon (tests, other
+    // desktops) still follow ~/.config/lingmoos/theme.conf
+    readLocalSettings();
+
     initDBusSignals();
     initData();
+
+#if defined(KF_WINDOWSYSTEM_FOUND)
+    if (KWindowSystem::isPlatformX11()) {
+        setCompositing(KX11Extras::compositingActive());
+        connect(KX11Extras::self(), &KX11Extras::compositingChanged, this, &ThemeManager::setCompositing);
+    }
+#endif
+    // LINGMO_GLASS_LEVEL forces a level (screenshots, debugging)
+    if (qEnvironmentVariableIsSet("LINGMO_GLASS_LEVEL"))
+        m_glassLevel = qBound(0, qEnvironmentVariableIntValue("LINGMO_GLASS_LEVEL"), 3);
+}
+
+void ThemeManager::readLocalSettings()
+{
+    QSettings settings(QStringLiteral("lingmoos"), QStringLiteral("theme"));
+    m_darkMode = settings.value(QStringLiteral("DarkMode"), m_darkMode).toBool();
+    m_glassLevel = qBound(0, settings.value(QStringLiteral("GlassLevel"), m_glassLevel).toInt(), 3);
+    m_reduceMotion = settings.value(QStringLiteral("ReduceMotion"), m_reduceMotion).toBool();
+}
+
+void ThemeManager::setCompositing(bool compositing)
+{
+    if (m_compositing != compositing) {
+        m_compositing = compositing;
+        emit compositingChanged();
+    }
+}
+
+void ThemeManager::onDBusGlassLevelChanged(int level)
+{
+    level = qBound(0, level, 3);
+    if (qEnvironmentVariableIsSet("LINGMO_GLASS_LEVEL") || level == m_glassLevel)
+        return;
+    m_glassLevel = level;
+    emit glassLevelChanged();
+}
+
+void ThemeManager::onDBusReduceMotionChanged(bool reduce)
+{
+    if (reduce != m_reduceMotion) {
+        m_reduceMotion = reduce;
+        emit reduceMotionChanged();
+    }
 }
 
 qreal ThemeManager::devicePixelRatio() const
@@ -71,6 +124,14 @@ void ThemeManager::initData()
         m_fontFamily = iface.property("systemFont").toString();
         emit fontFamilyChanged();
 
+        // Older daemons don't have these: keep what theme.conf said
+        const QVariant glass = iface.property("glassLevel");
+        if (glass.isValid())
+            onDBusGlassLevelChanged(glass.toInt());
+        const QVariant reduce = iface.property("reduceMotion");
+        if (reduce.isValid())
+            onDBusReduceMotionChanged(reduce.toBool());
+
         emit darkModeChanged();
     }
 }
@@ -89,6 +150,10 @@ void ThemeManager::initDBusSignals()
                                               this, SLOT(onDBusFontSizeChanged()));
         QDBusConnection::sessionBus().connect(Service, ObjectPath, Interface, "systemFontChanged",
                                               this, SLOT(onDBusFontFamilyChanged()));
+        QDBusConnection::sessionBus().connect(Service, ObjectPath, Interface, "glassLevelChanged",
+                                              this, SLOT(onDBusGlassLevelChanged(int)));
+        QDBusConnection::sessionBus().connect(Service, ObjectPath, Interface, "reduceMotionChanged",
+                                              this, SLOT(onDBusReduceMotionChanged(bool)));
         // QDBusConnection::sessionBus().connect(Service, ObjectPath, Interface, "colorChanged",
         //                                       this, SLOT(onDBusColorChanged()));
     }

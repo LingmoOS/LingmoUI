@@ -2,8 +2,10 @@ import QtQuick
 import QtQuick.Effects
 import LingmoUI.CompatibleModule 3.0 as LUI
 
-// Shared surface for menus, popups and dialogs: rounded panel, hairline border
-// and a soft drop shadow
+// Shared surface for menus, popups and dialogs: the Lingmo glass material
+// (LUI.GlassSurface, Settings > Appearance > Glass) with a soft drop shadow.
+// A popup in its own window (popupType: Popup.Window) gets KWin's blur; one
+// drawn inside the app's window stays nearly opaque.
 Item {
     id: surface
 
@@ -11,23 +13,13 @@ Item {
     implicitWidth: 200
     implicitHeight: 40
 
-    Rectangle {
-        id: panel
+    LUI.GlassSurface {
         anchors.fill: parent
         radius: surface.radius
-        color: LUI.Theme.darkMode ? "#2E3040" : "#FFFFFF"
-        border.width: 1
-        border.color: LUI.Theme.darkMode ? Qt.rgba(1, 1, 1, 0.10) : Qt.rgba(0, 0, 0, 0.08)
-        visible: false
-    }
-
-    MultiEffect {
-        source: panel
-        anchors.fill: panel
-        shadowEnabled: true
-        shadowColor: Qt.rgba(0, 0, 0, LUI.Theme.darkMode ? 0.55 : 0.22)
-        shadowBlur: 0.8
-        shadowVerticalOffset: 4
-        autoPaddingEnabled: true
+        // Menus and popups float over content: always lifted
+        elevated: true
+        // Popups are small: no light sheen under the pointer
+        sheenEnabled: false
+        tint: LUI.Theme.glassEnabled ? LUI.Theme.glassTint : LUI.Theme.secondBackgroundColor
     }
 }

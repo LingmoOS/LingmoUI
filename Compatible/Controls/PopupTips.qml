@@ -29,9 +29,10 @@ Window {
 
     property string popupText
     property point position: Qt.point(0, 0)
-    property alias backgroundOpacity: _background.opacity
-    property alias backgroundColor: _background.color
-    property alias blurEnabled: windowBlur.enabled
+    property alias backgroundOpacity: _background.tintOpacity
+    property alias backgroundColor: _background.tint
+    // false: a solid tip (no glass)
+    property bool blurEnabled: true
     property var borderColor: windowHelper.compositing ? LingmoUI.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.3)
                                                                   : Qt.rgba(0, 0, 0, 0.2) : LingmoUI.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.1)
                                                                                                                   : Qt.rgba(0, 0, 0, 0.05)
@@ -49,29 +50,16 @@ Window {
         radius: _background.radius
     }
 
-    LingmoUI.WindowBlur {
-        id: windowBlur
-        view: control
-        enabled: true
-        windowRadius: _background.radius
-        geometry: Qt.rect(_background.x, _background.y, _background.width, _background.height)
-    }
-
-    Rectangle {
+    // Glass (Settings > Appearance > Glass); the tip window gets KWin's blur
+    LingmoUI.GlassSurface {
         id: _background
         anchors.fill: parent
-        color: LingmoUI.Theme.secondBackgroundColor
         radius: windowHelper.compositing ? LingmoUI.Theme.mediumRadius : 0
-        border.color: control.borderColor
-        border.width: 1 / Screen.devicePixelRatio
-        border.pixelAligned: Screen.devicePixelRatio > 1 ? false : true
-
-        Behavior on color {
-            ColorAnimation {
-                duration: control.animationEnabled ? 200 : 0
-                easing.type: Easing.Linear
-            }
-        }
+        solid: !control.blurEnabled
+        sheenEnabled: false
+        highlightVisible: false
+        tint: LingmoUI.Theme.glassEnabled && control.blurEnabled ? LingmoUI.Theme.glassTint
+                                                                 : LingmoUI.Theme.secondBackgroundColor
     }
 
     Label {

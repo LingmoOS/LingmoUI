@@ -18,6 +18,7 @@
 #include "newiconitem.h"
 #include "qqmlsortfilterproxymodel.h"
 #include "thememanager.h"
+#include "islandactivity.h"
 #include "wheelhandler.h"
 
 #include "desktop/menupopupwindow.h"
@@ -83,6 +84,7 @@ void LingmoUI::registerTypes(const char* uri)
     #endif
 #endif
     qmlRegisterType<WindowBlur>(uri, 3, 0, "WindowBlur");
+    qmlRegisterType<IslandActivity>(uri, 3, 0, "IslandActivity");
     qmlRegisterType<NewIconItem>(uri, 3, 0, "IconItem");
     qmlRegisterType<MenuPopupWindow>(uri, 3, 0, "MenuPopupWindow");
     qmlRegisterType<WheelHandler>(uri, 3, 0, "WheelHandler");

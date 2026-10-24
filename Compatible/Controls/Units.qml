@@ -115,9 +115,22 @@ QtObject {
      */
     readonly property int veryShortDuration: 100
     readonly property int shortDuration: 150
-    readonly property int longDuration: 250
-    readonly property int veryLongDuration: 400
+    // With "reduce motion" (Theme.reduceMotion) panels and big transitions
+    // become short fades
+    readonly property int longDuration: LingmoUI.Theme.reduceMotion ? shortDuration : 250
+    readonly property int veryLongDuration: LingmoUI.Theme.reduceMotion ? shortDuration : 400
     readonly property int easing: Easing.OutCubic
+
+    /**
+     * Springs (SpringAnimation) for morphing shapes such as the status bar
+     * Island. springEnabled is false with "reduce motion": use a short
+     * NumberAnimation instead.
+     */
+    readonly property bool springEnabled: !LingmoUI.Theme.reduceMotion
+    readonly property real spring: 4.2
+    readonly property real springDamping: 0.34
+    readonly property real springMass: 1.0
+    readonly property real springEpsilon: 0.25
 
     /**
      * Fixed control sizes shared by the components.

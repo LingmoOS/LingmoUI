@@ -6,6 +6,7 @@ qt_add_library(${TARGET}CompatibleModule SHARED)
 set(TARGET_SOURCES
         iconthemeprovider.cpp
         thememanager.cpp
+        islandactivity.cpp
 
         newiconitem.cpp
         managedtexturenode.cpp

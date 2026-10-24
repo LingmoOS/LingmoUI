@@ -45,12 +45,20 @@ void WindowBlur::componentComplete() { updateBlur(); }
 void WindowBlur::setView(QWindow* view)
 {
     if (view != m_view) {
+        if (m_view)
+            disconnect(m_view, nullptr, this, nullptr);
         m_view = view;
+        m_applied = false;
         updateBlur();
         emit viewChanged();
 
-        connect(m_view, &QWindow::visibleChanged, this,
-            &WindowBlur::onViewVisibleChanged);
+        if (m_view) {
+            connect(m_view, &QWindow::visibleChanged, this,
+                &WindowBlur::onViewVisibleChanged);
+            // The whole-window region follows the window's size
+            connect(m_view, &QWindow::widthChanged, this, [this] { if (m_blurRect.isEmpty()) updateBlur(); });
+            connect(m_view, &QWindow::heightChanged, this, [this] { if (m_blurRect.isEmpty()) updateBlur(); });
+        }
     }
 }
 
@@ -89,6 +97,17 @@ void WindowBlur::setWindowRadius(qreal radius)
 
 qreal WindowBlur::windowRadius() const { return m_windowRadius; }
 
+void WindowBlur::setBlurRect(const QRectF& rect)
+{
+    if (rect != m_blurRect) {
+        m_blurRect = rect;
+        updateBlur();
+        emit blurRectChanged();
+    }
+}
+
+QRectF WindowBlur::blurRect() const { return m_blurRect; }
+
 void WindowBlur::onViewVisibleChanged(bool visible)
 {
     if (visible)
@@ -97,7 +116,7 @@ void WindowBlur::onViewVisibleChanged(bool visible)
 
 void WindowBlur::updateBlur()
 {
-    if (!m_view)
+    if (!m_view || !m_view->handle())
         return;
 
     xcb_connection_t* c = QX11Info::connection();
@@ -115,7 +134,10 @@ void WindowBlur::updateBlur()
     if (m_enabled) {
         qreal devicePixelRatio = m_view->screen()->devicePixelRatio();
         QPainterPath path;
-        path.addRoundedRect(QRectF(QPoint(0, 0), m_view->size() * devicePixelRatio),
+        const QRectF area = m_blurRect.isEmpty()
+            ? QRectF(QPoint(0, 0), m_view->size() * devicePixelRatio)
+            : QRectF(m_blurRect.topLeft() * devicePixelRatio, m_blurRect.size() * devicePixelRatio);
+        path.addRoundedRect(area,
             m_windowRadius * devicePixelRatio,
             m_windowRadius * devicePixelRatio);
         QVector<uint32_t> data;
@@ -128,8 +150,10 @@ void WindowBlur::updateBlur()
 
         xcb_change_property(c, XCB_PROP_MODE_REPLACE, m_view->winId(), atom->atom,
             XCB_ATOM_CARDINAL, 32, data.size(), data.constData());
+        m_applied = true;
 
-    } else {
+    } else if (m_applied) {
         xcb_delete_property(c, m_view->winId(), atom->atom);
+        m_applied = false;
     }
 }

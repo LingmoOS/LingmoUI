@@ -34,6 +34,9 @@ class WindowBlur : public QObject, public QQmlParserStatus {
     Q_PROPERTY(QRect geometry READ geometry WRITE setGeometry NOTIFY geometryChanged)
     Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged)
     Q_PROPERTY(qreal windowRadius READ windowRadius WRITE setWindowRadius NOTIFY windowRadiusChanged)
+    // Only blur this part of the window (window coordinates, rounded by
+    // windowRadius). Empty = the whole window. GlassSurface sets it.
+    Q_PROPERTY(QRectF blurRect READ blurRect WRITE setBlurRect NOTIFY blurRectChanged)
     Q_INTERFACES(QQmlParserStatus)
     QML_NAMED_ELEMENT(WindowBlur)
 
@@ -56,6 +59,9 @@ public:
     void setWindowRadius(qreal radius);
     qreal windowRadius() const;
 
+    void setBlurRect(const QRectF& rect);
+    QRectF blurRect() const;
+
 private slots:
     void onViewVisibleChanged(bool);
 
@@ -67,12 +73,17 @@ signals:
     void enabledChanged();
     void windowRadiusChanged();
     void geometryChanged();
+    void blurRectChanged();
 
 private:
     QWindow* m_view;
     QRect m_rect;
     bool m_enabled;
     qreal m_windowRadius;
+    QRectF m_blurRect;
+    // We set _KDE_NET_WM_BLUR_BEHIND_REGION ourselves (so only then remove it:
+    // a disabled WindowBlur must not wipe a blur someone else asked for)
+    bool m_applied = false;
 };
 
 #endif
