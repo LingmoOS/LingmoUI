@@ -28,6 +28,15 @@
 #include <xcb/xcb.h>
 #include <xcb/xcb_icccm.h>
 
+#ifdef KF_WINDOWSYSTEM_FOUND
+#include <KWindowEffects>
+#endif
+
+static bool isWayland()
+{
+    return QGuiApplication::platformName().startsWith(QLatin1String("wayland"));
+}
+
 WindowBlur::WindowBlur(QObject* parent) noexcept
     : QObject(parent)
     , m_view(nullptr)
@@ -116,6 +125,11 @@ void WindowBlur::onViewVisibleChanged(bool visible)
 
 void WindowBlur::updateBlur()
 {
+    if (isWayland()) {
+        updateBlurWayland();
+        return;
+    }
+
     if (!m_view || !m_view->handle())
         return;
 
@@ -156,4 +170,29 @@ void WindowBlur::updateBlur()
         xcb_delete_property(c, m_view->winId(), atom->atom);
         m_applied = false;
     }
+}
+
+// Wayland: org_kde_kwin_blur through KWindowEffects, in logical coordinates. KWindowEffects
+// keeps the region and sends it again whenever the surface is (re)created, so this also
+// works before the window is shown.
+void WindowBlur::updateBlurWayland()
+{
+#ifdef KF_WINDOWSYSTEM_FOUND
+    if (!m_view)
+        return;
+
+    if (m_enabled) {
+        QPainterPath path;
+        const QRectF area = m_blurRect.isEmpty() ? QRectF(QPointF(0, 0), m_view->size()) : m_blurRect;
+        path.addRoundedRect(area, m_windowRadius, m_windowRadius);
+        QRegion region;
+        for (const QPolygonF &polygon : path.toFillPolygons())
+            region += QRegion(polygon.toPolygon());
+        KWindowEffects::enableBlurBehind(m_view, true, region);
+        m_applied = true;
+    } else if (m_applied) {
+        KWindowEffects::enableBlurBehind(m_view, false);
+        m_applied = false;
+    }
+#endif
 }

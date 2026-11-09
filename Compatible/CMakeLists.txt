@@ -53,6 +53,7 @@ else ()
     endif()
     list(APPEND TARGET_SOURCES
             platforms/linux/blurhelper/windowblur.cpp platforms/linux/blurhelper/windowblur.h
+            platforms/linux/layershell.cpp platforms/linux/layershell.h
             )
     target_include_directories(${TARGET}CompatibleModule PRIVATE platforms/linux)
     target_include_directories(${TARGET}CompatibleModule PRIVATE platforms/linux/shadowhelper)
@@ -79,6 +80,15 @@ if (UNIX)
         if (KF6WindowSystem_FOUND)
             target_link_libraries(${TARGET}CompatibleModule PRIVATE KF6::WindowSystem)
             add_compile_definitions(KF_WINDOWSYSTEM_FOUND)
+        endif ()
+        # LayerShell (QML attached): wlr-layer-shell surfaces on Wayland; without
+        # LayerShellQt it is still there but does nothing
+        find_package(LayerShellQt QUIET)
+        if (LayerShellQt_FOUND)
+            target_link_libraries(${TARGET}CompatibleModule PRIVATE LayerShellQt::Interface)
+            target_compile_definitions(${TARGET}CompatibleModule PRIVATE HAVE_LAYERSHELLQT)
+        else ()
+            message(WARNING "LayerShellQt not found: LingmoUI.LayerShell does nothing (no Wayland panels)")
         endif ()
     endif ()
 endif ()

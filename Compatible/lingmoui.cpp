@@ -14,6 +14,9 @@
 #endif
 
 #include "blurhelper/windowblur.h"
+#if defined(__linux__) && !defined(__APPLE__)
+    #include "layershell.h"
+#endif
 #include "iconthemeprovider.h"
 #include "newiconitem.h"
 #include "qqmlsortfilterproxymodel.h"
@@ -84,6 +87,11 @@ void LingmoUI::registerTypes(const char* uri)
     #endif
 #endif
     qmlRegisterType<WindowBlur>(uri, 3, 0, "WindowBlur");
+#if defined(__linux__) && !defined(__APPLE__)
+    // Attached: LingmoUI.LayerShell.layer, .anchors... (Wayland panels; no-op on X11)
+    qmlRegisterUncreatableType<LayerShell>(uri, 3, 0, "LayerShell",
+        QStringLiteral("LayerShell is an attached property"));
+#endif
     qmlRegisterType<IslandActivity>(uri, 3, 0, "IslandActivity");
     qmlRegisterType<NewIconItem>(uri, 3, 0, "IconItem");
     qmlRegisterType<MenuPopupWindow>(uri, 3, 0, "MenuPopupWindow");

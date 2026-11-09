@@ -67,6 +67,7 @@ private slots:
 
 private:
     void updateBlur();
+    void updateBlurWayland();
 
 signals:
     void viewChanged();

@@ -53,9 +53,12 @@ WindowHelper::WindowHelper(QObject* parent)
     , m_moveResizeAtom(0)
     , m_compositing(false)
 {
-    // Wayland, offscreen...: no X connection, QWindow does the move/resize
-    if (!QX11Info::isPlatformX11())
+    // Wayland, offscreen...: no X connection, QWindow does the move/resize.
+    // A Wayland session always has a compositor (KWin), so blur and shadows are there.
+    if (!QX11Info::isPlatformX11()) {
+        m_compositing = KWindowSystem::isPlatformWayland();
         return;
+    }
 
     // create move-resize atom
     // ref:
