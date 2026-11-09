@@ -2,9 +2,11 @@
 name: Deploy Code Documentation with GitHub Pages dependencies preinstalled
 
 on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: ["main"]
+  # Disabled on push for ArchLingmo: GitHub Pages is not enabled on this fork,
+  # so the deploy job fails. Enable Pages (source: GitHub Actions) and run it
+  # by hand, or add the push trigger back.
+  # push:
+  #   branches: ["main"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -39,7 +41,7 @@ jobs:
 
       - name: Build with Doxygen
         run: doxygen Doxyfile
-        
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

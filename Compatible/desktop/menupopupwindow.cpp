@@ -57,7 +57,14 @@ void MenuPopupWindow::show()
     if (!pw)
         pw = this;
 
-    QRect g = pw->screen()->availableGeometry();
+    // the screen under the pointer: a menu without a parent window (from the Island, a
+    // tray icon) must open where it was asked for, not on the primary screen
+    QScreen *screen = QGuiApplication::screenAt(pos);
+    if (!screen)
+        screen = pw->screen();
+    if (screen != this->screen())
+        setScreen(screen);
+    QRect g = screen->availableGeometry();
 
     if (posx + w > g.right()) {
         if (qobject_cast<MenuPopupWindow*>(transientParent())) {

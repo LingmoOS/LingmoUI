@@ -4,8 +4,13 @@
 import QtQuick
 import QtQuick.Templates as T
 import QtQuick.Controls.Universal
+import LingmoUI
 
 T.ToolBar {
+    // Universal-derived colours follow the Lingmo light/dark scheme and accent
+    Universal.theme: LingmoTheme.dark ? Universal.Dark : Universal.Light
+    Universal.accent: LingmoTheme.primaryColor
+
     id: control
 
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,

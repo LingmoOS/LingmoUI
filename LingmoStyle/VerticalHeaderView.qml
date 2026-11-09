@@ -7,9 +7,14 @@ import QtQuick
 import QtQuick.Controls.impl
 import QtQuick.Templates as T
 import QtQuick.Controls.Universal
+import LingmoUI
 import QtQuick.Controls.Universal.impl
 
 T.VerticalHeaderView {
+    // Universal-derived colours follow the Lingmo light/dark scheme and accent
+    Universal.theme: LingmoTheme.dark ? Universal.Dark : Universal.Light
+    Universal.accent: LingmoTheme.primaryColor
+
     id: control
 
     // The contentWidth of TableView will be zero at start-up, until the delegate

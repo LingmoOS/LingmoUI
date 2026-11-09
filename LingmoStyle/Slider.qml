@@ -1,9 +1,7 @@
-// Copyright (C) 2017 The Qt Company Ltd.
-// SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
-
 import QtQuick
 import QtQuick.Templates as T
-import QtQuick.Controls.Universal
+import QtQuick.Effects
+import LingmoUI.CompatibleModule 3.0 as LUI
 
 T.Slider {
     id: control
@@ -13,51 +11,67 @@ T.Slider {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitHandleHeight + topPadding + bottomPadding)
 
-    padding: 6
+    padding: 4
 
-    property bool useSystemFocusVisuals: true
-
-    handle: Rectangle {
-        implicitWidth: control.horizontal ? 8 : 24
-        implicitHeight: control.horizontal ? 24 : 8
-
+    // White knob with a soft shadow, a touch bigger while dragged
+    handle: Item {
         x: control.leftPadding + (control.horizontal ? control.visualPosition * (control.availableWidth - width) : (control.availableWidth - width) / 2)
         y: control.topPadding + (control.horizontal ? (control.availableHeight - height) / 2 : control.visualPosition * (control.availableHeight - height))
+        implicitWidth: 20
+        implicitHeight: 20
 
-        radius: 4
-        color: control.pressed ? control.Universal.chromeHighColor :
-               control.enabled ? control.hovered ? control.Universal.chromeAltLowColor :
-               control.Universal.accent : control.Universal.chromeDisabledHighColor
+        Rectangle {
+            id: knob
+            anchors.fill: parent
+            radius: width / 2
+            color: "white"
+            border.width: 0.5
+            border.color: Qt.rgba(0, 0, 0, 0.12)
+            visible: false
+        }
+
+        MultiEffect {
+            source: knob
+            anchors.fill: knob
+            scale: control.pressed ? 1.12 : 1.0
+            shadowEnabled: true
+            shadowColor: Qt.rgba(0, 0, 0, 0.28)
+            shadowBlur: 0.4
+            shadowVerticalOffset: 1
+            autoPaddingEnabled: true
+
+            Behavior on scale { NumberAnimation { duration: 120 } }
+        }
     }
 
     background: Item {
-        implicitWidth: control.horizontal ? 200 : 18
-        implicitHeight: control.horizontal ? 18 : 200
-
-        x: control.leftPadding + (control.horizontal ? 0 : (control.availableWidth - width) / 2)
-        y: control.topPadding + (control.horizontal ? (control.availableHeight - height) / 2 : 0)
+        x: control.leftPadding
+        y: control.topPadding
+        implicitWidth: control.horizontal ? 200 : 20
+        implicitHeight: control.horizontal ? 20 : 200
         width: control.horizontal ? control.availableWidth : implicitWidth
         height: control.horizontal ? implicitHeight : control.availableHeight
-
         scale: control.horizontal && control.mirrored ? -1 : 1
+        opacity: control.enabled ? 1.0 : 0.45
 
+        // Track
         Rectangle {
             x: control.horizontal ? 0 : (parent.width - width) / 2
             y: control.horizontal ? (parent.height - height) / 2 : 0
-            width: control.horizontal ? parent.width : 2 // SliderTrackThemeHeight
-            height: !control.horizontal ? parent.height : 2 // SliderTrackThemeHeight
-
-            color: enabled && control.hovered && !control.pressed ? control.Universal.baseMediumColor :
-                   control.enabled ? control.Universal.baseMediumLowColor : control.Universal.chromeDisabledHighColor
+            width: control.horizontal ? parent.width : 4
+            height: control.horizontal ? 4 : parent.height
+            radius: 2
+            color: LUI.Theme.darkMode ? "#4A4B57" : "#D9DAE0"
         }
 
+        // Filled part up to the handle
         Rectangle {
             x: control.horizontal ? 0 : (parent.width - width) / 2
             y: control.horizontal ? (parent.height - height) / 2 : control.visualPosition * parent.height
-            width: control.horizontal ? control.position * parent.width : 2 // SliderTrackThemeHeight
-            height: !control.horizontal ? control.position * parent.height : 2 // SliderTrackThemeHeight
-
-            color: control.enabled ? control.Universal.accent : control.Universal.chromeDisabledHighColor
+            width: control.horizontal ? control.position * parent.width : 4
+            height: control.horizontal ? 4 : control.position * parent.height
+            radius: 2
+            color: LUI.Theme.highlightColor
         }
     }
 }

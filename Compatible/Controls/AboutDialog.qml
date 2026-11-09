@@ -39,7 +39,8 @@ LingmoUI.Window {
 
     DragHandler {
         target: null
-        acceptedDevices: PointerDevice.GenericPointer
+        // Qt 6: mouse and touchpad (GenericPointer is gone)
+        acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
         grabPermissions: PointerHandler.CanTakeOverFromItems | PointerHandler.CanTakeOverFromHandlersOfDifferentType | PointerHandler.ApprovesTakeOverByAnything
         onActiveChanged: if (active) { control.helper.startSystemMove(control) }
     }

@@ -94,6 +94,20 @@ void NewIconItem::setSource(const QVariant& source)
 
 QVariant NewIconItem::source() const { return m_source; }
 
+QColor NewIconItem::color() const { return m_color; }
+
+void NewIconItem::setColor(const QColor& color)
+{
+    if (color == m_color)
+        return;
+
+    m_color = color;
+    loadPixmap();
+    emit colorChanged();
+}
+
+void NewIconItem::resetColor() { setColor(QColor()); }
+
 void NewIconItem::paint(QPainter* painter)
 {
     if (m_iconPixmap.isNull())
@@ -137,14 +151,32 @@ void NewIconItem::loadPixmap()
         return;
     }
 
+    // Tint: keep the alpha of every pixel, replace its colour
+    if (m_color.isValid() && m_color.alpha() > 0 && !result.isNull()) {
+        QPainter painter(&result);
+        painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
+        painter.fillRect(result.rect(), m_color);
+    }
+
     m_iconPixmap = result;
     update();
+}
+
+void NewIconItem::componentComplete()
+{
+    QQuickPaintedItem::componentComplete();
+    // setSource()/geometryChange() skip loading until the component is complete:
+    // without this an item that never moves or resizes afterwards stays empty
+    loadPixmap();
 }
 
 void NewIconItem::geometryChange(const QRectF& newGeometry,
     const QRectF& oldGeometry)
 {
-    if (newGeometry.width() > 0 && newGeometry.height() > 0) {
+    QQuickPaintedItem::geometryChange(newGeometry, oldGeometry);
+
+    if (newGeometry.size() != oldGeometry.size()
+        && newGeometry.width() > 0 && newGeometry.height() > 0) {
         loadPixmap();
     }
 }

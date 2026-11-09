@@ -41,10 +41,8 @@ void GlobalWheelFilter::setItemHandlerAssociation(QQuickItem* item,
         m_handlersForItem.remove(item);
     });
 
-    connect(handler, &QObject::destroyed, this, [this](QObject* obj) {
-        WheelHandler* handler = static_cast<WheelHandler*>(obj);
-        removeItemHandlerAssociation(handler->target(), handler);
-    });
+    // The handler unregisters itself in its destructor: by the time destroyed()
+    // is emitted its members (target()) are already gone.
 }
 
 void GlobalWheelFilter::removeItemHandlerAssociation(QQuickItem* item,
@@ -239,7 +237,11 @@ WheelHandler::WheelHandler(QObject* parent)
 {
 }
 
-WheelHandler::~WheelHandler() { }
+WheelHandler::~WheelHandler()
+{
+    if (m_target)
+        GlobalWheelFilter::self()->removeItemHandlerAssociation(m_target, this);
+}
 
 QQuickItem* WheelHandler::target() const { return m_target; }
 

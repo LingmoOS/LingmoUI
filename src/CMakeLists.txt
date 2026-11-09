@@ -94,15 +94,32 @@ qt_add_qml_module(${TARGET}
     RESOURCE_PREFIX "/lingmoui/kit"
 )
 
+# Translations, embedded where LingmoApp::init() looks for them
+# (:/qt/qml/LingmoUI/i18n/lingmoui_<locale>.qm)
+file(GLOB LINGMOUI_TS_FILES ${CMAKE_CURRENT_SOURCE_DIR}/../translations/lingmoui_*.ts)
+qt_add_translation(LINGMOUI_QM_FILES ${LINGMOUI_TS_FILES})
+qt_add_resources(${TARGET} "lingmoui_i18n"
+    PREFIX "/qt/qml/LingmoUI/i18n"
+    BASE ${CMAKE_CURRENT_BINARY_DIR}
+    FILES ${LINGMOUI_QM_FILES}
+)
+
 set_target_properties(${TARGET}
     PROPERTIES  VERSION ${MODULE_VERSION} SOVERSION ${MODULE_VERSION_MAJOR})
 
 add_subdirectory(GraphicalEffects)
 
-install(DIRECTORY ${CMAKE_BINARY_DIR}/temp/${PROJECT_NAME} DESTINATION ${INSTALL_QMLDIR})
+install(DIRECTORY ${CMAKE_BINARY_DIR}/temp/${PROJECT_NAME} DESTINATION ${INSTALL_QMLDIR}
+        PATTERN "lib${TARGET}.so*" EXCLUDE)
 generate_export_header(${TARGET} BASE_NAME ${TARGET})
 
-install(TARGETS ${TARGET} EXPORT ${TARGET}Targets DESTINATION ${INSTALL_QMLDIR}/${PROJECT_NAME})
+# The library is linked directly by apps (statusbar, filemanager...), so it must
+# live in the linker path; the QML module dir only gets a symlink to it.
+install(TARGETS ${TARGET} EXPORT ${TARGET}Targets DESTINATION ${CMAKE_INSTALL_LIBDIR})
+file(RELATIVE_PATH _lingmoui_lib_rel "${INSTALL_QMLDIR}/${PROJECT_NAME}"
+     "${CMAKE_INSTALL_FULL_LIBDIR}/lib${TARGET}.so.${MODULE_VERSION_MAJOR}")
+install(CODE "file(CREATE_LINK \"${_lingmoui_lib_rel}\"
+    \"\$ENV{DESTDIR}${INSTALL_QMLDIR}/${PROJECT_NAME}/lib${TARGET}.so\" SYMBOLIC)")
 
 # Install Header
 install(FILES ${H_FILES} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${TARGET})

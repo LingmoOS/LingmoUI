@@ -89,7 +89,7 @@ T.Button {
     background: LingmoControlBackground {
         implicitWidth: 30
         implicitHeight: 30
-        radius: LingmoTheme.smallRadius
+        radius: 8
         color: {
             if (!enabled) {
                 return disableColor

@@ -1,48 +1,55 @@
-// Copyright (C) 2017 The Qt Company Ltd.
-// SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
-
 import QtQuick
 import QtQuick.Templates as T
-import QtQuick.Controls.Universal
+import QtQuick.Effects
+import LingmoUI.CompatibleModule 3.0 as LUI
 
+// Lingmo switch: rounded track in the accent colour when on, white knob with a
+// soft shadow that slides across
 Item {
     id: indicator
-    implicitWidth: 44
-    implicitHeight: 20
+    implicitWidth: 40
+    implicitHeight: 24
 
     property T.AbstractButton control
 
     Rectangle {
-        width: parent.width
-        height: parent.height
+        id: track
+        anchors.fill: parent
+        radius: height / 2
+        color: indicator.control.checked ? LUI.Theme.highlightColor
+                                         : (LUI.Theme.darkMode ? "#4A4B57" : "#D9DAE0")
+        opacity: indicator.control.enabled ? 1.0 : 0.45
 
-        radius: 10
-        color: !indicator.control.enabled ? "transparent" :
-                indicator.control.pressed ? indicator.control.Universal.baseMediumColor :
-                indicator.control.checked ? indicator.control.Universal.accent : "transparent"
-        border.color: !indicator.control.enabled ? indicator.control.Universal.baseLowColor :
-                       indicator.control.checked && !indicator.control.pressed ? indicator.control.Universal.accent :
-                       indicator.control.hovered && !indicator.control.checked && !indicator.control.pressed ? indicator.control.Universal.baseHighColor : indicator.control.Universal.baseMediumColor
-        opacity: enabled && indicator.control.hovered && indicator.control.checked && !indicator.control.pressed ? (indicator.control.Universal.theme === Universal.Light ? 0.7 : 0.9) : 1.0
-        border.width: 2
+        Behavior on color { ColorAnimation { duration: 160 } }
     }
 
     Rectangle {
-        width: 10
-        height: 10
-        radius: 5
-
-        color: !indicator.control.enabled ? indicator.control.Universal.baseLowColor :
-                indicator.control.pressed || indicator.control.checked ? indicator.control.Universal.chromeWhiteColor :
-                indicator.control.hovered && !indicator.control.checked ? indicator.control.Universal.baseHighColor : indicator.control.Universal.baseMediumHighColor
-
-        x: Math.max(5, Math.min(parent.width - width - 5,
-                                indicator.control.visualPosition * parent.width - (width / 2)))
-        y: (parent.height - height) / 2
+        id: knob
+        width: parent.height - 4
+        height: width
+        radius: width / 2
+        y: 2
+        x: indicator.control.checked ? parent.width - width - 2 : 2
+        color: "white"
+        visible: false
 
         Behavior on x {
             enabled: !indicator.control.pressed
-            SmoothedAnimation { velocity: 200 }
+            NumberAnimation { duration: 180; easing.type: Easing.OutCubic }
         }
+    }
+
+    MultiEffect {
+        source: knob
+        anchors.fill: knob
+        scale: indicator.control.pressed ? 0.92 : 1.0
+        shadowEnabled: true
+        shadowColor: Qt.rgba(0, 0, 0, 0.3)
+        shadowBlur: 0.35
+        shadowVerticalOffset: 1
+        autoPaddingEnabled: true
+        opacity: indicator.control.enabled ? 1.0 : 0.7
+
+        Behavior on scale { NumberAnimation { duration: 100 } }
     }
 }

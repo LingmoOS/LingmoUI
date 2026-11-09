@@ -12,8 +12,12 @@ import "./"
 T.Dialog {
     id: control
 
+    // A Popup has no `window` of its own: ask the window its content lives in
+    readonly property bool windowActive: control.contentItem && control.contentItem.Window.window
+                                         ? control.contentItem.Window.active : true
+
     property color resizeBorderColor: {
-        if (window.active) {
+        if (control.windowActive) {
             return LingmoTheme.dark ? Qt.rgba(
                                           51 / 255, 51 / 255, 51 / 255,
                                           1) : Qt.rgba(110 / 255, 110 / 255, 110 / 255, 1)

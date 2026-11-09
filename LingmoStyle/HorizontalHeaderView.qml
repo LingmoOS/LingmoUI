@@ -7,9 +7,14 @@ import QtQuick
 import QtQuick.Controls.impl
 import QtQuick.Templates as T
 import QtQuick.Controls.Universal
+import LingmoUI
 import QtQuick.Controls.Universal.impl
 
 T.HorizontalHeaderView {
+    // Universal-derived colours follow the Lingmo light/dark scheme and accent
+    Universal.theme: LingmoTheme.dark ? Universal.Dark : Universal.Light
+    Universal.accent: LingmoTheme.primaryColor
+
     id: control
 
     implicitWidth: syncView ? syncView.width : 0

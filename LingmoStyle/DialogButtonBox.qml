@@ -25,6 +25,11 @@ T.DialogButtonBox {
 
     delegate: LingmoButton {
         width: control.count === 1 ? control.availableWidth / 2 : undefined
+        // Clicking takes the focus, as Qt's own buttons do: a text field then finishes
+        // editing first. Qt's file dialog only reads the typed file name on that
+        // (editingFinished), so with the focus left in the field Save did nothing.
+        // The focus ring still shows only for keyboard focus (visualFocus).
+        focusPolicy: Qt.StrongFocus
     }
 
     contentItem: ListView {

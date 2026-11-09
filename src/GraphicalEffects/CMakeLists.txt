@@ -12,6 +12,8 @@ target_link_libraries(${TARGET}.GraphicalEffects
         Qt6::Gui
         Qt6::Qml
         Qt6::Quick
+        PRIVATE
+        Qt6::QuickPrivate
         )
 
 

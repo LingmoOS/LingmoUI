@@ -1,9 +1,8 @@
-// Copyright (C) 2017 The Qt Company Ltd.
-// SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
-
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Templates as T
 import QtQuick.Window
+import LingmoUI.CompatibleModule 3.0 as LUI
 
 T.Menu {
     id: control
@@ -14,7 +13,8 @@ T.Menu {
                              contentHeight + topPadding + bottomPadding)
 
     margins: 0
-    overlap: 1
+    padding: 5
+    overlap: 4
 
     delegate: MenuItem { }
 
@@ -30,19 +30,19 @@ T.Menu {
         ScrollIndicator.vertical: ScrollIndicator {}
     }
 
-    background: Rectangle {
+    background: PopupSurface {
         implicitWidth: 200
         implicitHeight: 40
-        color: control.Universal.chromeMediumLowColor
-        border.color: control.Universal.chromeHighColor
-        border.width: 1 // FlyoutBorderThemeThickness
     }
 
-    T.Overlay.modal: Rectangle {
-        color: control.Universal.baseLowColor
+    enter: Transition {
+        NumberAnimation { property: "opacity"; from: 0; to: 1; duration: 120 }
+        NumberAnimation { property: "scale"; from: 0.96; to: 1; duration: 140; easing.type: Easing.OutCubic }
+    }
+    exit: Transition {
+        NumberAnimation { property: "opacity"; from: 1; to: 0; duration: 90 }
     }
 
-    T.Overlay.modeless: Rectangle {
-        color: control.Universal.baseLowColor
-    }
+    T.Overlay.modal: Rectangle { color: Qt.rgba(0, 0, 0, 0.25) }
+    T.Overlay.modeless: Rectangle { color: "transparent" }
 }

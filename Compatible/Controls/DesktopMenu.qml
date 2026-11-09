@@ -27,43 +27,26 @@ LingmoUI.MenuPopupWindow {
 
     default property alias content : _mainLayout.data
 
-    Rectangle {
+    // Glass (Settings > Appearance > Glass); the menu window gets KWin's blur
+    LingmoUI.GlassSurface {
         id: _background
         anchors.fill: parent
-        color: LingmoUI.Theme.secondBackgroundColor
-        radius: windowHelper.compositing ? LingmoUI.Theme.hugeRadius : 0
-        opacity: windowHelper.compositing ? 0.6 : 1
-        border.color: _background.borderColor
-        border.width: 1 / LingmoUI.Units.devicePixelRatio
-        border.pixelAligned: LingmoUI.Units.devicePixelRatio > 1 ? false : true
-
-        property var borderColor: windowHelper.compositing ? LingmoUI.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.3)
-                                                                      : Qt.rgba(0, 0, 0, 0.2) : LingmoUI.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.1)
-                                                                                                                      : Qt.rgba(0, 0, 0, 0.05)
-
-        LingmoUI.WindowHelper {
-            id: windowHelper
-        }
+        radius: LingmoUI.Theme.glassEnabled ? LingmoUI.Theme.hugeRadius : (LingmoUI.Theme.compositing ? LingmoUI.Theme.hugeRadius : 0)
+        sheenEnabled: false
+        tint: LingmoUI.Theme.glassEnabled ? LingmoUI.Theme.glassTint : LingmoUI.Theme.secondBackgroundColor
 
         LingmoUI.WindowShadow {
             view: control
             geometry: Qt.rect(control.x, control.y, control.width, control.height)
             radius: _background.radius
         }
-
-        LingmoUI.WindowBlur {
-            view: control
-            geometry: Qt.rect(control.x, control.y, control.width, control.height)
-            windowRadius: _background.radius
-            enabled: true
-        }
     }
 
     ColumnLayout {
         id: _mainLayout
         anchors.fill: parent
-        anchors.topMargin: 4
-        anchors.bottomMargin: 4
+        anchors.margins: 5
+        spacing: 1
     }
 
     function open() {

@@ -97,7 +97,7 @@ TextField{
                     return false
                 return control.text !== ""
             }
-            contentDescription:"Clean"
+            contentDescription: qsTr("Clear")
             onClicked:{
                 control.clear()
             }

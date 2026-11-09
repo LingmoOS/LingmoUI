@@ -14,18 +14,25 @@
 #endif
 
 #include "blurhelper/windowblur.h"
+#if defined(__linux__) && !defined(__APPLE__)
+    #include "layershell.h"
+#endif
 #include "iconthemeprovider.h"
 #include "newiconitem.h"
 #include "qqmlsortfilterproxymodel.h"
 #include "thememanager.h"
+#include "islandactivity.h"
 #include "wheelhandler.h"
 
 #include "desktop/menupopupwindow.h"
 
+#include <QCoreApplication>
 #include <QDebug>
 #include <QFontDatabase>
+#include <QLocale>
 #include <QQmlEngine>
 #include <QQuickStyle>
+#include <QTranslator>
 
 QUrl componentUrl(const QString& fileName)
 {
@@ -42,6 +49,17 @@ void LingmoUI::initializeEngine(QQmlEngine* engine, const char* uri)
 
     // Set base URL to the plugin URL
     engine->setBaseUrl(baseUrl());
+
+    // Strings of the shared components (qsTr in Controls/*.qml), once per
+    // process: apps of the CompatibleModule don't go through LingmoApp::init()
+    static QTranslator* translator = nullptr;
+    if (!translator && QCoreApplication::instance()) {
+        translator = new QTranslator(QCoreApplication::instance());
+        if (translator->load(QLocale(), QStringLiteral("lingmoui"), QStringLiteral("_"),
+                QStringLiteral(":/lingmoui/kit/compatible_module/i18n"))) {
+            QCoreApplication::installTranslator(translator);
+        }
+    }
 
     engine->addImageProvider(QStringLiteral("icontheme"), new IconThemeProvider());
 }
@@ -69,6 +87,12 @@ void LingmoUI::registerTypes(const char* uri)
     #endif
 #endif
     qmlRegisterType<WindowBlur>(uri, 3, 0, "WindowBlur");
+#if defined(__linux__) && !defined(__APPLE__)
+    // Attached: LingmoUI.LayerShell.layer, .anchors... (Wayland panels; no-op on X11)
+    qmlRegisterUncreatableType<LayerShell>(uri, 3, 0, "LayerShell",
+        QStringLiteral("LayerShell is an attached property"));
+#endif
+    qmlRegisterType<IslandActivity>(uri, 3, 0, "IslandActivity");
     qmlRegisterType<NewIconItem>(uri, 3, 0, "IconItem");
     qmlRegisterType<MenuPopupWindow>(uri, 3, 0, "MenuPopupWindow");
     qmlRegisterType<WheelHandler>(uri, 3, 0, "WheelHandler");

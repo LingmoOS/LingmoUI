@@ -57,6 +57,12 @@ class ThemeManager : public QObject {
     Q_PROPERTY(qreal devicePixelRatio READ devicePixelRatio CONSTANT)
     Q_PROPERTY(qreal fontSize READ fontSize NOTIFY fontSizeChanged)
     Q_PROPERTY(QString fontFamily READ fontFamily NOTIFY fontFamilyChanged)
+    // "Vidro Lingmo" (Settings > Appearance > Glass): 0 off, 1 weak, 2 balanced, 3 strong
+    Q_PROPERTY(int glassLevel READ glassLevel NOTIFY glassLevelChanged)
+    Q_PROPERTY(bool reduceMotion READ reduceMotion NOTIFY reduceMotionChanged)
+    // A compositor is running (translucency and blur work); without one every
+    // glass surface falls back to a solid one
+    Q_PROPERTY(bool compositing READ compositing NOTIFY compositingChanged)
 
 public:
     explicit ThemeManager(QObject* parent = nullptr);
@@ -68,6 +74,10 @@ public:
 
     qreal fontSize() { return m_fontSize; }
     QString fontFamily() { return m_fontFamily; }
+
+    int glassLevel() const { return m_glassLevel; }
+    bool reduceMotion() const { return m_reduceMotion; }
+    bool compositing() const { return m_compositing; }
 
     QColor blueColor() { return m_blueColor; }
     QColor redColor() { return m_redColor; }
@@ -90,6 +100,9 @@ signals:
     void fontSizeChanged();
     void fontFamilyChanged();
     void colorChanged();
+    void glassLevelChanged();
+    void reduceMotionChanged();
+    void compositingChanged();
 private slots:
     void initData();
     void initDBusSignals();
@@ -98,9 +111,13 @@ private slots:
     void onDBusAccentColorChanged(int accentColorID);
     void onDBusFontSizeChanged();
     void onDBusFontFamilyChanged();
+    void onDBusGlassLevelChanged(int level);
+    void onDBusReduceMotionChanged(bool reduce);
 
 private:
     void setAccentColor(int accentColorID);
+    void readLocalSettings();
+    void setCompositing(bool compositing);
 
 private:
     bool m_darkMode;
@@ -117,6 +134,10 @@ private:
     QColor m_accentColor;
     qreal m_fontSize;
     QString m_fontFamily;
+
+    int m_glassLevel = 2;
+    bool m_reduceMotion = false;
+    bool m_compositing = true;
 };
 
 #endif // THEMEMANAGER_H

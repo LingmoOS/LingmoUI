@@ -3,10 +3,11 @@
 
 import QtQuick
 import QtQuick.Templates as T
-import QtQuick.Controls.Universal
-import QtQuick.Controls.Universal.impl
+import LingmoUI
+import LingmoUI.CompatibleModule 3.0 as LUI
 
 T.Switch {
+
     id: control
 
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
@@ -15,8 +16,8 @@ T.Switch {
                              implicitContentHeight + topPadding + bottomPadding,
                              implicitIndicatorHeight + topPadding + bottomPadding)
 
-    padding: 5
-    spacing: 8
+    padding: 4
+    spacing: 10
 
     property bool useSystemFocusVisuals: true
 
@@ -35,7 +36,7 @@ T.Switch {
         elide: Text.ElideRight
         verticalAlignment: Text.AlignVCenter
 
-        opacity: enabled ? 1.0 : 0.2
-        color: control.Universal.foreground
+        opacity: enabled ? 1.0 : 0.4
+        color: LUI.Theme.textColor
     }
 }

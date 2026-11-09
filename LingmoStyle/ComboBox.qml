@@ -130,7 +130,7 @@ T.ComboBox {
             }
             return placeholderNormalColor
         }
-        selectByMouse: text_field.selectTextByMouse
+        selectByMouse: true
     }
 
     background: LingmoControlBackground {

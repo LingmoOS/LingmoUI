@@ -1,10 +1,7 @@
-// Copyright (C) 2017 The Qt Company Ltd.
-// SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
-
 import QtQuick
 import QtQuick.Templates as T
 import QtQuick.Controls.impl
-import QtQuick.Controls.Universal
+import LingmoUI.CompatibleModule 3.0 as LUI
 
 T.TextArea {
     id: control
@@ -16,20 +13,15 @@ T.TextArea {
                              implicitBackgroundHeight + topInset + bottomInset,
                              placeholder.implicitHeight + topPadding + bottomPadding)
 
-    // TextControlThemePadding + 2 (border)
-    padding: 12
-    topPadding: padding - 7
-    rightPadding: padding - 4
-    bottomPadding: padding - 5
+    padding: 10
+    topPadding: 8
+    bottomPadding: 8
 
-    Universal.theme: activeFocus ? Universal.Light : undefined
-
-    color: !enabled ? Universal.chromeDisabledLowColor : Universal.foreground
-    selectionColor: Universal.accent
-    selectedTextColor: Universal.chromeWhiteColor
-    placeholderTextColor: !enabled ? Universal.chromeDisabledLowColor :
-                                     activeFocus ? Universal.chromeBlackMediumLowColor :
-                                                   Universal.baseMediumColor
+    color: LUI.Theme.textColor
+    opacity: enabled ? 1.0 : 0.55
+    selectionColor: LUI.Theme.highlightColor
+    selectedTextColor: "white"
+    placeholderTextColor: LUI.Theme.disabledTextColor
 
     PlaceholderText {
         id: placeholder
@@ -47,14 +39,8 @@ T.TextArea {
         renderType: control.renderType
     }
 
-    background: Rectangle {
-        implicitWidth: 60 // TextControlThemeMinWidth - 4 (border)
-        implicitHeight: 28 // TextControlThemeMinHeight - 4 (border)
-
-        border.width: 2 // TextControlBorderThemeThickness
-        border.color: !control.enabled ? control.Universal.baseLowColor :
-                       control.activeFocus ? control.Universal.accent :
-                       control.hovered ? control.Universal.baseMediumColor : control.Universal.chromeDisabledLowColor
-        color: control.enabled ? control.Universal.background : control.Universal.baseLowColor
+    background: FieldBackground {
+        control: control
+        implicitHeight: 64
     }
 }

@@ -6,9 +6,14 @@
 #include <QGuiApplication>
 #include <QPalette>
 #include <QThreadPool>
+#include <QStyleHints>
 
 bool systemDark()
 {
+    // Qt 6: the platform theme reports the colour scheme directly
+    const Qt::ColorScheme scheme = QGuiApplication::styleHints()->colorScheme();
+    if (scheme != Qt::ColorScheme::Unknown)
+        return scheme == Qt::ColorScheme::Dark;
     QPalette palette = QGuiApplication::palette();
     QColor color = palette.color(QPalette::Window).rgb();
     return color.red() * 0.2126 + color.green() * 0.7152 + color.blue() * 0.0722 <= 255.0f / 2;
@@ -18,7 +23,8 @@ LingmoTheme::LingmoTheme(QObject* parent)
     : QObject { parent }
 {
     _accentColor = LingmoColor::getInstance()->Blue();
-    _darkMode = LingmoThemeType::DarkMode::Light;
+    // Follow the system (Lingmo Settings) unless an app picks a mode explicitly
+    _darkMode = LingmoThemeType::DarkMode::System;
     _nativeText = false;
     _animationEnabled = true;
     _systemDark = systemDark();
@@ -26,6 +32,10 @@ LingmoTheme::LingmoTheme(QObject* parent)
     _blurBehindWindowEnabled = false;
 
     QGuiApplication::instance()->installEventFilter(this);
+    connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, this, [this] {
+        _systemDark = systemDark();
+        Q_EMIT darkChanged();
+    });
     refreshColors();
 
     connect(this, &LingmoTheme::darkModeChanged, this,

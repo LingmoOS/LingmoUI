@@ -5,8 +5,13 @@ import QtQuick
 import QtQuick.Templates as T
 import QtQuick.Controls.impl
 import QtQuick.Controls.Universal
+import LingmoUI
 
 T.SpinBox {
+    // Universal-derived colours follow the Lingmo light/dark scheme and accent
+    Universal.theme: LingmoTheme.dark ? Universal.Dark : Universal.Light
+    Universal.accent: LingmoTheme.primaryColor
+
     id: control
 
 
@@ -24,7 +29,6 @@ T.SpinBox {
     rightPadding: padding + (control.mirrored ? (down.indicator ? down.indicator.width : 0) : (up.indicator ? up.indicator.width : 0))
     bottomPadding: padding - 5
 
-    Universal.theme: activeFocus ? Universal.Light : undefined
 
     validator: IntValidator {
         locale: control.locale.name

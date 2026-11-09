@@ -29,9 +29,10 @@ Window {
 
     property string popupText
     property point position: Qt.point(0, 0)
-    property alias backgroundOpacity: _background.opacity
-    property alias backgroundColor: _background.color
-    property alias blurEnabled: windowBlur.enabled
+    property alias backgroundOpacity: _background.tintOpacity
+    property alias backgroundColor: _background.tint
+    // false: a solid tip (no glass)
+    property bool blurEnabled: true
     property var borderColor: windowHelper.compositing ? LingmoUI.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.3)
                                                                   : Qt.rgba(0, 0, 0, 0.2) : LingmoUI.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.1)
                                                                                                                   : Qt.rgba(0, 0, 0, 0.05)
@@ -49,29 +50,16 @@ Window {
         radius: _background.radius
     }
 
-    LingmoUI.WindowBlur {
-        id: windowBlur
-        view: control
-        enabled: true
-        windowRadius: _background.radius
-        geometry: Qt.rect(_background.x, _background.y, _background.width, _background.height)
-    }
-
-    Rectangle {
+    // Glass (Settings > Appearance > Glass); the tip window gets KWin's blur
+    LingmoUI.GlassSurface {
         id: _background
         anchors.fill: parent
-        color: LingmoUI.Theme.secondBackgroundColor
         radius: windowHelper.compositing ? LingmoUI.Theme.mediumRadius : 0
-        border.color: control.borderColor
-        border.width: 1 / Screen.devicePixelRatio
-        border.pixelAligned: Screen.devicePixelRatio > 1 ? false : true
-
-        Behavior on color {
-            ColorAnimation {
-                duration: control.animationEnabled ? 200 : 0
-                easing.type: Easing.Linear
-            }
-        }
+        solid: !control.blurEnabled
+        sheenEnabled: false
+        highlightVisible: false
+        tint: LingmoUI.Theme.glassEnabled && control.blurEnabled ? LingmoUI.Theme.glassTint
+                                                                 : LingmoUI.Theme.secondBackgroundColor
     }
 
     Label {
@@ -81,27 +69,41 @@ Window {
         color: LingmoUI.Theme.textColor
     }
 
-    onPositionChanged: adjustCorrectLocation()
+    // Callers center the tip over their item using the width it had at that moment:
+    // remember that center so a later width change (new text, font loaded) keeps it
+    property real _centerX: 0
+    onPositionChanged: {
+        _centerX = position.x + width / 2
+        adjustCorrectLocation()
+    }
+    onWidthChanged: if (visible || popupText) adjustCorrectLocation()
+
+    // Screen containing a point of the virtual desktop (the tip's own Screen is
+    // whatever screen the window happened to be created on)
+    function screenAt(x, y) {
+        var screens = Qt.application.screens
+        for (var i = 0; i < screens.length; ++i) {
+            var s = screens[i]
+            if (x >= s.virtualX && x < s.virtualX + s.width && y >= s.virtualY && y < s.virtualY + s.height)
+                return s
+        }
+        return screens.length > 0 ? screens[0] : null
+    }
 
     function adjustCorrectLocation() {
-        var posX = control.position.x
+        var margin = LingmoUI.Units.smallSpacing
+        var posX = Math.round(_centerX - control.width / 2)
         var posY = control.position.y
+        var s = screenAt(_centerX, posY)
 
-        // left
-        if (posX <= Screen.virtualX)
-            posX = Screen.virtualX + LingmoUI.Units.smallSpacing
+        if (s) {
+            var left = s.virtualX, top = s.virtualY
+            var right = left + s.width, bottom = top + s.height
 
-        // top
-        if (posY <= Screen.virtualY)
-            posY = Screen.virtualY + LingmoUI.Units.smallSpacing
-
-        // right
-        if (posX + control.width > Screen.virtualX + Screen.width)
-            posX = Screen.virtualX + Screen.width - control.width - 1
-
-        // bottom
-        if (posY > control.height > Screen.virtualY + Screen.width)
-            posY = Screen.virtualY + Screen.width - control.width - 1
+            posX = Math.max(left + margin, Math.min(posX, right - control.width - margin))
+            posY = Math.max(top + margin, Math.min(posY, bottom - control.height - margin))
+            control.screen = s
+        }
 
         control.x = posX
         control.y = posY

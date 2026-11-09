@@ -4,8 +4,13 @@
 import QtQuick
 import QtQuick.Templates as T
 import QtQuick.Controls.Universal
+import LingmoUI
 
 T.StackView {
+    // Universal-derived colours follow the Lingmo light/dark scheme and accent
+    Universal.theme: LingmoTheme.dark ? Universal.Dark : Universal.Light
+    Universal.accent: LingmoTheme.primaryColor
+
     id: control
 
     popEnter: Transition {

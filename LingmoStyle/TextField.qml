@@ -1,10 +1,7 @@
-// Copyright (C) 2017 The Qt Company Ltd.
-// SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
-
 import QtQuick
 import QtQuick.Templates as T
 import QtQuick.Controls.impl
-import QtQuick.Controls.Universal
+import LingmoUI.CompatibleModule 3.0 as LUI
 
 T.TextField {
     id: control
@@ -15,20 +12,16 @@ T.TextField {
                              contentHeight + topPadding + bottomPadding,
                              placeholder.implicitHeight + topPadding + bottomPadding)
 
-    // TextControlThemePadding + 2 (border)
-    padding: 12
-    topPadding: padding - 7
-    rightPadding: padding - 4
-    bottomPadding: padding - 5
+    leftPadding: 10
+    rightPadding: 10
+    topPadding: 6
+    bottomPadding: 6
 
-    Universal.theme: activeFocus ? Universal.Light : undefined
-
-    color: !enabled ? Universal.chromeDisabledLowColor : Universal.foreground
-    selectionColor: Universal.accent
-    selectedTextColor: Universal.chromeWhiteColor
-    placeholderTextColor: !enabled ? Universal.chromeDisabledLowColor :
-                                     activeFocus ? Universal.chromeBlackMediumLowColor :
-                                                   Universal.baseMediumColor
+    color: LUI.Theme.textColor
+    opacity: enabled ? 1.0 : 0.55
+    selectionColor: LUI.Theme.highlightColor
+    selectedTextColor: "white"
+    placeholderTextColor: LUI.Theme.disabledTextColor
     verticalAlignment: TextInput.AlignVCenter
 
     PlaceholderText {
@@ -47,14 +40,7 @@ T.TextField {
         renderType: control.renderType
     }
 
-    background: Rectangle {
-        implicitWidth: 60 // TextControlThemeMinWidth - 4 (border)
-        implicitHeight: 28 // TextControlThemeMinHeight - 4 (border)
-
-        border.width: 2 // TextControlBorderThemeThickness
-        border.color: !control.enabled ? control.Universal.baseLowColor :
-                       control.activeFocus ? control.Universal.accent :
-                       control.hovered ? control.Universal.baseMediumColor : control.Universal.chromeDisabledLowColor
-        color: control.enabled ? control.Universal.background : control.Universal.baseLowColor
+    background: FieldBackground {
+        control: control
     }
 }

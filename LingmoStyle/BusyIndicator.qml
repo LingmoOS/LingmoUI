@@ -6,8 +6,11 @@
  */
 import QtQuick
 import QtQuick.Templates as T
-import LingmoUI as LUI
+import LingmoUI.CompatibleModule 3.0 as LUI
 
+// The ring is LingmoUI.CompatibleModule's Spinner. (It used LingmoProgressRing,
+// which referenced an undefined `size` and bound its size to the control's
+// implicit size, which in turn came from it.)
 T.BusyIndicator {
     id: control
 
@@ -16,11 +19,14 @@ T.BusyIndicator {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
 
-    contentItem: LUI.LingmoProgressRing {
-        width: control.implicitWidth
-        height: control.implicitHeight
-        strokeWidth: size < 40 ? 3 : 4 // "Small" vs. "Large"
-        anchors.centerIn: parent
-        visible: control.running
+    padding: 2
+
+    contentItem: LUI.Spinner {
+        implicitWidth: 28
+        implicitHeight: 28
+        running: control.running && control.visible
+        keepVisible: true
+        trackVisible: true
+        lineWidth: Math.min(width, height) < 40 ? 3 : 4 // "Small" vs. "Large"
     }
 }

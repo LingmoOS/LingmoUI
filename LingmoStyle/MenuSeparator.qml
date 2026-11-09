@@ -1,29 +1,26 @@
-// Copyright (C) 2017 The Qt Company Ltd.
-// SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
-
 import QtQuick
 import QtQuick.Templates as T
-import QtQuick.Controls.Universal
+import QtQuick.Layouts
+import LingmoUI.CompatibleModule 3.0 as LUI
 
 T.MenuSeparator {
     id: control
+
+    // Fill the width when placed in a layout (LingmoUI.DesktopMenu uses a ColumnLayout)
+    Layout.fillWidth: true
 
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
 
-    padding: 12
-    topPadding: 9
-    bottomPadding: 10
+    padding: 4
+    leftPadding: 8
+    rightPadding: 8
 
     contentItem: Rectangle {
-        implicitWidth: 188
+        implicitWidth: 180
         implicitHeight: 1
-        color: control.Universal.baseMediumLowColor
-    }
-
-    background: Rectangle {
-        color: control.Universal.altMediumLowColor
+        color: LUI.Theme.darkMode ? Qt.rgba(1, 1, 1, 0.10) : Qt.rgba(0, 0, 0, 0.10)
     }
 }

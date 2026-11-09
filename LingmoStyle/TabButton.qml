@@ -1,11 +1,9 @@
-// Copyright (C) 2017 The Qt Company Ltd.
-// SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
-
 import QtQuick
 import QtQuick.Templates as T
-import QtQuick.Controls.impl
-import QtQuick.Controls.Universal
+import LingmoUI
 
+// One segment of the segmented control (see TabBar.qml); the selected pill is
+// drawn by the TabBar so it can slide between segments
 T.TabButton {
     id: control
 
@@ -14,23 +12,41 @@ T.TabButton {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
 
-    padding: 12 // PivotItemMargin
-    spacing: 8
+    topPadding: 5
+    bottomPadding: 5
+    leftPadding: 14
+    rightPadding: 14
 
-    icon.width: 20
-    icon.height: 20
-    icon.color: Color.transparent(control.hovered ? control.Universal.baseMediumHighColor : control.Universal.foreground,
-                                                    control.checked || control.down || control.hovered ? 1.0 : 0.2)
+    font.weight: control.checked ? Font.DemiBold : Font.Normal
 
-    contentItem: IconLabel {
-        spacing: control.spacing
-        mirrored: control.mirrored
-        display: control.display
-
-        icon: control.icon
+    contentItem: Text {
         text: control.text
         font: control.font
-        color: Color.transparent(enabled && control.hovered ? control.Universal.baseMediumHighColor : control.Universal.foreground,
-                                 control.checked || control.down || (enabled && control.hovered) ? 1.0 : 0.2)
+        elide: Text.ElideRight
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        color: control.checked ? LingmoTheme.fontPrimaryColor
+                               : LingmoTheme.fontSecondaryColor
+        opacity: control.enabled ? 1.0 : 0.4
+
+        Behavior on color {
+            enabled: LingmoTheme.animationEnabled
+            ColorAnimation { duration: 160 }
+        }
+    }
+
+    background: Rectangle {
+        implicitHeight: 28
+        radius: 7
+        // Subtle hover on unselected segments; the selected one sits on the TabBar's pill
+        color: !control.checked && (control.hovered || control.down)
+               ? (LingmoTheme.dark ? Qt.rgba(1, 1, 1, control.down ? 0.10 : 0.06)
+                                   : Qt.rgba(0, 0, 0, control.down ? 0.07 : 0.04))
+               : "transparent"
+
+        Behavior on color {
+            enabled: LingmoTheme.animationEnabled
+            ColorAnimation { duration: 120 }
+        }
     }
 }

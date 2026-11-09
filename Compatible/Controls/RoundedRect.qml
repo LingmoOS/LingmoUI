@@ -35,6 +35,7 @@ Item {
 
     Rectangle {
         id: _background
+        objectName: "__roundedRectBackground"
         anchors.fill: parent
         color: control.color
         radius: control.radius
@@ -50,6 +51,7 @@ Item {
     }
 
     Rectangle {
+        objectName: "__roundedRectBorder"
         anchors.fill: parent
         color: "transparent"
         radius: _background.radius

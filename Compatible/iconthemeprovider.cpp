@@ -21,12 +21,9 @@ QPixmap IconThemeProvider::requestPixmap(const QString& id, QSize* realSize,
     if (realSize)
         *realSize = size;
 
-    if (QFile::exists(id)) {
-        return QPixmap(id).scaled(size);
-    }
-
-    // Is it a path?
-    if (id.startsWith(QLatin1Char('/')))
+    // Absolute paths and resources are files; anything else is an icon name, even
+    // when a file or folder with that name happens to sit in the working directory
+    if (id.startsWith(QLatin1Char('/')) || id.startsWith(QLatin1String(":/")))
         return QPixmap(id).scaled(size);
 
     // Return icon from theme or fallback to a generic icon

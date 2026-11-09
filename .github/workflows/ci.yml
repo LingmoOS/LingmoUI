@@ -1,0 +1,21 @@
+# Build check against [archlingmo] in archlinux:latest (the way the workspace's
+# mkpkg.sh builds the package) plus ctest; nothing is published. The steps live
+# in devalexandre/archlingmo-archiso-config (component-check.yml, ci/).
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    uses: devalexandre/archlingmo-archiso-config/.github/workflows/component-check.yml@main

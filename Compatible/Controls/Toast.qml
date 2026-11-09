@@ -199,7 +199,6 @@ Popup {
                 layer.effect: DropShadow {
                     transparentBorder: true
                     radius: 32
-                    samples: 32
                     horizontalOffset: 0
                     verticalOffset: 0
                     color: Qt.rgba(0, 0, 0, 0.14)

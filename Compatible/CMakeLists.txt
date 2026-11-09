@@ -6,6 +6,7 @@ qt_add_library(${TARGET}CompatibleModule SHARED)
 set(TARGET_SOURCES
         iconthemeprovider.cpp
         thememanager.cpp
+        islandactivity.cpp
 
         newiconitem.cpp
         managedtexturenode.cpp
@@ -52,6 +53,7 @@ else ()
     endif()
     list(APPEND TARGET_SOURCES
             platforms/linux/blurhelper/windowblur.cpp platforms/linux/blurhelper/windowblur.h
+            platforms/linux/layershell.cpp platforms/linux/layershell.h
             )
     target_include_directories(${TARGET}CompatibleModule PRIVATE platforms/linux)
     target_include_directories(${TARGET}CompatibleModule PRIVATE platforms/linux/shadowhelper)
@@ -78,6 +80,15 @@ if (UNIX)
         if (KF6WindowSystem_FOUND)
             target_link_libraries(${TARGET}CompatibleModule PRIVATE KF6::WindowSystem)
             add_compile_definitions(KF_WINDOWSYSTEM_FOUND)
+        endif ()
+        # LayerShell (QML attached): wlr-layer-shell surfaces on Wayland; without
+        # LayerShellQt it is still there but does nothing
+        find_package(LayerShellQt QUIET)
+        if (LayerShellQt_FOUND)
+            target_link_libraries(${TARGET}CompatibleModule PRIVATE LayerShellQt::Interface)
+            target_compile_definitions(${TARGET}CompatibleModule PRIVATE HAVE_LAYERSHELLQT)
+        else ()
+            message(WARNING "LayerShellQt not found: LingmoUI.LayerShell does nothing (no Wayland panels)")
         endif ()
     endif ()
 endif ()
@@ -129,6 +140,16 @@ qt_add_qml_module(${TARGET}CompatibleModule
 
 set_target_properties(${TARGET}CompatibleModule
     PROPERTIES  VERSION ${MODULE_VERSION} SOVERSION ${MODULE_VERSION_MAJOR})
+
+# Translations of the shared components, loaded by the plugin
+# (:/lingmoui/kit/compatible_module/i18n/lingmoui_<locale>.qm)
+file(GLOB COMPATIBLE_TS_FILES ${CMAKE_CURRENT_SOURCE_DIR}/../translations/lingmoui_*.ts)
+qt_add_translation(COMPATIBLE_QM_FILES ${COMPATIBLE_TS_FILES})
+qt_add_resources(${TARGET}CompatibleModule "compatible_i18n"
+    PREFIX "/lingmoui/kit/compatible_module/i18n"
+    BASE ${CMAKE_CURRENT_BINARY_DIR}
+    FILES ${COMPATIBLE_QM_FILES}
+)
 
 install(DIRECTORY ${CMAKE_BINARY_DIR}/temp/${PROJECT_NAME}/CompatibleModule DESTINATION ${INSTALL_QMLDIR}/${PROJECT_NAME})
 generate_export_header(${TARGET}CompatibleModule BASE_NAME ${TARGET}CompatibleModule)

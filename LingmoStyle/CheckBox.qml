@@ -7,17 +7,18 @@
 import QtQuick
 import QtQuick.Templates as T
 import LingmoUI
+import LingmoUI.CompatibleModule 3.0 as LUI
 
 T.CheckBox {
     property bool disabled: false
     property string contentDescription: ""
     property color borderNormalColor: LingmoTheme.dark ? Qt.rgba(160/255,160/255,160/255,1) : Qt.rgba(136/255,136/255,136/255,1)
-    property color bordercheckedColor: LingmoTheme.primaryColor
+    property color bordercheckedColor: LUI.Theme.highlightColor
     property color borderHoverColor: LingmoTheme.dark ? Qt.rgba(167/255,167/255,167/255,1) : Qt.rgba(135/255,135/255,135/255,1)
     property color borderDisableColor: LingmoTheme.dark ? Qt.rgba(82/255,82/255,82/255,1) : Qt.rgba(199/255,199/255,199/255,1)
     property color borderPressedColor: LingmoTheme.dark ? Qt.rgba(90/255,90/255,90/255,1) : Qt.rgba(191/255,191/255,191/255,1)
     property color normalColor: LingmoTheme.dark ? Qt.rgba(45/255,45/255,45/255,1) : Qt.rgba(247/255,247/255,247/255,1)
-    property color checkedColor: LingmoTheme.primaryColor
+    property color checkedColor: LUI.Theme.highlightColor
     property color hoverColor: LingmoTheme.dark ? Qt.rgba(72/255,72/255,72/255,1) : Qt.rgba(236/255,236/255,236/255,1)
     property color checkedHoverColor: LingmoTheme.dark ? Qt.darker(checkedColor,1.15) : Qt.lighter(checkedColor,1.15)
     property color checkedPreesedColor: LingmoTheme.dark ? Qt.darker(checkedColor,1.3) : Qt.lighter(checkedColor,1.3)
